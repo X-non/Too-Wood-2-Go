@@ -1,0 +1,21 @@
+{% comment %}
+Här borde vi ha {% extends 'backend/base.html' %}, men fick det inte att funka
+av någon anledning
+{% endcomment %}
+
+{% block title %}
+Register
+{% endblock %}
+
+{% block content %}
+{% if form.errors %}
+<p>There was a problem with your form</p>
+{%endif%}
+<h1>Register</h1>
+<form action="{% url 'register_store'%}" method=POST>
+    {% csrf_token %}
+    {{ form }}
+    <form>
+        <input type="submit" , value="Submit" class="btn btn-secondary">
+    </form>
+    {% endblock %}
