@@ -11,7 +11,7 @@ def login_store(request):
         store = authenticate(request, username=store_name, password=password)
         if store is not None:
             login(request, store)
-            return redirect("home")
+            return redirect("/foretag/home")
         #if login is successful, log in the user and redirect them
         #to 127.0.0.1:8000/home (which doesn't exist yet)
         else:
@@ -26,7 +26,7 @@ def login_store(request):
 def logout_store(request):
     logout(request)
     messages.success(request, ("You were logged out"))
-    return redirect('home')
+    return redirect('/foretag/home')
 #If a logout request occurs, log out the user and redirect
 #them to home (which doesn't exist yet)
 
@@ -40,10 +40,12 @@ def register_store(request):
             store = authenticate(username=store_name, password=password)
             login(request, store)
             messages.success(request, ("Registration successful"))
-            return redirect('home')
+            return redirect('/foretag/home')
 
     else:
        form = RegisterStoreForm()
 
     return render(request, 'authenticate/register_store.html',
                   {'form':form,})
+def home(response):
+    return render(response, "home.html", {"name":"test"})
