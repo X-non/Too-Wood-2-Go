@@ -21,14 +21,13 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Move to right subdirectory
-        run: cd ./backend/
-
       - name: Install Dependencies
+        working-directory: ./backend
         run: |
-          ls
           python -m pip install --upgrade pip
-          pip install -r ./requirements.txt
+          pip install -r requirements.txt
+
       - name: Run Tests
+        working-directory: ./backend
         run: |
-          python ./manage.py test
+          python manage.py test
