@@ -1,10 +1,131 @@
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Foretag</title>
-  </head>
-  <body>
-    <h1>{{name}}</h1>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ store.name }} Home Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .store-info {
+            flex: 1; /* Take remaining space */
+        }
+        .store-info h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .store-info p {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        .button-container {
+            display: flex;
+            gap: 10px;
+        }
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button.create-ad {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .button.logout {
+            background-color: #dc3545;
+            color: #fff;
+        }
+        .ads-container {
+            margin-top: 30px;
+        }
+        .ad {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .ad-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .ad-desc {
+            font-size: 16px;
+        }
+        .search-container {
+          width: 300px;
+          background-color: #fff;
+          border-radius: 20px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+          padding: 10px;
+          display: flex;
+          align-items: center;
+        }
+        input[type="text"] {
+          flex: 1;
+          padding: 10px;
+          border: none;
+          outline: none;
+          font-size: 16px;
+          border-radius: 20px;
+        }
+        input[type="text"]::placeholder {
+            color: #ccc;
+        }
+        input[type="text"]:focus {
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="store-info">
+            <h1>Welcome, {{ store.name }}</h1>
+            <p><strong>Address:</strong> {{ store.address }}, {{ store.postal_code }} {{ store.postal_city }}</p>
+        </div>
+        <div class="button-container">
+            <a href="{% url 'create_ad' store.slug_name %}" class="button create-ad">Create Ad</a>
+            <a href="{% url 'company_login' %}" class="button logout">Logout</a>
+        </div>
+    </div>
+    <div class="search-container">
+      <form action="{% url 'company_home_page' store.slug_name%}" method="get">
+          <input type="text" name="search">
+          <input type="submit" value="Search">
+      </form>
+    </div>
+    <div class="ads-container">
+        {%if search %}
+          <h2>Current ads from {{ store.name }}, search "{{ search }}"</h2>
+        {% else %}
+          <h2>Current ads from {{ store.name }}</h2>
+        {% endif %}
+        {% if queryset %}
+            {% for ad in queryset %}
+                <div class="ad">
+                    <div class="ad-title">{{ ad.title }}</div>
+                    <div class="ad-desc">{{ ad.desc }}</div>
+                    <p><strong>Available:</strong> {{ ad.available }}</p>
+                    <p><strong>Published:</strong> {{ ad.published }}</p>
+                    <p><strong>Price:</strong><s> {{ad.old_price}} </s>{{ ad.new_price }}kr</p>
+                </div>
+            {% endfor %}
+        {% else %}
+                {%if search %}
+                    <p>No ads matches for "{{search}}"".</p>
+                {% else%}
+                    <p>No ads available for {{ store.name }}.</p>
+                {% endif%}
+        {% endif %}
+    </div>
+</body>
 </html>
