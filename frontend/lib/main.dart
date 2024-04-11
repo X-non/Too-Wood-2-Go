@@ -1,4 +1,4 @@
-import 'package:eatwise/constants/ew_styles.dart';
+import 'package:eatwise/constants/ew_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:eatwise/pages/home_page.dart';
 import 'package:eatwise/pages/favorites_page.dart';
@@ -45,7 +45,8 @@ class _MaterialYouState extends State<MaterialYou> {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Color.fromRGBO(219, 216, 208, 86),
+            EWColors.beige,
+            EWColors.beige,
             Colors.white,
             Colors.white,
           ],
@@ -53,18 +54,11 @@ class _MaterialYouState extends State<MaterialYou> {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          title: const Text(
-            'Eatwise',
-            style: EWTextStyles.titleBold,
-          ),
-          backgroundColor: Colors.transparent,
-        ),
         body: Center(
           child: pages[_currentIndex],
         ),
         bottomNavigationBar: NavigationBar(
-          indicatorColor: const Color.fromRGBO(127, 143, 110, 56),
+          indicatorColor: EWColors.primary,
           backgroundColor: Colors.white,
           surfaceTintColor: Colors.white,
           selectedIndex: _currentIndex,
@@ -75,28 +69,55 @@ class _MaterialYouState extends State<MaterialYou> {
           },
           destinations: const [
             NavigationDestination(
-              selectedIcon: Icon(Icons.home),
-              icon: Icon(Icons.home_outlined),
+              selectedIcon: Icon(Icons.home, color: EWColors.darkgreen),
+              icon: Icon(
+                Icons.home_outlined,
+                color: EWColors.darkgreen,
+              ),
               label: 'Hem',
             ),
             NavigationDestination(
-              selectedIcon: Icon(Icons.favorite),
-              icon: Icon(Icons.favorite_border_outlined),
+              selectedIcon: Icon(
+                Icons.favorite,
+                color: EWColors.darkgreen,
+              ),
+              icon: Icon(
+                Icons.favorite_border_outlined,
+                color: EWColors.darkgreen,
+              ),
               label: 'Favoriter',
             ),
             NavigationDestination(
-              selectedIcon: Icon(Icons.shopping_basket),
-              icon: Icon(Icons.shopping_basket_outlined),
+              selectedIcon: Icon(
+                Icons.shopping_basket,
+                color: EWColors.darkgreen,
+              ),
+              icon: Icon(
+                Icons.shopping_basket_outlined,
+                color: EWColors.darkgreen,
+              ),
               label: 'Kundkorg',
             ),
             NavigationDestination(
-              selectedIcon: Icon(Icons.map),
-              icon: Icon(Icons.map_outlined),
+              selectedIcon: Icon(
+                Icons.map,
+                color: EWColors.darkgreen,
+              ),
+              icon: Icon(
+                Icons.map_outlined,
+                color: EWColors.darkgreen,
+              ),
               label: 'Karta',
             ),
             NavigationDestination(
-              selectedIcon: Icon(Icons.person),
-              icon: Icon(Icons.person_outlined),
+              selectedIcon: Icon(
+                Icons.person,
+                color: EWColors.darkgreen,
+              ),
+              icon: Icon(
+                Icons.person_outlined,
+                color: EWColors.darkgreen,
+              ),
               label: 'Profil',
             ),
           ],
