@@ -126,14 +126,14 @@ class _CounterScreenState extends State<CounterScreen> {
                             IconButton(
                               icon: const Icon(Icons.remove),
                               iconSize: 35,
-                              color: Colors.green,
+                              color: EWColors.darkgreen,
                               onPressed: _decrementCounter,
                             ),
                             Text('$_counter'),
                             IconButton(
                               icon: const Icon(Icons.add),
                               iconSize: 35,
-                              color: Colors.green,
+                              color: EWColors.darkgreen,
                               onPressed: _incrementCounter,
                             ),
                           ],
