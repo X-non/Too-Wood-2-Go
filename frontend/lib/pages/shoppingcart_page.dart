@@ -105,16 +105,16 @@ class _CounterScreenState extends State<CounterScreen> {
                         children: [
                           Text(
                             item.product,
-                            style: EWTextStyles.titleBold,
+                            style: EWTextStyles.headline,
                           ),
                           Text(item.priceOld,
-                              style: EWTextStyles.icon.copyWith(
+                              style: EWTextStyles.body.copyWith(
                                   decoration: TextDecoration.lineThrough,
                                   decorationColor: Colors.red,
                                   decorationThickness: 2.0)),
                           Text(
                             item.priceNew,
-                            style: EWTextStyles.icon,
+                            style: EWTextStyles.body,
                           ),
                         ],
                       ),
