@@ -16,7 +16,7 @@ class EWScaffold extends StatelessWidget {
         appBar: AppBar(
           surfaceTintColor: Colors.transparent,
           title: Text(
-            'Eatwise',
+            '',
             style: EWTextStyles.headline.copyWith(color: EWColors.darkgreen),
           ),
           backgroundColor: Colors.transparent,
