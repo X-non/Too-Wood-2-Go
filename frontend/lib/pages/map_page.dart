@@ -1,4 +1,5 @@
 import 'package:eatwise/constants/EW_styles.dart';
+import 'package:eatwise/constants/ew_colors.dart';
 import 'package:flutter/material.dart';
 
 class MapPage extends StatelessWidget {
@@ -6,7 +7,10 @@ class MapPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-        child: Text('Map Page', style: EWTextStyles.largeTitle));
+    return Center(
+        child: Text(
+      'Map Page',
+      style: EWTextStyles.largeTitle.copyWith(color: EWColors.darkgreen),
+    ));
   }
 }
