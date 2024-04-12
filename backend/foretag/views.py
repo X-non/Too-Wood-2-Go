@@ -3,7 +3,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from .forms import RegisterStoreForm
+from .decorators import unauthenticated_user
+from django.contrib.auth.models import Group
 
+@unauthenticated_user
 def login_store(request):
     if request.method == "POST":
         store_name = request.POST["username"]
@@ -30,7 +33,7 @@ def logout_store(request):
 #If a logout request occurs, log out the user and redirect
 #them to home (which doesn't exist yet)
 
-def register_store(request):
+def register_store_123(request):
     if request.method == "POST":
         form = RegisterStoreForm(request.POST)
         if form.is_valid():
@@ -49,3 +52,27 @@ def register_store(request):
                   {'form':form,})
 def home(response):
     return render(response, "home.html", {"name":"test"})
+
+def register_store(request):
+    if request.method == 'POST':
+        form = RegisterStoreForm(request.POST)
+        if form.is_valid():
+            company = form.save()
+            group = Group.objects.get(name='Company')
+            company.groups.add(group)
+            return redirect('login_store')
+    else:
+        form = RegisterStoreForm()
+    return render(request, 'authenticate/register_store.html', {'form': form})
+
+def register_user(request):
+    if request.method == 'POST':
+        form = RegisterStoreForm(request.POST)
+        if form.is_valid():
+            company = form.save()
+            group = Group.objects.get(name='Customer')
+            company.groups.add(group)
+            return redirect('login_store')
+    else:
+        form = RegisterStoreForm()
+    return render(request, 'authenticate/register_store.html', {'form': form})
