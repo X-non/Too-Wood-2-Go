@@ -1,4 +1,5 @@
 from django.db import models
+from django.template.defaultfilters import slugify
 
 # Create your models here.
 
@@ -11,6 +12,13 @@ class Store(models.Model):
     address = models.CharField(max_length=100)
     postal_code = models.CharField(max_length=10)
     postal_city = models.CharField(max_length=30)
+
+    # Overriding the save method to create slug name on save
+    def save(self, *args, **kwargs):
+        if not self.id:
+            # First time we save the object, so create slug
+            self.slug_name = slugify(self.name)
+        super(Store, self).save(*args, **kwargs)
 
 class Ad(models.Model):
     title = models.CharField(max_length=50)
