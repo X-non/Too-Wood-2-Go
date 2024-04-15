@@ -6,6 +6,7 @@ from .forms import RegisterStoreForm
 from .decorators import unauthenticated_user
 from django.contrib.auth.models import Group
 
+
 @unauthenticated_user
 def login_store(request):
     if request.method == "POST":
@@ -15,64 +16,39 @@ def login_store(request):
         if store is not None:
             login(request, store)
             return redirect("/foretag/home")
-        #if login is successful, log in the user and redirect them
-        #to 127.0.0.1:8000/home (which doesn't exist yet)
+        # if login is successful, log in the user and redirect them
+        # to 127.0.0.1:8000/home (which doesn't exist yet)
         else:
             messages.success(request, ("There was an error logging in"))
             return redirect("login_store")
-        #If login is not successful, reload the site
+        # If login is not successful, reload the site
     else:
-        return render(request, 'authenticate/login_store.html', {})
-    #if a login hasn't been made, display the site
+        return render(request, "authenticate/login_store.html", {})
+    # if a login hasn't been made, display the site
 
 
 def logout_store(request):
     logout(request)
-    messages.success(request, ("You were logged out"))
-    return redirect('/foretag/home')
-#If a logout request occurs, log out the user and redirect
-#them to home (which doesn't exist yet)
+    messages.success(request, "You were logged out")
+    return redirect("/foretag/home")
 
-def register_store_123(request):
+
+# If a logout request occurs, log out the user and redirect
+# them to home
+
+
+def home(response):
+    return render(response, "home.html", {"name": "test"})
+
+
+def register_store(request):
     if request.method == "POST":
         form = RegisterStoreForm(request.POST)
         if form.is_valid():
-            form.save()
-            store_name = form.cleaned_data["username"]
-            password = form.cleaned_data["password1"]
-            store = authenticate(username=store_name, password=password)
-            login(request, store)
-            messages.success(request, ("Registration successful"))
-            return redirect('/foretag/home')
-
-    else:
-       form = RegisterStoreForm()
-
-    return render(request, 'authenticate/register_store.html',
-                  {'form':form,})
-def home(response):
-    return render(response, "home.html", {"name":"test"})
-
-def register_store(request):
-    if request.method == 'POST':
-        form = RegisterStoreForm(request.POST)
-        if form.is_valid():
             company = form.save()
-            group = Group.objects.get(name='Company')
+            group = Group.objects.get(name="Company")
             company.groups.add(group)
-            return redirect('login_store')
+            return redirect("login_store")
     else:
         form = RegisterStoreForm()
-    return render(request, 'authenticate/register_store.html', {'form': form})
-
-def register_user(request):
-    if request.method == 'POST':
-        form = RegisterStoreForm(request.POST)
-        if form.is_valid():
-            company = form.save()
-            group = Group.objects.get(name='Customer')
-            company.groups.add(group)
-            return redirect('login_store')
-    else:
-        form = RegisterStoreForm()
-    return render(request, 'authenticate/register_store.html', {'form': form})
+    return render(request, "authenticate/register_store.html", {"form": form})
