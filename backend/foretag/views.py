@@ -3,11 +3,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from .forms import RegisterStoreForm
-from .decorators import unauthenticated_user
+from .decorators import login_page
 from django.contrib.auth.models import Group
 
 
-@unauthenticated_user
+@login_page("home")
 def login_store(request):
     if request.method == "POST":
         store_name = request.POST["username"]
