@@ -133,7 +133,7 @@ class HomePage extends StatelessWidget {
 
                     return Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 16.0, vertical: 4.0),
+                          horizontal: 5.0, vertical: 2.0),
                       child: TextButton(
                         onPressed: () => Navigator.push(
                             context,

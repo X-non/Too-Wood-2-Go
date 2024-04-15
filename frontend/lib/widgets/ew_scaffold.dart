@@ -13,15 +13,16 @@ class EWScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          surfaceTintColor: Colors.transparent,
-          title: Text(
-            '',
-            style: EWTextStyles.headline.copyWith(color: EWColors.darkgreen),
-          ),
-          backgroundColor: Colors.transparent,
+      appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
+        title: Text(
+          '',
+          style: EWTextStyles.headline.copyWith(color: EWColors.darkgreen),
         ),
         backgroundColor: Colors.transparent,
-        body: body);
+      ),
+      backgroundColor: Colors.transparent,
+      body: body,
+    );
   }
 }
