@@ -56,7 +56,7 @@ class _CounterScreenState extends State<CounterScreen> {
                 padding: EdgeInsets.all(10.0),
                 child: CircleAvatar(
                   radius: 50,
-                  backgroundColor: EWColors.lightgreen,
+                  backgroundImage: AssetImage(product.img),
                 ),
               ),
               Column(
@@ -64,18 +64,18 @@ class _CounterScreenState extends State<CounterScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'product.name',
+                    product.name,
                     style: EWTextStyles.headline
                         .copyWith(color: EWColors.darkgreen),
                   ),
-                  Text('Gammalt pris',
+                  Text(product.oldPrice,
                       style: EWTextStyles.body.copyWith(
                           color: EWColors.darkgreen,
                           decoration: TextDecoration.lineThrough,
                           decorationColor: Colors.red,
                           decorationThickness: 2.0)),
                   const Text(
-                    'Nytt pris',
+                    product.newPrice,
                     style: EWTextStyles.body,
                   ),
                 ],

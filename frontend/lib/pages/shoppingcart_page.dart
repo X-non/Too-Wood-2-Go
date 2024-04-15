@@ -36,17 +36,18 @@ class ShoppingCartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const EWScaffold(
-        body: Column(children: [
-      Padding(
-        padding: EdgeInsets.all(8.0),
-        //child: EWProductWidget(nme),
-      ),
-      Padding(
-        padding: EdgeInsets.all(8.0),
-        //child: EWProductWidget(),
-      ),
-    ]));
+    return EWScaffold(
+        body: ListView.builder(
+            itemCount: items.length,
+            itemBuilder: (context, index) {
+              final item = items[index];
+              return Column(children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: EWProductWidget(product: item),
+                ),
+              ]);
+            }));
     // body: ListView.builder(
     //     itemCount: items.length,
     //     itemBuilder: (context, index) {
