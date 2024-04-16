@@ -132,19 +132,11 @@ class HomePage extends StatelessWidget {
                     final item = items[index];
 
                     return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 5.0, vertical: 2.0),
-                      child: TextButton(
-                        onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    CorporatePage())),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20.0, vertical: 5.0),
                         child: CompanyContainer(
                           item: item,
-                        ),
-                      ),
-                    );
+                        ));
                   },
                 ),
               ],
