@@ -99,6 +99,13 @@ class _EWCompanyContainerState extends State<EWCompanyContainer> {
               color: EWColors.darkgreen),
         ),
       ),
+      Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: CircleAvatar(
+          radius: 20,
+          backgroundImage: AssetImage(widget.item.icon),
+        ),
+      ),
     ]);
   }
 }

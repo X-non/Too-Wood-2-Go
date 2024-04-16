@@ -1,15 +1,16 @@
 class CompanyItem {
   final String img;
+  final String icon;
   final String title;
   final String description;
   final String address;
   final String openHours;
   bool favorite;
-  // String imgIcon...
   // int id...
 
   CompanyItem(
       {required this.img,
+      required this.icon,
       required this.favorite,
       required this.description,
       required this.title,
@@ -47,6 +48,7 @@ class CompanyItem {
         10,
         (index) => CompanyItem(
             img: 'assets/image/Gateau1.jpg',
+            icon: 'assets/image/icon.jpeg',
             favorite: false,
             description: companyDescription[index],
             title: companyNames[index],
