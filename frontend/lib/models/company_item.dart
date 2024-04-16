@@ -5,6 +5,8 @@ class CompanyItem {
   final String address;
   final String openHours;
   bool favorite;
+  // String imgIcon...
+  // int id...
 
   CompanyItem(
       {required this.img,

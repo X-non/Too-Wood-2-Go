@@ -1,7 +1,6 @@
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/company_item.dart';
-import 'package:eatwise/pages/corporate.dart';
 import 'package:flutter/material.dart';
 
 class EWCompanyContainer extends StatefulWidget {
@@ -25,7 +24,7 @@ class _EWCompanyContainerState extends State<EWCompanyContainer> {
       InkWell(
         borderRadius: BorderRadius.circular(20),
         onTap: widget.navToBusiness,
-        child: Ink(
+        child: Container(
           height: 150,
           decoration: BoxDecoration(
             color: Colors.white,

@@ -46,11 +46,11 @@ class _CorporatePageState extends State<CorporatePage> {
             ),
             EWCompanyProfile(widget: widget),
             const Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: EdgeInsets.symmetric(vertical: 16.0),
               child: EWCategoriSearchbar(),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: EWProductWidget(product: item),
             ),
           ],
@@ -60,7 +60,7 @@ class _CorporatePageState extends State<CorporatePage> {
   }
 }
 
-class EWCompanyProfile extends StatelessWidget {
+class EWCompanyProfile extends StatefulWidget {
   const EWCompanyProfile({
     super.key,
     required this.widget,
@@ -68,6 +68,11 @@ class EWCompanyProfile extends StatelessWidget {
 
   final CorporatePage widget;
 
+  @override
+  State<EWCompanyProfile> createState() => _EWCompanyProfileState();
+}
+
+class _EWCompanyProfileState extends State<EWCompanyProfile> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -91,7 +96,7 @@ class EWCompanyProfile extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            widget.item.address,
+                            widget.widget.item.address,
                             style: EWTextStyles.body,
                           ),
                         ],
@@ -101,7 +106,7 @@ class EWCompanyProfile extends StatelessWidget {
                         child: Row(
                           children: [
                             Text(
-                              'Öppet: ${widget.item.openHours}',
+                              'Öppet: ${widget.widget.item.openHours}',
                               style: EWTextStyles.body,
                             ),
                           ],
@@ -121,7 +126,7 @@ class EWCompanyProfile extends StatelessWidget {
                 width: double.infinity,
                 height: 150,
                 fit: BoxFit.fitWidth,
-                widget.item.img,
+                widget.widget.item.img,
               ),
             ),
           ),
@@ -130,10 +135,10 @@ class EWCompanyProfile extends StatelessWidget {
             left: 275,
             child: TextButton(
               onPressed: () {
-                // setState(() {
-                //   // Toggle the favorite status
-                //   widget.item.favorite = !widget.item.favorite;
-                // });
+                setState(() {
+                  // Toggle the favorite status
+                  widget.widget.item.favorite = !widget.widget.item.favorite;
+                });
               }, // icon of the button
               style: TextButton.styleFrom(
                 // styling the button
@@ -144,7 +149,7 @@ class EWCompanyProfile extends StatelessWidget {
                 // Splash color
               ),
               child: Icon(
-                widget.item.favorite
+                widget.widget.item.favorite
                     ? Icons.favorite
                     : Icons.favorite_border_outlined,
                 color: EWColors.darkgreen,
