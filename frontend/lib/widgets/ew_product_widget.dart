@@ -56,8 +56,7 @@ class _CounterScreenState extends State<EWProductWidget> {
                 children: [
                   Text(
                     widget.product.name,
-                    style: EWTextStyles.headline
-                        .copyWith(color: EWColors.darkgreen),
+                    style: EWTextStyles.headline,
                   ),
                   Text(widget.product.priceOld,
                       style: EWTextStyles.body.copyWith(

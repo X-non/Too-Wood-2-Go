@@ -1,14 +1,14 @@
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:flutter/material.dart';
 
-class CategoriSerchbar extends StatefulWidget {
-  const CategoriSerchbar({super.key});
+class EWCategoriSearchbar extends StatefulWidget {
+  const EWCategoriSearchbar({super.key});
 
   @override
-  State<CategoriSerchbar> createState() => CategoriSerchbarState();
+  State<EWCategoriSearchbar> createState() => EWCategoriSearchbarState();
 }
 
-class CategoriSerchbarState extends State<CategoriSerchbar>
+class EWCategoriSearchbarState extends State<EWCategoriSearchbar>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
@@ -76,8 +76,8 @@ class CategoriSerchbarState extends State<CategoriSerchbar>
                               )
                             : null,
                       ),
-                        child: Center(
-                          child: Text(
+                      child: Center(
+                        child: Text(
                           _categories[index],
                           style: EWTextStyles.body,
                           selectionColor: Colors.white,

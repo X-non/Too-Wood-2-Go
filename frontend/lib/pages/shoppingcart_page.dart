@@ -1,8 +1,6 @@
-import 'package:eatwise/constants/EW_styles.dart';
 import 'package:eatwise/models/product.dart';
 import 'package:eatwise/widgets/ew_product_widget.dart';
 import 'package:eatwise/widgets/ew_scaffold.dart';
-import 'package:eatwise/constants/ew_colors.dart';
 import 'package:flutter/material.dart';
 
 const List<String> productName = [

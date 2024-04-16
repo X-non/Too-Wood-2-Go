@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:eatwise/constants/EW_styles.dart';
-
 
 class PaymentSettingsPage extends StatelessWidget {
   const PaymentSettingsPage({super.key});

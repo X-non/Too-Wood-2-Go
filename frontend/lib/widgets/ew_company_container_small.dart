@@ -3,8 +3,8 @@ import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/company_item.dart';
 import 'package:flutter/material.dart';
 
-class CompanyContainerSmall extends StatelessWidget {
-  const CompanyContainerSmall({
+class EWCompanyContainerSmall extends StatelessWidget {
+  const EWCompanyContainerSmall({
     super.key,
     required this.item,
   });
@@ -42,17 +42,15 @@ class CompanyContainerSmall extends StatelessWidget {
                   children: [
                     Text(
                       item.title,
-                      style: EWTextStyles.headline
-                          .copyWith(color: EWColors.darkgreen),
+                      style: EWTextStyles.headline,
                     ),
                   ],
                 ),
                 Row(
                   children: [
                     Text(
-                      item.subtitle,
-                      style:
-                          EWTextStyles.icon.copyWith(color: EWColors.darkgreen),
+                      item.description,
+                      style: EWTextStyles.icon,
                     ),
                   ],
                 ),
