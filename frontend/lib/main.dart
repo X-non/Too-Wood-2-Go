@@ -1,14 +1,14 @@
 import 'package:eatwise/constants/ew_colors.dart';
+import 'package:eatwise/models/favorite_notifier.dart';
+import 'package:eatwise/pages/favorites_page.dart';
+import 'package:eatwise/pages/home_page.dart';
+import 'package:eatwise/pages/login.dart';
+import 'package:eatwise/pages/map_page.dart';
+import 'package:eatwise/pages/profile_page.dart';
+import 'package:eatwise/pages/shoppingcart_page.dart';
 import 'package:eatwise/widgets/ew_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:eatwise/pages/login.dart';
-import 'package:eatwise/pages/home_page.dart';
-import 'package:eatwise/pages/favorites_page.dart';
-import 'package:eatwise/pages/shoppingcart_page.dart';
-import 'package:eatwise/pages/map_page.dart';
-import 'package:eatwise/pages/profile_page.dart';
-import 'package:eatwise/models/favorite_notifier.dart';
 
 void main() => runApp(
       ChangeNotifierProvider(
@@ -50,9 +50,7 @@ class _MaterialYouState extends State<MaterialYou> {
   @override
   Widget build(BuildContext context) {
     return EWScaffold(
-      body: Center(
-        child: pages[_currentIndex],
-      ),
+      body: pages[_currentIndex],
       navBar: NavigationBar(
         indicatorColor: EWColors.primary,
         backgroundColor: Colors.white,

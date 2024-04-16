@@ -1,10 +1,8 @@
 import 'package:eatwise/constants/EW_styles.dart';
-import 'package:eatwise/models/company_item.dart';
 import 'package:eatwise/models/favorite_notifier.dart';
 import 'package:eatwise/widgets/ew_company_list.dart';
 import 'package:eatwise/widgets/ew_search_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:eatwise/models/favorite_notifier.dart';
 import 'package:provider/provider.dart';
 
 // final List<CompanyItem> allItems = CompanyItem.mockdata();
@@ -17,6 +15,7 @@ class FavoritesPage extends StatelessWidget {
     final favoriteItemsNotifier = Provider.of<FavoriteItemsNotifier>(context);
     return SingleChildScrollView(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           const Row(
             children: [
