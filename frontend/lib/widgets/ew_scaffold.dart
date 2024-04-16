@@ -1,14 +1,17 @@
 import 'package:eatwise/constants/ew_colors.dart';
-import 'package:eatwise/constants/ew_styles.dart';
 import 'package:flutter/material.dart';
 
 class EWScaffold extends StatelessWidget {
   const EWScaffold({
     super.key,
+    this.navBar,
+    this.appBar,
     required this.body,
   });
 
   final Widget body;
+  final Widget? navBar;
+  final PreferredSizeWidget? appBar;
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +29,12 @@ class EWScaffold extends StatelessWidget {
           ),
         ),
         child: Scaffold(
-          appBar: AppBar(
-            surfaceTintColor: Colors.transparent,
-            title: Text(
-              '',
-              style: EWTextStyles.headline.copyWith(color: EWColors.darkgreen),
-            ),
-            backgroundColor: Colors.transparent,
-          ),
+          bottomNavigationBar: navBar,
+          appBar: appBar ??
+              AppBar(
+                surfaceTintColor: Colors.transparent,
+                backgroundColor: Colors.transparent,
+              ),
           backgroundColor: Colors.transparent,
           body: body,
         ));

@@ -3,71 +3,76 @@ import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/company_item.dart';
 import 'package:eatwise/pages/corporate.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
-class CompanyContainer extends StatefulWidget {
-  const CompanyContainer({
+class EWCompanyContainer extends StatefulWidget {
+  const EWCompanyContainer({
     super.key,
+    required this.navToBusiness,
     required this.item,
   });
 
   final CompanyItem item;
+  final void Function()? navToBusiness;
 
   @override
-  _CompanyContainerState createState() => _CompanyContainerState();
+  _EWCompanyContainerState createState() => _EWCompanyContainerState();
 }
 
-class _CompanyContainerState extends State<CompanyContainer> {
+class _EWCompanyContainerState extends State<EWCompanyContainer> {
   @override
   Widget build(BuildContext context) {
     return Stack(children: <Widget>[
-      Container(
-        height: 150,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: EWColors.lightgreen,
+      InkWell(
+        borderRadius: BorderRadius.circular(20),
+        onTap: widget.navToBusiness,
+        child: Ink(
+          height: 150,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(
+              color: EWColors.lightgreen,
+            ),
           ),
-        ),
-        child: Column(
-          children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-              child: Image.asset(
-                width: double.infinity,
-                height: 75,
-                fit: BoxFit.fitWidth,
-                widget.item.img,
+          child: Column(
+            children: [
+              ClipRRect(
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20)),
+                child: Image.asset(
+                  width: double.infinity,
+                  height: 75,
+                  fit: BoxFit.fitWidth,
+                  widget.item.img,
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        widget.item.title,
-                        style: EWTextStyles.headline
-                            .copyWith(color: EWColors.darkgreen),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        widget.item.subtitle,
-                        style: EWTextStyles.icon
-                            .copyWith(color: EWColors.darkgreen),
-                      ),
-                    ],
-                  ),
-                ],
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          widget.item.title,
+                          style: EWTextStyles.headline,
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          widget.item.description,
+                          style: EWTextStyles.icon,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       Positioned(
@@ -82,6 +87,7 @@ class _CompanyContainerState extends State<CompanyContainer> {
           }, // icon of the button
           style: TextButton.styleFrom(
             // styling the button
+            foregroundColor: EWColors.primary,
             shape: const CircleBorder(),
             padding: const EdgeInsets.all(20),
             backgroundColor: Colors.white, // Button color
