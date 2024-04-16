@@ -1,10 +1,12 @@
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/company_item.dart';
+import 'package:eatwise/models/favorite_notifier.dart';
 import 'package:eatwise/pages/corporate.dart';
 import 'package:eatwise/widgets/ew_company_container_small.dart';
 import 'package:eatwise/widgets/ew_company_list.dart';
 import 'package:eatwise/widgets/ew_search_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 final List<CompanyItem> items = CompanyItem.mockdata();
 
@@ -13,6 +15,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final favoriteItemsNotifier = Provider.of<FavoriteItemsNotifier>(context);
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -48,32 +51,37 @@ class HomePage extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
-                height: 200,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: items.length,
-                  itemBuilder: (context, index) {
-                    final item = items[index];
-                    return Padding(
-                      padding: index == 0
-                          ? const EdgeInsets.only(
-                              left: 16, right: 16, top: 4, bottom: 4)
-                          : const EdgeInsets.only(right: 16, top: 4, bottom: 4),
-                      child: EWCompanyContainerSmall(
-                          navToBusiness: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      CorporatePage(
-                                        item: item,
-                                      ))),
-                          item: item),
-                    );
-                  },
-                ),
-              ),
+              favoriteItemsNotifier.favoriteItems.isEmpty
+                  ? const Text('Inga favoriter')
+                  : SizedBox(
+                      height: 200,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: favoriteItemsNotifier.favoriteItems.length,
+                        itemBuilder: (context, index) {
+                          final item =
+                              favoriteItemsNotifier.favoriteItems[index];
+                          return Padding(
+                            padding: index == 0
+                                ? const EdgeInsets.only(
+                                    left: 16, right: 16, top: 4, bottom: 4)
+                                : const EdgeInsets.only(
+                                    right: 16, top: 4, bottom: 4),
+                            child: EWCompanyContainerSmall(
+                              item: item,
+                              navToBusiness: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          CorporatePage(
+                                            item: item,
+                                          ))),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
             ],
           ),
 
