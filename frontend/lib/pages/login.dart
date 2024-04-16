@@ -3,7 +3,6 @@ import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/pages/register.dart';
 import 'package:eatwise/widgets/ew_login_bar.dart';
 import 'package:eatwise/widgets/ew_password_bar.dart';
-import 'package:eatwise/widgets/ew_scaffold.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatelessWidget {
@@ -11,9 +10,8 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return EWScaffold(
-      body: SizedBox(
-          child: Column(
+    return SizedBox(
+      child: Column(
         children: [
           const Padding(
             padding: EdgeInsets.all(8.0),
@@ -72,7 +70,7 @@ class Login extends StatelessWidget {
           ),
           const Expanded(child: Column()),
         ],
-      )),
+      ),
     );
   }
 }
