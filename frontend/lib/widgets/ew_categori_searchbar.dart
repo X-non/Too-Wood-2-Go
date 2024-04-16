@@ -1,3 +1,4 @@
+import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,7 @@ class EWCategoriSearchbarState extends State<EWCategoriSearchbar>
     'Konditori',
     'Sallad',
     'Bröd',
-    'Mackor',
+    'MackorDDDDDDDDDD',
     'Annat'
   ];
 
@@ -31,8 +32,6 @@ class EWCategoriSearchbarState extends State<EWCategoriSearchbar>
     setState(() {});
   }
 
-  static const Color lightgreen = Color(0XFFADB191);
-
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
@@ -41,46 +40,50 @@ class EWCategoriSearchbarState extends State<EWCategoriSearchbar>
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          SizedBox(
-            //Måste komma överens
-            width: 1000,
-            height: 45,
-            child: Theme(
-              data: theme.copyWith(
-                colorScheme: theme.colorScheme.copyWith(
-                  surfaceVariant: Colors.transparent,
+          Theme(
+            data: theme.copyWith(
+              colorScheme: theme.colorScheme.copyWith(
+                surfaceVariant: Colors.transparent,
+              ),
+            ),
+            child: TabBar(
+              labelPadding: EdgeInsets.zero,
+              tabAlignment: TabAlignment.start,
+              overlayColor: MaterialStateProperty.all(Colors.transparent),
+              isScrollable: true,
+              controller: _tabController,
+              labelColor: Colors.black,
+              indicator: const BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(color: Colors.transparent, width: 0),
                 ),
               ),
-              child: TabBar(
-                isScrollable: true,
-                controller: _tabController,
-                labelColor: Colors.black,
-                indicator: const BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(color: Colors.transparent, width: 0),
-                  ),
-                ),
-                tabs: List.generate(
-                  _categories.length,
-                  (index) => Tab(
+              tabs: List.generate(
+                _categories.length,
+                (index) => Tab(
+                  child: Padding(
+                    padding:
+                        EdgeInsets.only(left: index == 0 ? 8 : 4, right: 4),
                     child: Container(
                       height: 45,
-                      width: 120,
+                      width: 100,
                       decoration: BoxDecoration(
-                        color:
-                            _tabController.index == index ? lightgreen : null,
+                        color: _tabController.index == index
+                            ? EWColors.lightgreen
+                            : Colors.white,
                         borderRadius: BorderRadius.circular(20),
-                        border: _tabController.index == index
-                            ? Border.all(
-                                color: const Color.fromRGBO(173, 175, 145, 69),
-                              )
-                            : null,
+                        border: Border.all(color: EWColors.lightgreen),
                       ),
                       child: Center(
-                        child: Text(
-                          _categories[index],
-                          style: EWTextStyles.body,
-                          selectionColor: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Text(
+                            _categories[index],
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: EWTextStyles.body,
+                            selectionColor: Colors.white,
+                          ),
                         ),
                       ),
                     ),

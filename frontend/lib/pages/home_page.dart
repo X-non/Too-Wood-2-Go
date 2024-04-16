@@ -1,6 +1,7 @@
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/company_item.dart';
 import 'package:eatwise/models/favorite_notifier.dart';
+import 'package:eatwise/pages/corporate.dart';
 import 'package:eatwise/widgets/ew_company_container_small.dart';
 import 'package:eatwise/widgets/ew_company_list.dart';
 import 'package:eatwise/widgets/ew_search_bar.dart';
@@ -67,7 +68,16 @@ class HomePage extends StatelessWidget {
                                     left: 16, right: 16, top: 4, bottom: 4)
                                 : const EdgeInsets.only(
                                     right: 16, top: 4, bottom: 4),
-                            child: EWCompanyContainerSmall(item: item),
+                            child: EWCompanyContainerSmall(
+                              item: item,
+                              navToBusiness: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          CorporatePage(
+                                            item: item,
+                                          ))),
+                            ),
                           );
                         },
                       ),

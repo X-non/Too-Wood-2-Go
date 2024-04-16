@@ -2,7 +2,6 @@ import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/company_item.dart';
 import 'package:eatwise/models/favorite_notifier.dart';
-import 'package:eatwise/pages/corporate.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -29,7 +28,7 @@ class _EWCompanyContainerState extends State<EWCompanyContainer> {
         InkWell(
           borderRadius: BorderRadius.circular(20),
           onTap: widget.navToBusiness,
-          child: Ink(
+          child: Container(
             height: 150,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -103,6 +102,13 @@ class _EWCompanyContainerState extends State<EWCompanyContainer> {
                     ? Icons.favorite
                     : Icons.favorite_border_outlined,
                 color: EWColors.darkgreen),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: CircleAvatar(
+            radius: 20,
+            backgroundImage: AssetImage(widget.item.icon),
           ),
         ),
       ]);

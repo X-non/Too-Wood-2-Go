@@ -3,6 +3,8 @@ class ProductItem {
   final String name;
   final String priceOld;
   final String priceNew;
+  // string category...
+  // int id...
 
   ProductItem(
       {required this.img,

@@ -75,6 +75,7 @@ flutter:
   # example:
   assets:
     - assets/image/Gateau1.jpg
+    - assets/image/icon.jpeg
 
   fonts:
     - family: Atkinson

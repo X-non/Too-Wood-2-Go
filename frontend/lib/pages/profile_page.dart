@@ -1,4 +1,4 @@
-import 'package:eatwise/widgets/ew_profileList.dart';
+import 'package:eatwise/widgets/ew_profile_list.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
