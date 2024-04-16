@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:eatwise/constants/EW_styles.dart';
 
-
 class SettingsPage extends StatelessWidget {
+  const SettingsPage({super.key});
+
   //const SettingsPage({super.key});
 
   @override
