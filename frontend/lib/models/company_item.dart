@@ -4,7 +4,7 @@ class CompanyItem {
   final String description;
   final String address;
   final String openHours;
-  bool favorite;
+  bool favorite = true;
 
   CompanyItem(
       {required this.img,
