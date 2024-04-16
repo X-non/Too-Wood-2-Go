@@ -2,7 +2,7 @@ class CompanyItem {
   final String img;
   final String title;
   final String subtitle;
-  final bool favorite;
+  bool favorite;
 
   CompanyItem(
       {required this.img,
