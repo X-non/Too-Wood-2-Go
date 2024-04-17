@@ -100,6 +100,33 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AWS_ACCESS_KEY_ID = "AKIA6ODU75VINENSSC7B"
+AWS_SECRET_ACCESS_KEY = "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"
+AWS_STORAGE_BUCKET_NAME = "eatwisebucket"
+AWS_S3_REGION_NAME = "eu-north-1"
+AWS_S3_SIGNATURE_NAME = "s3v4"
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+AWS_S3_VERITY = True
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+
+AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+
+# For serving static files directly from S3
+AWS_S3_URL_PROTOCOL = "https"
+AWS_S3_USE_SSL = True
+AWS_S3_VERIFY = True
+
+# Static and media file configuration
+STATIC_URL = f"{AWS_S3_URL_PROTOCOL}://{AWS_S3_CUSTOM_DOMAIN}/static/"
+STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+MEDIA_URL = f"{AWS_S3_URL_PROTOCOL}://{AWS_S3_CUSTOM_DOMAIN}/media/"
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+WSGI_APPLICATION = "backend.wsgi.application"
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
