@@ -52,7 +52,13 @@ class HomePage extends StatelessWidget {
                 ],
               ),
               favoriteItemsNotifier.favoriteItems.isEmpty
-                  ? const Text('Inga favoriter')
+                  ? const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 20.0),
+                      child: Text(
+                        'Du har inte några favoriter',
+                        style: EWTextStyles.body,
+                      ),
+                    )
                   : SizedBox(
                       height: 200,
                       child: ListView.builder(

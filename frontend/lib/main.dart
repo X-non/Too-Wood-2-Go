@@ -3,7 +3,6 @@ import 'package:eatwise/models/favorite_notifier.dart';
 import 'package:eatwise/models/product_notifier.dart';
 import 'package:eatwise/pages/favorites_page.dart';
 import 'package:eatwise/pages/home_page.dart';
-import 'package:eatwise/pages/login.dart';
 import 'package:eatwise/pages/map_page.dart';
 import 'package:eatwise/pages/profile_page.dart';
 import 'package:eatwise/pages/shoppingcart_page.dart';
@@ -42,13 +41,13 @@ class MaterialYou extends StatefulWidget {
 
 class _MaterialYouState extends State<MaterialYou> {
   int _currentIndex = 0;
-  final List<Widget> pages = const [
-    Login(),
-    HomePage(),
+  final List<Widget> pages = [
+    //Login(),
+    const HomePage(),
     FavoritesPage(),
-    ShoppingCartPage(),
-    MapPage(),
-    ProfilePage(),
+    const ShoppingCartPage(),
+    const MapPage(),
+    const ProfilePage(),
   ];
 
   @override
@@ -66,14 +65,14 @@ class _MaterialYouState extends State<MaterialYou> {
           });
         },
         destinations: const [
-          NavigationDestination(
-            selectedIcon: Icon(Icons.face, color: EWColors.darkgreen),
-            icon: Icon(
-              Icons.face,
-              color: EWColors.darkgreen,
-            ),
-            label: 'Logga in',
-          ),
+          // NavigationDestination(
+          //   selectedIcon: Icon(Icons.face, color: EWColors.darkgreen),
+          //   icon: Icon(
+          //     Icons.face,
+          //     color: EWColors.darkgreen,
+          //   ),
+          //   label: 'Logga in',
+          // ),
           NavigationDestination(
             selectedIcon: Icon(Icons.home, color: EWColors.darkgreen),
             icon: Icon(
