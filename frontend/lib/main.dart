@@ -1,5 +1,6 @@
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/models/favorite_notifier.dart';
+import 'package:eatwise/models/product_notifier.dart';
 import 'package:eatwise/pages/favorites_page.dart';
 import 'package:eatwise/pages/home_page.dart';
 import 'package:eatwise/pages/map_page.dart';
@@ -10,8 +11,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(
-      ChangeNotifierProvider(
-        create: (context) => FavoriteItemsNotifier(),
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => FavoriteItemsNotifier()),
+          ChangeNotifierProvider(create: (_) => ProductNotifier()),
+        ],
         child: const MyApp(),
       ),
     );
@@ -37,13 +41,13 @@ class MaterialYou extends StatefulWidget {
 
 class _MaterialYouState extends State<MaterialYou> {
   int _currentIndex = 0;
-  final List<Widget> pages = const [
+  final List<Widget> pages = [
     //Login(),
-    HomePage(),
+    const HomePage(),
     FavoritesPage(),
-    ShoppingCartPage(),
-    MapPage(),
-    ProfilePage(),
+    const ShoppingCartPage(),
+    const MapPage(),
+    const ProfilePage(),
   ];
 
   @override

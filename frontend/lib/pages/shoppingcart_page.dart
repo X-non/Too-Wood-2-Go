@@ -1,9 +1,11 @@
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/product.dart';
-import 'package:eatwise/widgets/ew_product_widget.dart';
+import 'package:eatwise/models/product_notifier.dart';
+import 'package:eatwise/widgets/ew_product_list.dart';
 import 'package:eatwise/widgets/ew_shopping_cart_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 const List<String> productName = [
   'Bulle',
@@ -29,7 +31,8 @@ final List<ProductItem> items = List<ProductItem>.generate(
         img: 'assets/image/Gateau1.jpg',
         name: productName[index],
         priceOld: oldPrice[index],
-        priceNew: newPrice[index]));
+        priceNew: newPrice[index],
+        amount: 0));
 
 class ShoppingCartPage extends StatefulWidget {
   const ShoppingCartPage({super.key});
@@ -41,66 +44,57 @@ class ShoppingCartPage extends StatefulWidget {
 class _ShoppingCartPageState extends State<ShoppingCartPage> {
   @override
   Widget build(BuildContext context) {
+    final productItem = Provider.of<ProductNotifier>(context);
     return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          const Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Icon(
-                  Icons.shopping_basket_outlined,
-                  size: 50,
-                  color: EWColors.darkgreen,
-                ),
-              ),
-              SizedBox(
-                child: Text(
-                  "Kundkorg",
-                  style: EWTextStyles.titleBold,
-                ),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
-                child: Text(
-                  'Güntherska Hovkonditori',
-                  style: EWTextStyles.title.copyWith(color: EWColors.darkbrown),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            child: ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: items.length,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  final item = items[index];
-                  return Column(children: [
+      child: productItem.productItems.isEmpty
+          ? const Text('Kundkorgen är tom')
+          : Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const Row(
+                  children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: EWProductWidget(product: item),
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Icon(
+                        Icons.shopping_basket_outlined,
+                        size: 50,
+                        color: EWColors.darkgreen,
+                      ),
                     ),
-                  ]);
-                }),
-          ),
-          const Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 8),
-                child: EWdeleteCart(),
-              ),
-            ],
-          ),
-          const EWshoppingCartButton(),
-        ],
-      ),
+                    SizedBox(
+                      child: Text(
+                        "Kundkorg",
+                        style: EWTextStyles.titleBold,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 20),
+                      child: Text(
+                        'Güntherska Hovkonditori',
+                        style: EWTextStyles.title
+                            .copyWith(color: EWColors.darkbrown),
+                      ),
+                    ),
+                  ],
+                ),
+                EWProductList(items: productItem.productItems),
+                const Row(
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 30.0, vertical: 8),
+                      child: EWdeleteCart(),
+                    ),
+                  ],
+                ),
+                const EWshoppingCartButton(),
+              ],
+            ),
     );
   }
 }
