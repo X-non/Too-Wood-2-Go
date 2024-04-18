@@ -6,16 +6,14 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return const Padding(
+        padding: EdgeInsets.symmetric(vertical: 100.0, horizontal: 23.0),
         child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: 20), // Adjust padding as needed
-          child: EWprofileList(), // Instantiate and add the SearchBar widget
-        ),
-      ],
-    ));
+          children: [
+            Expanded(
+              child: EWprofileList(),
+            ),
+          ],
+        ));
   }
 }
