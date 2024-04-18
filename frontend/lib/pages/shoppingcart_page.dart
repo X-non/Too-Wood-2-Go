@@ -45,45 +45,78 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
   @override
   Widget build(BuildContext context) {
     final productItem = Provider.of<ProductNotifier>(context);
-    return SingleChildScrollView(
-      child: productItem.productItems.isEmpty
-          ? const Text('Kundkorgen är tom')
-          : Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+    return Stack(children: [
+      SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const Row(
               children: [
-                const Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: Icon(
-                        Icons.shopping_basket_outlined,
-                        size: 50,
-                        color: EWColors.darkgreen,
-                      ),
-                    ),
-                    SizedBox(
-                      child: Text(
-                        "Kundkorg",
-                        style: EWTextStyles.titleBold,
-                      ),
-                    ),
-                  ],
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Icon(
+                    Icons.shopping_basket_outlined,
+                    size: 50,
+                    color: EWColors.darkgreen,
+                  ),
                 ),
+                SizedBox(
+                  child: Text(
+                    "Kundkorg",
+                    style: EWTextStyles.titleBold,
+                  ),
+                ),
+              ],
+            ),
+            productItem.productItems.isEmpty
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 20),
+                    child: Container(
+                        height: 500,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: EWColors.lightgreen,
+                          ),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Aj då! Din varukorg är tom!',
+                            style: EWTextStyles.titleBold
+                                .copyWith(color: EWColors.primary),
+                            textAlign: TextAlign.center,
+                          ),
+                        )),
+                  )
+                : Column(
+                    children: [
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 8, horizontal: 20),
+                            child: Text(
+                              'Güntherska Hovkonditori',
+                              style: EWTextStyles.title
+                                  .copyWith(color: EWColors.darkbrown),
+                            ),
+                          ),
+                        ],
+                      ),
+                      EWProductList(items: productItem.productItems),
+                    ],
+                  ),
+          ],
+        ),
+      ),
+      productItem.productItems.isEmpty
+          ? const SizedBox()
+          : const Column(
+              children: [
+                Spacer(),
                 Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8, horizontal: 20),
-                      child: Text(
-                        'Güntherska Hovkonditori',
-                        style: EWTextStyles.title
-                            .copyWith(color: EWColors.darkbrown),
-                      ),
-                    ),
-                  ],
-                ),
-                EWProductList(items: productItem.productItems),
-                const Row(
                   children: [
                     Padding(
                       padding:
@@ -92,10 +125,10 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                     ),
                   ],
                 ),
-                const EWshoppingCartButton(),
+                EWshoppingCartButton(),
               ],
-            ),
-    );
+            )
+    ]);
   }
 }
 
