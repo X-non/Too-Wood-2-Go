@@ -5,9 +5,6 @@ import 'package:eatwise/widgets/ew_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-// final List<CompanyItem> allItems = CompanyItem.mockdata();
-// final List<CompanyItem> favoriteItems = CompanyItem.getFavorites(allItems);
-
 class FavoritesPage extends StatelessWidget {
   const FavoritesPage({super.key});
   @override

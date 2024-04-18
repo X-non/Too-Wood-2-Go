@@ -3,6 +3,7 @@ class ProductItem {
   final String name;
   final String priceOld;
   final String priceNew;
+  int amount;
   // string category...
   // int id...
 
@@ -10,5 +11,6 @@ class ProductItem {
       {required this.img,
       required this.name,
       required this.priceOld,
-      required this.priceNew});
+      required this.priceNew,
+      required this.amount});
 }

@@ -1,5 +1,6 @@
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/models/favorite_notifier.dart';
+import 'package:eatwise/models/product_notifier.dart';
 import 'package:eatwise/pages/favorites_page.dart';
 import 'package:eatwise/pages/home_page.dart';
 import 'package:eatwise/pages/login.dart';
@@ -11,8 +12,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(
-      ChangeNotifierProvider(
-        create: (context) => FavoriteItemsNotifier(),
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => FavoriteItemsNotifier()),
+          ChangeNotifierProvider(create: (_) => ProductNotifier()),
+        ],
         child: const MyApp(),
       ),
     );
