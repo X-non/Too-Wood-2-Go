@@ -21,7 +21,8 @@ class _CorporatePageState extends State<CorporatePage> {
       img: 'assets/image/Gateau1.jpg',
       name: 'Vatten',
       priceOld: '100 kr',
-      priceNew: '20 kr'));
+      priceNew: '10 kr',
+      amount: 0));
 
   @override
   Widget build(BuildContext context) {
