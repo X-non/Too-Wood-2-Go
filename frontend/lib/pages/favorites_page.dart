@@ -1,4 +1,5 @@
 import 'package:eatwise/constants/EW_styles.dart';
+import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/models/favorite_notifier.dart';
 import 'package:eatwise/widgets/ew_company_list.dart';
 import 'package:eatwise/widgets/ew_search_bar.dart';
@@ -8,8 +9,16 @@ import 'package:provider/provider.dart';
 // final List<CompanyItem> allItems = CompanyItem.mockdata();
 // final List<CompanyItem> favoriteItems = CompanyItem.getFavorites(allItems);
 
-class FavoritesPage extends StatelessWidget {
+class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
+
+  @override
+  State<FavoritesPage> createState() => _FavoritesPageState();
+}
+
+class _FavoritesPageState extends State<FavoritesPage> {
+  int totalPrice = 100;
+
   @override
   Widget build(BuildContext context) {
     final favoriteItemsNotifier = Provider.of<FavoriteItemsNotifier>(context);
@@ -24,6 +33,7 @@ class FavoritesPage extends StatelessWidget {
                 child: Icon(
                   Icons.favorite_border_outlined,
                   size: 50,
+                  color: EWColors.darkgreen,
                 ),
               ),
               SizedBox(
@@ -34,14 +44,36 @@ class FavoritesPage extends StatelessWidget {
               ),
             ],
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-            child: SizedBox(
-              child: EWSearchBar(),
-            ),
-          ),
           favoriteItemsNotifier.favoriteItems.isEmpty
-              ? const Text('Inga favoriter')
+              ? const SizedBox()
+              : const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                  child: SizedBox(
+                    child: EWSearchBar(),
+                  ),
+                ),
+          favoriteItemsNotifier.favoriteItems.isEmpty
+              ? Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  child: Container(
+                      height: 500,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                          color: EWColors.lightgreen,
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Du har inte några favoriter',
+                          style: EWTextStyles.titleBold
+                              .copyWith(color: EWColors.primary),
+                          textAlign: TextAlign.center,
+                        ),
+                      )),
+                )
               : EWCompanyList(
                   items: favoriteItemsNotifier.favoriteItems,
                 ),
