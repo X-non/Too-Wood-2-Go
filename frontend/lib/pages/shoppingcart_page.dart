@@ -40,7 +40,9 @@ final List<ProductItem> items = List<ProductItem>.generate(
 // -------------
 
 class ShoppingCartPage extends StatefulWidget {
-  const ShoppingCartPage({super.key});
+  const ShoppingCartPage({super.key, required this.companyName});
+
+  final String companyName;
 
   @override
   State<ShoppingCartPage> createState() => _ShoppingCartPageState();
@@ -104,7 +106,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                               padding: const EdgeInsets.symmetric(
                                   vertical: 8, horizontal: 20),
                               child: Text(
-                                'Güntherska Hovkonditori',
+                                widget.companyName,
                                 style: EWTextStyles.title
                                     .copyWith(color: EWColors.darkbrown),
                               ),

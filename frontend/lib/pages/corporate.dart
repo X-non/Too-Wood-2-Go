@@ -75,7 +75,9 @@ class _CorporatePageState extends State<CorporatePage> {
                           context,
                           MaterialPageRoute(
                               builder: (BuildContext context) =>
-                                  const ShoppingCartPage())),
+                                  ShoppingCartPage(
+                                    companyName: widget.item.title,
+                                  ))),
                       buttonText: 'Gå till kundkorg',
                     ),
                   ),
