@@ -15,9 +15,25 @@ class ProductNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
+  double calculateCost() {
+    double totalCost = 0.0;
+    for (var product in productItems) {
+      String cleanedPriceNew =
+          product.priceNew.replaceAll(RegExp(r'[^\d.]'), '');
+      double price = double.parse(cleanedPriceNew);
+      totalCost += price * product.amount;
+    }
+    return totalCost;
+  }
+
   void removeProduct(ProductItem item) {
     item.amount = 0;
     _productItems.remove(item);
+    notifyListeners();
+  }
+
+  void removeAll() {
+    productItems.clear();
     notifyListeners();
   }
 }

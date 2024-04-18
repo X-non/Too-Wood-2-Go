@@ -7,6 +7,7 @@ import 'package:eatwise/widgets/ew_shopping_cart_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+// Ta bort ---------
 const List<String> productName = [
   'Bulle',
   'Banan',
@@ -33,6 +34,8 @@ final List<ProductItem> items = List<ProductItem>.generate(
         priceOld: oldPrice[index],
         priceNew: newPrice[index],
         amount: 0));
+
+// -------------
 
 class ShoppingCartPage extends StatefulWidget {
   const ShoppingCartPage({super.key});
@@ -100,39 +103,40 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
 }
 
 class EWdeleteCart extends StatelessWidget {
-  const EWdeleteCart({
-    super.key,
-  });
+  const EWdeleteCart({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      child: Container(
-        height: 40,
-        width: 185,
-        decoration: BoxDecoration(
-          color: EWColors.primary,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: EWColors.lightgreen,
+    return Consumer<ProductNotifier>(builder: (context, productNotifier, _) {
+      return InkWell(
+        onTap: () => {productNotifier.removeAll()},
+        child: Container(
+          height: 40,
+          width: 185,
+          decoration: BoxDecoration(
+            color: EWColors.primary,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: EWColors.lightgreen,
+            ),
+          ),
+          child: Row(
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Icon(
+                  Icons.delete_outline,
+                  color: Colors.white,
+                ),
+              ),
+              Text(
+                'Ta bort din order',
+                style: EWTextStyles.body.copyWith(color: Colors.white),
+              )
+            ],
           ),
         ),
-        child: Row(
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.delete_outline,
-                color: Colors.white,
-              ),
-            ),
-            Text(
-              'Ta bort din order',
-              style: EWTextStyles.body.copyWith(color: Colors.white),
-            )
-          ],
-        ),
-      ),
-    );
+      );
+    });
   }
 }
