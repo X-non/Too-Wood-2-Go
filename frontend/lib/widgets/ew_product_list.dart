@@ -1,7 +1,4 @@
-import 'package:eatwise/models/company_item.dart';
 import 'package:eatwise/models/product.dart';
-import 'package:eatwise/pages/corporate.dart';
-import 'package:eatwise/widgets/ew_company_container.dart';
 import 'package:eatwise/widgets/ew_product_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +16,9 @@ class EWProductList extends StatelessWidget {
       itemBuilder: (context, index) {
         final item = items[index];
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+          padding: (index == items.length - 1)
+              ? const EdgeInsets.only(top: 4, left: 16, right: 16, bottom: 130)
+              : const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
           child: EWProductWidget(
             product: item,
           ),
