@@ -5,7 +5,6 @@ import 'package:eatwise/pages/favorites_page.dart';
 import 'package:eatwise/pages/home_page.dart';
 import 'package:eatwise/pages/map_page.dart';
 import 'package:eatwise/pages/profile_page.dart';
-import 'package:eatwise/pages/shoppingcart_page.dart';
 import 'package:eatwise/widgets/ew_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -43,9 +42,9 @@ class _MaterialYouState extends State<MaterialYou> {
   int _currentIndex = 0;
   final List<Widget> pages = [
     //Login(),
+    //const ShoppingCartPage(),
     const HomePage(),
-    FavoritesPage(),
-    const ShoppingCartPage(),
+    const FavoritesPage(),
     const MapPage(),
     const ProfilePage(),
   ];
@@ -73,6 +72,17 @@ class _MaterialYouState extends State<MaterialYou> {
           //   ),
           //   label: 'Logga in',
           // ),
+          // NavigationDestination(
+          //   selectedIcon: Icon(
+          //     Icons.shopping_basket,
+          //     color: EWColors.darkgreen,
+          //   ),
+          //   icon: Icon(
+          //     Icons.shopping_basket_outlined,
+          //     color: EWColors.darkgreen,
+          //   ),
+          //   label: 'Kundkorg',
+          // ),
           NavigationDestination(
             selectedIcon: Icon(Icons.home, color: EWColors.darkgreen),
             icon: Icon(
@@ -91,17 +101,6 @@ class _MaterialYouState extends State<MaterialYou> {
               color: EWColors.darkgreen,
             ),
             label: 'Favoriter',
-          ),
-          NavigationDestination(
-            selectedIcon: Icon(
-              Icons.shopping_basket,
-              color: EWColors.darkgreen,
-            ),
-            icon: Icon(
-              Icons.shopping_basket_outlined,
-              color: EWColors.darkgreen,
-            ),
-            label: 'Kundkorg',
           ),
           NavigationDestination(
             selectedIcon: Icon(

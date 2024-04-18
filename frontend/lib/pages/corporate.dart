@@ -2,10 +2,14 @@ import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/company_item.dart';
 import 'package:eatwise/models/product.dart';
+import 'package:eatwise/models/product_notifier.dart';
+import 'package:eatwise/pages/shoppingcart_page.dart';
 import 'package:eatwise/widgets/ew_categori_searchbar.dart';
 import 'package:eatwise/widgets/ew_product_widget.dart';
 import 'package:eatwise/widgets/ew_scaffold.dart';
+import 'package:eatwise/widgets/ew_shopping_cart_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CorporatePage extends StatefulWidget {
   const CorporatePage({super.key, required this.item});
@@ -26,37 +30,58 @@ class _CorporatePageState extends State<CorporatePage> {
 
   @override
   Widget build(BuildContext context) {
+    final productItem = Provider.of<ProductNotifier>(context);
     return EWScaffold(
       appBar: AppBar(
         surfaceTintColor: Colors.transparent,
         backgroundColor: Colors.transparent,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 4),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  widget.item.title,
-                  style: EWTextStyles.titleBold,
+      body: Stack(children: [
+        SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 4),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    widget.item.title,
+                    style: EWTextStyles.titleBold,
+                  ),
                 ),
               ),
-            ),
-            EWCompanyProfile(widget: widget),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: EWCategoriSearchbar(),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: EWProductWidget(product: item),
-            ),
-          ],
+              EWCompanyProfile(widget: widget),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 16.0),
+                child: EWCategoriSearchbar(),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: EWProductWidget(product: item),
+              ),
+            ],
+          ),
         ),
-      ),
+        productItem.productItems.isEmpty
+            ? const SizedBox()
+            : Column(
+                children: [
+                  const Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 50),
+                    child: EWshoppingCartButton(
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  const ShoppingCartPage())),
+                      buttonText: 'Gå till kundkorg',
+                    ),
+                  ),
+                ],
+              ),
+      ]),
     );
   }
 }
