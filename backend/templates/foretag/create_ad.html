@@ -52,7 +52,7 @@
 <body>
     <div class="container">
         <h2>Create New Ad</h2>
-        <form method="POST">
+        <form method="POST" enctype="multipart/form">
             {% csrf_token %}
             {{ form.as_p }}
             <input type="submit" value="Create Ad">
