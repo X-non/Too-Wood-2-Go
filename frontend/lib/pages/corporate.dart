@@ -28,63 +28,104 @@ class _CorporatePageState extends State<CorporatePage> {
       priceNew: '10 kr',
       amount: 0));
 
+  bool _showExitConfirmation = false;
+
   @override
   Widget build(BuildContext context) {
     final productItem = Provider.of<ProductNotifier>(context);
-    return EWScaffold(
-      appBar: AppBar(
-        surfaceTintColor: Colors.transparent,
-        backgroundColor: Colors.transparent,
-      ),
-      body: Stack(children: [
-        SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 4),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    widget.item.title,
-                    style: EWTextStyles.titleBold,
-                  ),
-                ),
-              ),
-              EWCompanyProfile(widget: widget),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 16.0),
-                child: EWCategoriSearchbar(),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: EWProductWidget(product: item),
-              ),
-            ],
+    return PopScope(
+        canPop: productItem.productItems.isEmpty ? true : false,
+        onPopInvoked: (didPop) async {
+          setState(() {
+            _showExitConfirmation = true;
+          });
+        },
+        child: EWScaffold(
+          appBar: AppBar(
+            surfaceTintColor: Colors.transparent,
+            backgroundColor: Colors.transparent,
           ),
-        ),
-        productItem.productItems.isEmpty
-            ? const SizedBox()
-            : Column(
+          body: Stack(children: [
+            SingleChildScrollView(
+              child: Column(
                 children: [
-                  const Spacer(),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 50),
-                    child: EWshoppingCartButton(
-                      onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  ShoppingCartPage(
-                                    companyName: widget.item.title,
-                                  ))),
-                      buttonText: 'Gå till kundkorg',
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0, vertical: 4),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        widget.item.title,
+                        style: EWTextStyles.titleBold,
+                      ),
                     ),
+                  ),
+                  EWCompanyProfile(widget: widget),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16.0),
+                    child: EWCategoriSearchbar(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: EWProductWidget(product: item),
                   ),
                 ],
               ),
-      ]),
-    );
+            ),
+            productItem.productItems.isEmpty
+                ? const SizedBox()
+                : Column(
+                    children: [
+                      const Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 50),
+                        child: EWshoppingCartButton(
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      ShoppingCartPage(
+                                        companyName: widget.item.title,
+                                      ))),
+                          buttonText: 'Gå till kundkorg',
+                        ),
+                      ),
+                    ],
+                  ),
+            _showExitConfirmation
+                ? Container(
+                    color: Colors.black.withOpacity(0.5),
+                    child: Center(
+                      child: AlertDialog(
+                        title: const Text('Är du säker?'),
+                        content: const Text(
+                            'Om du lämnar sidan kommer din kundkorg att raderas'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              setState(() {
+                                _showExitConfirmation = false;
+                              });
+                            },
+                            child: const Text('Avbryt'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              setState(() {
+                                _showExitConfirmation = false;
+                              });
+                              Navigator.pop(context);
+                              productItem.removeAll();
+                            },
+                            child: const Text('Ja'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                : const SizedBox(),
+          ]),
+        ));
   }
 }
 

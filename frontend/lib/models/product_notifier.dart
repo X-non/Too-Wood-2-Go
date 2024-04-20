@@ -9,7 +9,7 @@ class ProductNotifier extends ChangeNotifier {
   void toggleProduct(ProductItem item) {
     if (item.amount == 0) {
       _productItems.remove(item);
-    } else if (item.amount == 1 && !productItems.contains(item)) {
+    } else if (item.amount != 0 && !productItems.contains(item)) {
       _productItems.add(item);
     }
     notifyListeners();
