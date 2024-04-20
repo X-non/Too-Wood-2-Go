@@ -28,11 +28,14 @@ class ProductNotifier extends ChangeNotifier {
 
   void removeProduct(ProductItem item) {
     item.amount = 0;
-    _productItems.remove(item);
+    productItems.remove(item);
     notifyListeners();
   }
 
   void removeAll() {
+    for (ProductItem item in productItems) {
+      item.amount = 0;
+    }
     productItems.clear();
     notifyListeners();
   }
