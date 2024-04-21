@@ -6,8 +6,13 @@ import 'package:eatwise/pages/favorites_page.dart';
 import 'package:eatwise/pages/shoppingcart_page.dart';
 import 'package:eatwise/pages/map_page.dart';
 import 'package:eatwise/pages/profile_page.dart';
+import 'package:flutter_config/flutter_config.dart';
 
-void main() => runApp(const MyApp());
+Future<void> main() async {
+ WidgetsFlutterBinding.ensureInitialized();
+await FlutterConfig.loadEnvVariables();
+runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
