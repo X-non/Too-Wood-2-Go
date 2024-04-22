@@ -13,7 +13,8 @@ let googleMapsApiKey = flutter_config_plus.FlutterConfigPlusPlugin.env(for: "GOO
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
     GeneratedPluginRegistrant.register(with: self)
-    GMSServices.provideAPIKEY("googleMapsApiKey")
+    //GMSPlacesClient.provideAPIKey("googleMapsApiKey")
+    GMSServices.provideAPIKey("googleMapsApiKey")
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 }

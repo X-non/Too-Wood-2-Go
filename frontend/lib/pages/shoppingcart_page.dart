@@ -1,21 +1,15 @@
-import 'package:eatwise/constants/EW_styles.dart';
-import 'package:eatwise/widgets/ew_scaffold.dart';
 import 'package:eatwise/constants/ew_colors.dart';
+import 'package:eatwise/constants/ew_styles.dart';
+import 'package:eatwise/models/product.dart';
+import 'package:eatwise/models/product_notifier.dart';
+import 'package:eatwise/pages/payment.dart';
+import 'package:eatwise/widgets/ew_product_list.dart';
+import 'package:eatwise/widgets/ew_scaffold.dart';
+import 'package:eatwise/widgets/ew_shopping_cart_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class Item {
-  final String img;
-  final String product;
-  final String priceOld;
-  final String priceNew;
-
-  Item(
-      {required this.img,
-      required this.product,
-      required this.priceOld,
-      required this.priceNew});
-}
-
+// Ta bort ---------
 const List<String> productName = [
   'Bulle',
   'Banan',
@@ -34,115 +28,172 @@ const List<String> newPrice = [
   '7 kr',
 ];
 
-final List<Item> items = List<Item>.generate(
+final List<ProductItem> items = List<ProductItem>.generate(
     3,
-    (index) => Item(
+    (index) => ProductItem(
         img: 'assets/image/Gateau1.jpg',
-        product: productName[index],
+        name: productName[index],
         priceOld: oldPrice[index],
-        priceNew: newPrice[index]));
+        priceNew: newPrice[index],
+        amount: 0));
 
-class ShoppingCartPage extends StatelessWidget {
-  const ShoppingCartPage({super.key});
+// -------------
+
+class ShoppingCartPage extends StatefulWidget {
+  const ShoppingCartPage({super.key, required this.companyName});
+
+  final String companyName;
+
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: CounterScreen(),
-    );
-  }
+  State<ShoppingCartPage> createState() => _ShoppingCartPageState();
 }
 
-class CounterScreen extends StatefulWidget {
-  const CounterScreen({super.key});
-
-  @override
-  _CounterScreenState createState() => _CounterScreenState();
-}
-
-class _CounterScreenState extends State<CounterScreen> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  void _decrementCounter() {
-    setState(() {
-      _counter--;
-    });
-  }
-
+class _ShoppingCartPageState extends State<ShoppingCartPage> {
   @override
   Widget build(BuildContext context) {
+    final productItem = Provider.of<ProductNotifier>(context);
+    if (productItem.productItems.isEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.pop(context);
+        Navigator.pop(context);
+      });
+      return const SizedBox.shrink();
+    }
     return EWScaffold(
-        body: ListView.builder(
-            itemCount: items.length,
-            itemBuilder: (context, index) {
-              final item = items[index];
-              return Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
-                child: Container(
-                  height: 100,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(
-                        color: const Color.fromRGBO(173, 175, 145, 69),
-                      )),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+      body: Stack(children: [
+        SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Icon(
+                      Icons.shopping_basket_outlined,
+                      size: 50,
+                      color: EWColors.darkgreen,
+                    ),
+                  ),
+                  SizedBox(
+                    child: Text(
+                      "Kundkorg",
+                      style: EWTextStyles.titleBold,
+                    ),
+                  ),
+                ],
+              ),
+
+              // else Padding(
+              //       padding: const EdgeInsets.symmetric(
+              //           horizontal: 20, vertical: 20),
+              //       child: Container(
+              //           height: 500,
+              //           decoration: BoxDecoration(
+              //             color: Colors.white,
+              //             borderRadius: BorderRadius.circular(20),
+              //             border: Border.all(
+              //               color: EWColors.lightgreen,
+              //             ),
+              //           ),
+              //           child: Center(
+              //             child: Text(
+              //               'Aj då! Din varukorg är tom!',
+              //               style: EWTextStyles.titleBold
+              //                   .copyWith(color: EWColors.primary),
+              //               textAlign: TextAlign.center,
+              //             ),
+              //           )),
+              //     )
+
+              Column(
+                children: [
+                  Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: CircleAvatar(
-                            radius: 50, backgroundImage: AssetImage(item.img)),
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            item.product,
-                            style: EWTextStyles.headline,
-                          ),
-                          Text(item.priceOld,
-                              style: EWTextStyles.body.copyWith(
-                                  decoration: TextDecoration.lineThrough,
-                                  decorationColor: Colors.red,
-                                  decorationThickness: 2.0)),
-                          Text(
-                            item.priceNew,
-                            style: EWTextStyles.body,
-                          ),
-                        ],
-                      ),
-                      const Spacer(),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            IconButton(
-                              icon: const Icon(Icons.remove),
-                              iconSize: 35,
-                              color: EWColors.darkgreen,
-                              onPressed: _decrementCounter,
-                            ),
-                            Text('$_counter'),
-                            IconButton(
-                              icon: const Icon(Icons.add),
-                              iconSize: 35,
-                              color: EWColors.darkgreen,
-                              onPressed: _incrementCounter,
-                            ),
-                          ],
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 20),
+                        child: Text(
+                          widget.companyName,
+                          style: EWTextStyles.title
+                              .copyWith(color: EWColors.darkbrown),
                         ),
                       ),
                     ],
                   ),
+                  EWProductList(items: productItem.productItems),
+                ],
+              ),
+            ],
+          ),
+        ),
+        productItem.productItems.isEmpty
+            ? const SizedBox()
+            : Column(
+                children: [
+                  const Spacer(),
+                  const Row(
+                    children: [
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 30.0, vertical: 8),
+                        child: EWdeleteCart(),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 50.0),
+                    child: EWshoppingCartButton(
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  const Payment())),
+                      buttonText: 'Betala',
+                    ),
+                  ),
+                ],
+              )
+      ]),
+    );
+  }
+}
+
+class EWdeleteCart extends StatelessWidget {
+  const EWdeleteCart({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<ProductNotifier>(builder: (context, productNotifier, _) {
+      return InkWell(
+        onTap: () => {productNotifier.removeAll()},
+        child: Container(
+          height: 40,
+          width: 185,
+          decoration: BoxDecoration(
+            color: EWColors.primary,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: EWColors.lightgreen,
+            ),
+          ),
+          child: Row(
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Icon(
+                  Icons.delete_outline,
+                  color: Colors.white,
                 ),
-              );
-            }));
+              ),
+              Text(
+                'Ta bort din order',
+                style: EWTextStyles.body.copyWith(color: Colors.white),
+              )
+            ],
+          ),
+        ),
+      );
+    });
   }
 }
