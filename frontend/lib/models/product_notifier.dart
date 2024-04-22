@@ -9,7 +9,7 @@ class ProductNotifier extends ChangeNotifier {
   void toggleProduct(ProductItem item) {
     if (item.amount == 0) {
       _productItems.remove(item);
-    } else if (item.amount == 1 && !productItems.contains(item)) {
+    } else if (item.amount != 0 && !productItems.contains(item)) {
       _productItems.add(item);
     }
     notifyListeners();
@@ -28,11 +28,14 @@ class ProductNotifier extends ChangeNotifier {
 
   void removeProduct(ProductItem item) {
     item.amount = 0;
-    _productItems.remove(item);
+    productItems.remove(item);
     notifyListeners();
   }
 
   void removeAll() {
+    for (ProductItem item in productItems) {
+      item.amount = 0;
+    }
     productItems.clear();
     notifyListeners();
   }
