@@ -6,6 +6,7 @@ import 'package:eatwise/models/product.dart';
 import 'package:eatwise/models/product_notifier.dart';
 import 'package:eatwise/pages/shoppingcart_page.dart';
 import 'package:eatwise/widgets/ew_categori_searchbar.dart';
+import 'package:eatwise/widgets/ew_product_list.dart';
 import 'package:eatwise/widgets/ew_product_widget.dart';
 import 'package:eatwise/widgets/ew_scaffold.dart';
 import 'package:eatwise/widgets/ew_shopping_cart_button.dart';
@@ -22,12 +23,32 @@ class CorporatePage extends StatefulWidget {
 }
 
 class _CorporatePageState extends State<CorporatePage> {
-  final ProductItem item = (ProductItem(
-      img: 'assets/image/Gateau1.jpg',
-      name: 'Vatten',
-      priceOld: '100 kr',
-      priceNew: '10 kr',
-      amount: 0));
+  final List<ProductItem> item = [
+    ProductItem(
+        img: 'assets/image/Gateau1.jpg',
+        name: 'Vatten',
+        priceOld: '100 kr',
+        priceNew: '10 kr',
+        amount: 0),
+    ProductItem(
+        img: 'assets/image/Gateau1.jpg',
+        name: 'Saft',
+        priceOld: '100 kr',
+        priceNew: '10 kr',
+        amount: 0),
+    ProductItem(
+        img: 'assets/image/Gateau1.jpg',
+        name: 'Bullar',
+        priceOld: '100 kr',
+        priceNew: '10 kr',
+        amount: 0),
+    ProductItem(
+        img: 'assets/image/Gateau1.jpg',
+        name: 'Kakor',
+        priceOld: '100 kr',
+        priceNew: '10 kr',
+        amount: 0),
+  ];
 
   bool _showExitConfirmation = false;
 
@@ -68,7 +89,7 @@ class _CorporatePageState extends State<CorporatePage> {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: EWProductWidget(product: item),
+                    child: EWProductList(items: item),
                   ),
                 ],
               ),
