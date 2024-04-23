@@ -1,6 +1,7 @@
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/models/favorite_notifier.dart';
 import 'package:eatwise/models/product_notifier.dart';
+import 'package:eatwise/models/category_notifier.dart';
 import 'package:eatwise/pages/favorites_page.dart';
 import 'package:eatwise/pages/home_page.dart';
 import 'package:eatwise/pages/map_page.dart';

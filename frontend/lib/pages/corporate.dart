@@ -2,11 +2,12 @@ import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/company_item.dart';
 import 'package:eatwise/models/favorite_notifier.dart';
+import 'package:eatwise/models/category_notifier.dart';
 import 'package:eatwise/models/product.dart';
 import 'package:eatwise/models/product_notifier.dart';
 import 'package:eatwise/pages/shoppingcart_page.dart';
 import 'package:eatwise/widgets/ew_categori_searchbar.dart';
-import 'package:eatwise/widgets/ew_product_widget.dart';
+import 'package:eatwise/widgets/ew_product_list.dart';
 import 'package:eatwise/widgets/ew_scaffold.dart';
 import 'package:eatwise/widgets/ew_shopping_cart_button.dart';
 import 'package:flutter/material.dart';
@@ -22,18 +23,13 @@ class CorporatePage extends StatefulWidget {
 }
 
 class _CorporatePageState extends State<CorporatePage> {
-  final ProductItem item = (ProductItem(
-      img: 'assets/image/Gateau1.jpg',
-      name: 'Vatten',
-      priceOld: '100 kr',
-      priceNew: '10 kr',
-      amount: 0));
-
   bool _showExitConfirmation = false;
 
   @override
   Widget build(BuildContext context) {
     final productItem = Provider.of<ProductNotifier>(context);
+    final categoryItem = Provider.of<CategoryNotifier>(context);
+
     return PopScope(
         canPop: productItem.productItems.isEmpty ? true : false,
         onPopInvoked: (didPop) async {
@@ -66,10 +62,7 @@ class _CorporatePageState extends State<CorporatePage> {
                     padding: EdgeInsets.symmetric(vertical: 16.0),
                     child: EWCategoriSearchbar(),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: EWProductWidget(product: item),
-                  ),
+                  EWProductList(items: categoryItem.categoryitems),
                 ],
               ),
             ),

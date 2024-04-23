@@ -9,36 +9,6 @@ import 'package:eatwise/widgets/ew_shopping_cart_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-// Ta bort ---------
-const List<String> productName = [
-  'Bulle',
-  'Banan',
-  'Mjölk',
-];
-
-const List<String> oldPrice = [
-  '15 kr',
-  '10 kr',
-  '10 kr',
-];
-
-const List<String> newPrice = [
-  '10 kr',
-  '5 kr',
-  '7 kr',
-];
-
-final List<ProductItem> items = List<ProductItem>.generate(
-    3,
-    (index) => ProductItem(
-        img: 'assets/image/Gateau1.jpg',
-        name: productName[index],
-        priceOld: oldPrice[index],
-        priceNew: newPrice[index],
-        amount: 0));
-
-// -------------
-
 class ShoppingCartPage extends StatefulWidget {
   const ShoppingCartPage({super.key, required this.companyName});
 
@@ -83,29 +53,6 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                   ),
                 ],
               ),
-
-              // else Padding(
-              //       padding: const EdgeInsets.symmetric(
-              //           horizontal: 20, vertical: 20),
-              //       child: Container(
-              //           height: 500,
-              //           decoration: BoxDecoration(
-              //             color: Colors.white,
-              //             borderRadius: BorderRadius.circular(20),
-              //             border: Border.all(
-              //               color: EWColors.lightgreen,
-              //             ),
-              //           ),
-              //           child: Center(
-              //             child: Text(
-              //               'Aj då! Din varukorg är tom!',
-              //               style: EWTextStyles.titleBold
-              //                   .copyWith(color: EWColors.primary),
-              //               textAlign: TextAlign.center,
-              //             ),
-              //           )),
-              //     )
-
               Column(
                 children: [
                   Row(
@@ -165,8 +112,32 @@ class EWdeleteCart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<ProductNotifier>(builder: (context, productNotifier, _) {
-      return InkWell(
-        onTap: () => {productNotifier.removeAll()},
+      return GestureDetector(
+        onTap: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text("Är du säker?"),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("Avbryt"),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      productNotifier.removeAll();
+                    },
+                    child: const Text("Ta Bort"),
+                  ),
+                ],
+              );
+            },
+          );
+        },
         child: Container(
           height: 40,
           width: 185,
