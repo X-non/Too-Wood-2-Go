@@ -7,7 +7,6 @@ import 'package:eatwise/models/product_notifier.dart';
 import 'package:eatwise/pages/shoppingcart_page.dart';
 import 'package:eatwise/widgets/ew_categori_searchbar.dart';
 import 'package:eatwise/widgets/ew_product_list.dart';
-import 'package:eatwise/widgets/ew_product_widget.dart';
 import 'package:eatwise/widgets/ew_scaffold.dart';
 import 'package:eatwise/widgets/ew_shopping_cart_button.dart';
 import 'package:flutter/material.dart';
@@ -87,10 +86,7 @@ class _CorporatePageState extends State<CorporatePage> {
                     padding: EdgeInsets.symmetric(vertical: 16.0),
                     child: EWCategoriSearchbar(),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: EWProductList(items: item),
-                  ),
+                  EWProductList(items: item),
                 ],
               ),
             ),
