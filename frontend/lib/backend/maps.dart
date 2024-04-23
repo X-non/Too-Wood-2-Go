@@ -51,19 +51,21 @@ class EWMapState extends State<EWMap> {
     try {
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
-      setState(() {
-        _currentPosition = LatLng(position.latitude, position.longitude);
-      });
-    } catch (e) {
-      print(e);
-    }
+      if (mounted) {
+        setState(() {
+          _currentPosition = LatLng(position.latitude, position.longitude);
+        });
+      }
+    } catch (e) {}
   }
 
   void updateCurrentLocation(Position position) {
-    setState(() {
-      _currentPosition = LatLng(position.latitude, position.longitude);
-    });
-    updateCameraPosition();
+    if (mounted) {
+      setState(() {
+        _currentPosition = LatLng(position.latitude, position.longitude);
+      });
+      updateCameraPosition();
+    }
   }
 
   void updateCameraPosition() async {
@@ -93,9 +95,11 @@ class EWMapState extends State<EWMap> {
             : GoogleMap(
                 myLocationEnabled: true,
                 onTap: (latLng) {
-                  setState(() {
-                    _currentPosition = latLng;
-                  });
+                  if (mounted) {
+                    setState(() {
+                      _currentPosition = latLng;
+                    });
+                  }
                 },
                 markers: _currentPosition != null
                     ? {
