@@ -1,12 +1,23 @@
-import 'package:eatwise/constants/ew_styles.dart';
-import 'package:flutter/material.dart';
-import 'package:eatwise/pages/home_page.dart';
+import 'package:eatwise/constants/ew_colors.dart';
+import 'package:eatwise/models/favorite_notifier.dart';
+import 'package:eatwise/models/product_notifier.dart';
 import 'package:eatwise/pages/favorites_page.dart';
-import 'package:eatwise/pages/shoppingcart_page.dart';
+import 'package:eatwise/pages/home_page.dart';
 import 'package:eatwise/pages/map_page.dart';
 import 'package:eatwise/pages/profile_page.dart';
+import 'package:eatwise/widgets/ew_scaffold.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => FavoriteItemsNotifier()),
+          ChangeNotifierProvider(create: (_) => ProductNotifier()),
+        ],
+        child: const MyApp(),
+      ),
+    );
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -14,6 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: MaterialYou(),
     );
   }
@@ -28,78 +40,91 @@ class MaterialYou extends StatefulWidget {
 
 class _MaterialYouState extends State<MaterialYou> {
   int _currentIndex = 0;
-  final List<Widget> pages = const [
-    HomePage(),
-    FavoritesPage(),
-    ShoppingCartPage(),
-    MapPage(),
-    ProfilePage(),
+  final List<Widget> pages = [
+    //Login(),
+    //const ShoppingCartPage(),
+    const HomePage(),
+    const FavoritesPage(),
+    const MapPage(),
+    const ProfilePage(),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color.fromRGBO(219, 216, 208, 86),
-            Colors.white,
-            Colors.white,
-          ],
-        ),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          title: const Text(
-            'Eatwise',
-            style: EWTextStyles.titleBold,
+    return EWScaffold(
+      body: pages[_currentIndex],
+      navBar: NavigationBar(
+        indicatorColor: EWColors.primary,
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.white,
+        selectedIndex: _currentIndex,
+        onDestinationSelected: (int newIndex) {
+          setState(() {
+            _currentIndex = newIndex;
+          });
+        },
+        destinations: const [
+          // NavigationDestination(
+          //   selectedIcon: Icon(Icons.face, color: EWColors.darkgreen),
+          //   icon: Icon(
+          //     Icons.face,
+          //     color: EWColors.darkgreen,
+          //   ),
+          //   label: 'Logga in',
+          // ),
+          // NavigationDestination(
+          //   selectedIcon: Icon(
+          //     Icons.shopping_basket,
+          //     color: EWColors.darkgreen,
+          //   ),
+          //   icon: Icon(
+          //     Icons.shopping_basket_outlined,
+          //     color: EWColors.darkgreen,
+          //   ),
+          //   label: 'Kundkorg',
+          // ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.home, color: EWColors.darkgreen),
+            icon: Icon(
+              Icons.home_outlined,
+              color: EWColors.darkgreen,
+            ),
+            label: 'Hem',
           ),
-          backgroundColor: Colors.transparent,
-        ),
-        body: Center(
-          child: pages[_currentIndex],
-        ),
-        bottomNavigationBar: NavigationBar(
-          indicatorColor: const Color.fromRGBO(127, 143, 110, 56),
-          backgroundColor: Colors.white,
-          surfaceTintColor: Colors.white,
-          selectedIndex: _currentIndex,
-          onDestinationSelected: (int newIndex) {
-            setState(() {
-              _currentIndex = newIndex;
-            });
-          },
-          destinations: const [
-            NavigationDestination(
-              selectedIcon: Icon(Icons.home),
-              icon: Icon(Icons.home_outlined),
-              label: 'Hem',
+          NavigationDestination(
+            selectedIcon: Icon(
+              Icons.favorite,
+              color: EWColors.darkgreen,
             ),
-            NavigationDestination(
-              selectedIcon: Icon(Icons.favorite),
-              icon: Icon(Icons.favorite_border_outlined),
-              label: 'Favoriter',
+            icon: Icon(
+              Icons.favorite_border_outlined,
+              color: EWColors.darkgreen,
             ),
-            NavigationDestination(
-              selectedIcon: Icon(Icons.shopping_basket),
-              icon: Icon(Icons.shopping_basket_outlined),
-              label: 'Kundkorg',
+            label: 'Favoriter',
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(
+              Icons.map,
+              color: EWColors.darkgreen,
             ),
-            NavigationDestination(
-              selectedIcon: Icon(Icons.map),
-              icon: Icon(Icons.map_outlined),
-              label: 'Karta',
+            icon: Icon(
+              Icons.map_outlined,
+              color: EWColors.darkgreen,
             ),
-            NavigationDestination(
-              selectedIcon: Icon(Icons.person),
-              icon: Icon(Icons.person_outlined),
-              label: 'Profil',
+            label: 'Karta',
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(
+              Icons.person,
+              color: EWColors.darkgreen,
             ),
-          ],
-        ),
+            icon: Icon(
+              Icons.person_outlined,
+              color: EWColors.darkgreen,
+            ),
+            label: 'Profil',
+          ),
+        ],
       ),
     );
   }

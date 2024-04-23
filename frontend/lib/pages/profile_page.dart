@@ -1,4 +1,4 @@
-import 'package:eatwise/constants/EW_styles.dart';
+import 'package:eatwise/widgets/ew_profile_list.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -6,7 +6,14 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-        child: Text('Profile Page', style: EWTextStyles.largeTitle));
+    return const Padding(
+        padding: EdgeInsets.symmetric(vertical: 100.0, horizontal: 23.0),
+        child: Column(
+          children: [
+            Expanded(
+              child: EWprofileList(),
+            ),
+          ],
+        ));
   }
 }
