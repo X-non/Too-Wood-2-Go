@@ -1,5 +1,6 @@
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
+import 'package:eatwise/models/category_notifier.dart';
 import 'package:eatwise/models/company_item.dart';
 import 'package:flutter/material.dart';
 
