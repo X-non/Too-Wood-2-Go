@@ -8,18 +8,23 @@ import 'package:eatwise/pages/map_page.dart';
 import 'package:eatwise/pages/profile_page.dart';
 import 'package:eatwise/widgets/ew_scaffold.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_config/flutter_config.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(
-      MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => FavoriteItemsNotifier()),
-          ChangeNotifierProvider(create: (_) => ProductNotifier()),
-          ChangeNotifierProvider(create: (_) => CategoryNotifier()),
-        ],
-        child: const MyApp(),
-      ),
-    );
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await FlutterConfig.loadEnvVariables();
+
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => FavoriteItemsNotifier()),
+        ChangeNotifierProvider(create: (_) => ProductNotifier()),
+      ],
+      child: const MyApp(), // Ensure MyApp is properly imported
+    ),
+  );
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
