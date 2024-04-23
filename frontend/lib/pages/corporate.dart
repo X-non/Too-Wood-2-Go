@@ -5,7 +5,7 @@ import 'package:eatwise/models/favorite_notifier.dart';
 import 'package:eatwise/models/product.dart';
 import 'package:eatwise/models/product_notifier.dart';
 import 'package:eatwise/pages/shoppingcart_page.dart';
-import 'package:eatwise/widgets/ew_categori_searchbar.dart';
+import 'package:eatwise/widgets/ew_category_searchbar.dart';
 import 'package:eatwise/widgets/ew_product_list.dart';
 import 'package:eatwise/widgets/ew_scaffold.dart';
 import 'package:eatwise/widgets/ew_shopping_cart_button.dart';
@@ -84,7 +84,7 @@ class _CorporatePageState extends State<CorporatePage> {
                   EWCompanyProfile(widget: widget),
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 16.0),
-                    child: EWCategoriSearchbar(),
+                    child: EWCategorySearchbar(),
                   ),
                   EWProductList(items: item),
                 ],

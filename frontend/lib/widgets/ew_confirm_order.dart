@@ -1,26 +1,18 @@
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/company_item.dart';
-import 'package:eatwise/pages/home_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
-
 
 class EWconfirmOrder extends StatefulWidget {
-  const EWconfirmOrder({super.key, required this.item}
-  );
+  const EWconfirmOrder({super.key, required this.item});
 
-  final CompanyItem item; 
+  final CompanyItem item;
   @override
   State<EWconfirmOrder> createState() => EWconfirmOrderState();
 }
 
 class EWconfirmOrderState extends State<EWconfirmOrder> {
-  void _onpressed() {
-    print("hej");
-  }
+  void _onpressed() {}
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +23,7 @@ class EWconfirmOrderState extends State<EWconfirmOrder> {
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
         border: Border.all(
-        color: Colors.black,
+          color: Colors.black,
         ),
       ),
       child: Column(
@@ -42,7 +34,7 @@ class EWconfirmOrderState extends State<EWconfirmOrder> {
                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 child: CircleAvatar(
                   radius: 20,
-                //  backgroundImage: AssetImage(item.icon),
+                  //  backgroundImage: AssetImage(item.icon),
                 ),
               ),
               SizedBox(

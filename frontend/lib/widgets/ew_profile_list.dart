@@ -1,10 +1,8 @@
 import 'package:eatwise/pages/log_out_page.dart';
 import 'package:eatwise/pages/payment_settings_page.dart';
-import 'package:eatwise/widgets/ew_scaffold.dart';
-import 'package:flutter/material.dart';
 import 'package:eatwise/pages/settings_page.dart';
-import 'package:flutter/widgets.dart';
 import 'package:eatwise/services/ew_tuple.dart';
+import 'package:flutter/material.dart';
 
 class EWprofileList extends StatelessWidget {
   const EWprofileList({super.key});
