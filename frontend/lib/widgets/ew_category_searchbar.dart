@@ -37,7 +37,7 @@ class EWCategorySearchbarState extends State<EWCategorySearchbar>
     setState(() {
       current = _categories[_tabController.index];
       Provider.of<CategoryNotifier>(context, listen: false)
-          .categoryProduct(current);
+          .createList([], current);
     });
   }
 

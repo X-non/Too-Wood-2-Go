@@ -28,6 +28,7 @@ class _CorporatePageState extends State<CorporatePage> {
   Widget build(BuildContext context) {
     final productItem = Provider.of<ProductNotifier>(context);
     final categoryItem = Provider.of<CategoryNotifier>(context);
+
     return PopScope(
         canPop: productItem.productItems.isEmpty ? true : false,
         onPopInvoked: (didPop) async {
@@ -60,7 +61,7 @@ class _CorporatePageState extends State<CorporatePage> {
                     padding: EdgeInsets.symmetric(vertical: 16.0),
                     child: EWCategorySearchbar(),
                   ),
-                  EWProductList(items: categoryItem.categoryItems),
+                  EWProductList(items: categoryItem.categoryitems),
                 ],
               ),
             ),
