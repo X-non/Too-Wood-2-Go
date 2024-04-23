@@ -1,4 +1,5 @@
 import 'package:eatwise/constants/ew_styles.dart';
+import 'package:eatwise/models/category_notifier.dart';
 import 'package:eatwise/models/company_item.dart';
 import 'package:eatwise/models/favorite_notifier.dart';
 import 'package:eatwise/pages/corporate.dart';
@@ -16,6 +17,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final favoriteItemsNotifier = Provider.of<FavoriteItemsNotifier>(context);
+    Provider.of<CategoryNotifier>(context).resetCategoryItems();
     return SingleChildScrollView(
       child: Column(
         children: [
