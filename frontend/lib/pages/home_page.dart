@@ -1,114 +1,117 @@
 import 'package:eatwise/constants/ew_styles.dart';
-import 'package:eatwise/widgets/ew_scaffold.dart';
+import 'package:eatwise/models/company_item.dart';
+import 'package:eatwise/models/favorite_notifier.dart';
+import 'package:eatwise/pages/corporate.dart';
+import 'package:eatwise/widgets/ew_company_container_small.dart';
+import 'package:eatwise/widgets/ew_company_list.dart';
+import 'package:eatwise/widgets/ew_search_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class Item {
-  final String img;
-  final String title;
-  final String subtitle;
-  final bool favorite;
-
-  Item(
-      {required this.img,
-      required this.favorite,
-      required this.subtitle,
-      required this.title});
-}
-
-const List<String> companyNames = [
-  'UNO',
-  'Gateau',
-  'Bröd och Salt',
-  'Espresso House',
-  'ICA',
-  'Güntherska',
-  'Landings',
-  'Centralbageriet',
-  'Forsa',
-  'Leijon bageri',
-];
-
-const List<String> companyDescription = [
-  'Bröd och annat',
-  'Torra bullar',
-  'Gott gott gott',
-  'Espresso House',
-  'ICA',
-  'Güntherska',
-  'Landings',
-  'Centralbageriet',
-  'Forsa',
-  'Leijon bageri',
-];
-
-final List<Item> items = List<Item>.generate(
-    10,
-    (index) => Item(
-        img: 'assets/image/Gateau1.jpg',
-        favorite: false,
-        subtitle: companyDescription[index],
-        title: companyNames[index]));
+final List<CompanyItem> items = CompanyItem.mockdata();
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return EWScaffold(
-        body: ListView.builder(
-      itemCount: items.length,
-      itemBuilder: (context, index) {
-        final item = items[index];
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
-          child: Container(
-              height: 150,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    color: const Color.fromRGBO(173, 175, 145, 69),
-                  )),
-              child: Column(
-                children: [
-                  ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20)),
-                    child: Image.asset(
-                        width: double.infinity,
-                        height: 75,
-                        fit: BoxFit.fitWidth,
-                        item.img),
+    final favoriteItemsNotifier = Provider.of<FavoriteItemsNotifier>(context);
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          const Row(
+            children: [
+              SizedBox(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    "Vad är du sugen på?",
+                    style: EWTextStyles.titleBold,
                   ),
+                ),
+              ),
+            ],
+          ),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+            child: SizedBox(
+              child: EWSearchBar(),
+            ),
+          ),
+          Column(
+            children: [
+              const Row(
+                children: [
                   Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              item.title,
-                              style: EWTextStyles.titleBold,
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              item.subtitle,
-                              style: EWTextStyles.icon,
-                            ),
-                          ],
-                        ),
-                      ],
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                    child: Text(
+                      "Dina favoriter",
+                      style: EWTextStyles.headline,
                     ),
                   ),
                 ],
-              )),
-        );
-      },
-    ));
+              ),
+              favoriteItemsNotifier.favoriteItems.isEmpty
+                  ? const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 20.0),
+                      child: Text(
+                        'Du har inte några favoriter',
+                        style: EWTextStyles.body,
+                      ),
+                    )
+                  : SizedBox(
+                      height: 200,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: favoriteItemsNotifier.favoriteItems.length,
+                        itemBuilder: (context, index) {
+                          final item =
+                              favoriteItemsNotifier.favoriteItems[index];
+                          return Padding(
+                            padding: index == 0
+                                ? const EdgeInsets.only(
+                                    left: 16, right: 16, top: 4, bottom: 4)
+                                : const EdgeInsets.only(
+                                    right: 16, top: 4, bottom: 4),
+                            child: EWCompanyContainerSmall(
+                              item: item,
+                              navToBusiness: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          CorporatePage(
+                                            item: item,
+                                          ))),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+            ],
+          ),
+
+          // Vertical ListView
+          Column(
+            children: [
+              const Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                    child: Text(
+                      "Butiker i din närhet",
+                      style: EWTextStyles.headline,
+                    ),
+                  ),
+                ],
+              ),
+              EWCompanyList(
+                items: items,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
