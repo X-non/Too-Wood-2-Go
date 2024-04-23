@@ -16,7 +16,7 @@ class ProductItem {
       required this.category});
 }
 
-final List<ProductItem> item = [
+final List<ProductItem> productItems = [
   ProductItem(
       img: 'assets/image/Gateau1.jpg',
       name: 'Vatten',

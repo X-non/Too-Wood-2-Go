@@ -1,6 +1,7 @@
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/category_notifier.dart';
+import 'package:eatwise/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -37,7 +38,7 @@ class EWCategoriSearchbarState extends State<EWCategoriSearchbar>
     setState(() {
       current = _categories[_tabController.index];
       Provider.of<CategoryNotifier>(context, listen: false)
-          .categoryProduct(current);
+          .createList([], current);
     });
   }
 
