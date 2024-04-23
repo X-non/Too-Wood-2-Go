@@ -15,7 +15,7 @@ void main() => runApp(
         providers: [
           ChangeNotifierProvider(create: (_) => FavoriteItemsNotifier()),
           ChangeNotifierProvider(create: (_) => ProductNotifier()),
-          ChangeNotifierProvider(create: (context) => CategoryNotifier()),
+          ChangeNotifierProvider(create: (_) => CategoryNotifier()),
         ],
         child: const MyApp(),
       ),

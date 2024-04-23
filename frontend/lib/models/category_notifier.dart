@@ -19,4 +19,8 @@ class CategoryNotifier extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  void resetCategoryItems() {
+    _categoryItems = item;
+  }
 }
