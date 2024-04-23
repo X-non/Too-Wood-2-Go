@@ -1,6 +1,8 @@
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
+import 'package:eatwise/models/category_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class EWCategorySearchbar extends StatefulWidget {
   const EWCategorySearchbar({super.key});
@@ -13,7 +15,10 @@ class EWCategorySearchbarState extends State<EWCategorySearchbar>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
+  String current = "";
+
   final List<String> _categories = [
+    'Allt',
     'Konditori',
     'Sallad',
     'Bröd',
@@ -29,7 +34,11 @@ class EWCategorySearchbarState extends State<EWCategorySearchbar>
   }
 
   void _updateTabStyling() {
-    setState(() {});
+    setState(() {
+      current = _categories[_tabController.index];
+      Provider.of<CategoryNotifier>(context, listen: false)
+          .categoryProduct(current);
+    });
   }
 
   @override

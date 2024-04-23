@@ -1,8 +1,8 @@
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
+import 'package:eatwise/models/category_notifier.dart';
 import 'package:eatwise/models/company_item.dart';
 import 'package:eatwise/models/favorite_notifier.dart';
-import 'package:eatwise/models/product.dart';
 import 'package:eatwise/models/product_notifier.dart';
 import 'package:eatwise/pages/shoppingcart_page.dart';
 import 'package:eatwise/widgets/ew_category_searchbar.dart';
@@ -22,38 +22,12 @@ class CorporatePage extends StatefulWidget {
 }
 
 class _CorporatePageState extends State<CorporatePage> {
-  final List<ProductItem> item = [
-    ProductItem(
-        img: 'assets/image/Gateau1.jpg',
-        name: 'Vatten',
-        priceOld: '100 kr',
-        priceNew: '10 kr',
-        amount: 0),
-    ProductItem(
-        img: 'assets/image/Gateau1.jpg',
-        name: 'Saft',
-        priceOld: '100 kr',
-        priceNew: '10 kr',
-        amount: 0),
-    ProductItem(
-        img: 'assets/image/Gateau1.jpg',
-        name: 'Bullar',
-        priceOld: '100 kr',
-        priceNew: '10 kr',
-        amount: 0),
-    ProductItem(
-        img: 'assets/image/Gateau1.jpg',
-        name: 'Kakor',
-        priceOld: '100 kr',
-        priceNew: '10 kr',
-        amount: 0),
-  ];
-
   bool _showExitConfirmation = false;
 
   @override
   Widget build(BuildContext context) {
     final productItem = Provider.of<ProductNotifier>(context);
+    final categoryItem = Provider.of<CategoryNotifier>(context);
     return PopScope(
         canPop: productItem.productItems.isEmpty ? true : false,
         onPopInvoked: (didPop) async {
@@ -86,7 +60,7 @@ class _CorporatePageState extends State<CorporatePage> {
                     padding: EdgeInsets.symmetric(vertical: 16.0),
                     child: EWCategorySearchbar(),
                   ),
-                  EWProductList(items: item),
+                  EWProductList(items: categoryItem.categoryItems),
                 ],
               ),
             ),
