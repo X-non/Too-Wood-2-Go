@@ -25,48 +25,52 @@ class Register extends StatelessWidget {
               ),
             ]),
           ),
-          const Expanded(child: Column()),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  'Eatwise',
-                  style: EWTextStyles.titleBold,
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: SizedBox(
-                  child: EWLoginBar(
-                    name: 'Email',
+          const Spacer(),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 100.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    'Eatwise',
+                    style: EWTextStyles.titleBold,
                   ),
                 ),
-              ),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: SizedBox(
-                  child: EWLoginBar(name: 'Användarnamn'),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    child: EWLoginBar(
+                      name: 'Email',
+                    ),
+                  ),
                 ),
-              ),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: SizedBox(
-                  child: EWPasswordBar(),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    child: EWLoginBar(name: 'Användarnamn'),
+                  ),
                 ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  print('hej');
-                },
-                style: const ButtonStyle(
-                  backgroundColor:
-                      MaterialStatePropertyAll(EWColors.lightgreen),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    child: EWPasswordBar(),
+                  ),
                 ),
-                child: const Text("Registrera dig"),
-              ),
-            ],
+                ElevatedButton(
+                  onPressed: () {},
+                  style: const ButtonStyle(
+                    backgroundColor:
+                        MaterialStatePropertyAll(EWColors.lightgreen),
+                  ),
+                  child: const Text(
+                    "Registrera dig",
+                    style: EWTextStyles.body,
+                  ),
+                ),
+              ],
+            ),
           ),
           const Expanded(child: Column()),
         ],

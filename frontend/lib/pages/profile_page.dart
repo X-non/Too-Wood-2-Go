@@ -1,3 +1,5 @@
+import 'package:eatwise/constants/EW_styles.dart';
+import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/widgets/ew_profile_list.dart';
 import 'package:flutter/material.dart';
 
@@ -6,14 +8,34 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-        padding: EdgeInsets.symmetric(vertical: 100.0, horizontal: 23.0),
-        child: Column(
+    return const Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Row(
           children: [
-            Expanded(
-              child: EWprofileList(),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Icon(
+                Icons.person_outline,
+                size: 50,
+                color: EWColors.darkgreen,
+              ),
+            ),
+            SizedBox(
+              child: Text(
+                "Profil",
+                style: EWTextStyles.titleBold,
+              ),
             ),
           ],
-        ));
+        ),
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            child: EWprofileList(),
+          ),
+        ),
+      ],
+    );
   }
 }
