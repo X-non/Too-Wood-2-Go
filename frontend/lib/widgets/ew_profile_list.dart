@@ -72,18 +72,31 @@ class LogOut extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Vill du logga ut?'),
-      content: const Text('Är du säker på att du vill logga ut?'),
+      backgroundColor: Colors.white,
+      title: const Text(
+        'Vill du logga ut?',
+        style: EWTextStyles.headline,
+      ),
+      content: const Text(
+        'Är du säker på att du vill logga ut?',
+        style: EWTextStyles.body,
+      ),
       actions: <Widget>[
-        TextButton(
-          onPressed: () => Navigator.pop(context, 'Avbryt'),
-          child: const Text('Avbryt'),
-        ),
         TextButton(
           onPressed: () {
             Navigator.pop(context, 'Ja, logga ut mig');
           },
-          child: const Text('Ja, logga ut mig'),
+          child: const Text(
+            'Ja, logga ut mig',
+            style: EWTextStyles.body,
+          ),
+        ),
+        TextButton(
+          onPressed: () => Navigator.pop(context, 'Avbryt'),
+          child: const Text(
+            'Avbryt',
+            style: EWTextStyles.body,
+          ),
         ),
       ],
     );
