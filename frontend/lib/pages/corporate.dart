@@ -90,18 +90,17 @@ class _CorporatePageState extends State<CorporatePage> {
                     color: Colors.black.withOpacity(0.5),
                     child: Center(
                       child: AlertDialog(
-                        title: const Text('Är du säker?'),
+                        backgroundColor: Colors.white,
+                        surfaceTintColor: Colors.transparent,
+                        title: const Text(
+                          'Är du säker?',
+                          style: EWTextStyles.headline,
+                        ),
                         content: const Text(
-                            'Om du lämnar sidan kommer din kundkorg att raderas'),
+                          'Om du lämnar sidan kommer din kundkorg att raderas',
+                          style: EWTextStyles.body,
+                        ),
                         actions: [
-                          TextButton(
-                            onPressed: () {
-                              setState(() {
-                                _showExitConfirmation = false;
-                              });
-                            },
-                            child: const Text('Avbryt'),
-                          ),
                           TextButton(
                             onPressed: () {
                               setState(() {
@@ -110,7 +109,21 @@ class _CorporatePageState extends State<CorporatePage> {
                               Navigator.pop(context);
                               productItem.removeAll();
                             },
-                            child: const Text('Ja'),
+                            child: const Text(
+                              'Ja',
+                              style: EWTextStyles.body,
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              setState(() {
+                                _showExitConfirmation = false;
+                              });
+                            },
+                            child: const Text(
+                              'Avbryt',
+                              style: EWTextStyles.body,
+                            ),
                           ),
                         ],
                       ),
