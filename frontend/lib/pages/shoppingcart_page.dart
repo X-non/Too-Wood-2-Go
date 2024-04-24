@@ -117,20 +117,31 @@ class EWdeleteCart extends StatelessWidget {
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                title: const Text("Är du säker?"),
+                backgroundColor: Colors.white,
+                surfaceTintColor: Colors.transparent,
+                title: const Text(
+                  "Är du säker?",
+                  style: EWTextStyles.headline,
+                ),
                 actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text("Avbryt"),
-                  ),
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                       productNotifier.removeAll();
                     },
-                    child: const Text("Ta Bort"),
+                    child: const Text(
+                      "Ja, ta bort",
+                      style: EWTextStyles.body,
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text(
+                      "Avbryt",
+                      style: EWTextStyles.body,
+                    ),
                   ),
                 ],
               );

@@ -73,13 +73,10 @@ class LogOut extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Colors.white,
+      surfaceTintColor: Colors.transparent,
       title: const Text(
         'Vill du logga ut?',
         style: EWTextStyles.headline,
-      ),
-      content: const Text(
-        'Är du säker på att du vill logga ut?',
-        style: EWTextStyles.body,
       ),
       actions: <Widget>[
         TextButton(
