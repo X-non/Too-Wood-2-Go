@@ -1,30 +1,37 @@
 import 'package:eatwise/backend/maps.dart';
 import 'package:eatwise/constants/EW_styles.dart';
 import 'package:eatwise/constants/ew_colors.dart';
-import 'package:eatwise/widgets/ew_scaffold.dart';
+import 'package:eatwise/models/company_item.dart';
+import 'package:eatwise/widgets/ew_company_list.dart';
 import 'package:flutter/material.dart';
+
+final List<CompanyItem> items = CompanyItem.mockdata();
 
 class MapPage extends StatelessWidget {
   const MapPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return EWScaffold(
-        body: Column(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Row(
-            children: [
-              const Icon(Icons.map, color: EWColors.darkgreen),
-              const SizedBox(width: 10),
-              Text(
-                "Karta",
-                style:
-                    EWTextStyles.titleBold.copyWith(color: EWColors.darkgreen),
+        const Row(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Icon(
+                Icons.map_outlined,
+                size: 50,
+                color: EWColors.darkgreen,
               ),
-            ],
-          ),
+            ),
+            SizedBox(
+              child: Text(
+                "Karta",
+                style: EWTextStyles.titleBold,
+              ),
+            ),
+          ],
         ),
         Expanded(
             child: Padding(
@@ -38,20 +45,23 @@ class MapPage extends StatelessWidget {
                     child: const EWMap(),
                   ),
                 ))),
-        SizedBox(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            child: Text(
-              "Butiker i din närhet",
-              style: EWTextStyles.headline.copyWith(color: EWColors.darkgreen),
+        const Row(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+              child: Text(
+                "Butiker i din närhet",
+                style: EWTextStyles.headline,
+              ),
             ),
-          ),
+          ],
         ),
-        const Expanded(
+        Expanded(
             child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
+          child: EWCompanyList(items: items),
         ))
       ],
-    ));
+    );
   }
 }
