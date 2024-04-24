@@ -50,21 +50,25 @@ class Login extends StatelessWidget {
                 ),
               ),
               ElevatedButton(
-                onPressed: () {
-                  print('hej');
-                },
+                onPressed: () {},
                 style: const ButtonStyle(
                   backgroundColor:
                       MaterialStatePropertyAll(EWColors.lightgreen),
                 ),
-                child: const Text("Logga in"),
+                child: const Text(
+                  "Logga in",
+                  style: EWTextStyles.body,
+                ),
               ),
               TextButton(
                 onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (BuildContext context) => const Register())),
-                child: const Text("Registrera dig"),
+                child: Text(
+                  "Registrera dig",
+                  style: EWTextStyles.body.copyWith(color: EWColors.primary),
+                ),
               ),
             ],
           ),
