@@ -1,18 +1,17 @@
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/category_notifier.dart';
-import 'package:eatwise/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class EWCategoriSearchbar extends StatefulWidget {
-  const EWCategoriSearchbar({super.key});
+class EWCategorySearchbar extends StatefulWidget {
+  const EWCategorySearchbar({super.key});
 
   @override
-  State<EWCategoriSearchbar> createState() => EWCategoriSearchbarState();
+  State<EWCategorySearchbar> createState() => EWCategorySearchbarState();
 }
 
-class EWCategoriSearchbarState extends State<EWCategoriSearchbar>
+class EWCategorySearchbarState extends State<EWCategorySearchbar>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 

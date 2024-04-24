@@ -1,6 +1,5 @@
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
-import 'package:eatwise/models/product.dart';
 import 'package:eatwise/models/product_notifier.dart';
 import 'package:eatwise/pages/payment.dart';
 import 'package:eatwise/widgets/ew_product_list.dart';

@@ -17,13 +17,13 @@ class EWSearchBar extends StatelessWidget {
             decoration: InputDecoration(
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
-                  borderSide: const BorderSide(color: EWColors.primary)),
+                  borderSide: const BorderSide(color: EWColors.lightgreen)),
               focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
-                  borderSide: const BorderSide(color: EWColors.primary)),
+                  borderSide: const BorderSide(color: EWColors.lightgreen)),
               enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
-                  borderSide: const BorderSide(color: EWColors.primary)),
+                  borderSide: const BorderSide(color: EWColors.lightgreen)),
               hintText: 'Sök',
               contentPadding: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
               prefixIcon: const Icon(Icons.search),

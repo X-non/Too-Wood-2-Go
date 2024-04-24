@@ -1,9 +1,9 @@
 import 'package:eatwise/models/category_notifier.dart';
 import 'package:eatwise/models/company_item.dart';
+import 'package:eatwise/models/product.dart';
 import 'package:eatwise/pages/corporate.dart';
 import 'package:eatwise/widgets/ew_company_container.dart';
 import 'package:flutter/material.dart';
-import 'package:eatwise/models/product.dart';
 import 'package:provider/provider.dart';
 
 class EWCompanyList extends StatelessWidget {
