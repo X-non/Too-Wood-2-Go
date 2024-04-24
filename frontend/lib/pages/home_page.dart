@@ -34,12 +34,13 @@ class HomePage extends StatelessWidget {
               ),
             ],
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-            child: SizedBox(
-              child: EWSearchBar(),
-            ),
-          ),
+          Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+              child: SizedBox(
+                child: EWSearchBar(
+                  corporationNames: items,
+                ),
+              )),
           Column(
             children: [
               const Row(

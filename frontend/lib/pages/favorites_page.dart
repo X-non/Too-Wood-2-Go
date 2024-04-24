@@ -1,13 +1,14 @@
 import 'package:eatwise/constants/EW_styles.dart';
 import 'package:eatwise/constants/ew_colors.dart';
+import 'package:eatwise/models/company_item.dart';
 import 'package:eatwise/models/favorite_notifier.dart';
 import 'package:eatwise/widgets/ew_company_list.dart';
 import 'package:eatwise/widgets/ew_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-// final List<CompanyItem> allItems = CompanyItem.mockdata();
-// final List<CompanyItem> favoriteItems = CompanyItem.getFavorites(allItems);
+//final List<CompanyItem> allItems = CompanyItem.mockdata();
+//final List<CompanyItem> favoriteItems = CompanyItem.getFavorites(allItems);
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
@@ -46,10 +47,12 @@ class _FavoritesPageState extends State<FavoritesPage> {
           ),
           favoriteItemsNotifier.favoriteItems.isEmpty
               ? const SizedBox()
-              : const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+              : Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                   child: SizedBox(
-                    child: EWSearchBar(),
+                    child: EWSearchBar(
+                        corporationNames: favoriteItemsNotifier.favoriteItems),
                   ),
                 ),
           favoriteItemsNotifier.favoriteItems.isEmpty
