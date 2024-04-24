@@ -83,7 +83,7 @@ class EWSettingButton extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Text(
-                        'Ändra $settingLabel:',
+                        'Ändra ${settingLabel.toLowerCase()}:',
                         style: EWTextStyles.headline,
                       ),
                       const Padding(
