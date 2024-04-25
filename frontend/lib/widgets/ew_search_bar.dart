@@ -14,11 +14,13 @@ class EWSearchBar extends StatelessWidget {
 
   final ButtonStyle evelvatedButtonStyle = ElevatedButton.styleFrom(
       backgroundColor: Colors.white,
+      surfaceTintColor: Colors.transparent,
+      shadowColor: Colors.transparent,
       padding: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
       minimumSize: const Size(double.infinity, 48),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30),
-      ));
+          borderRadius: BorderRadius.circular(30),
+          side: const BorderSide(color: EWColors.lightgreen)));
 
   @override
   Widget build(BuildContext context) {
