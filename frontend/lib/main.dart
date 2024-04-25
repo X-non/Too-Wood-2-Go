@@ -26,6 +26,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => ProductNotifier()),
         ChangeNotifierProvider(create: (_) => CategoryNotifier()),
         ChangeNotifierProvider(create: (_) => PickUpNotifier()),
+        ChangeNotifierProvider(create: (_) => PickUpNotifier()),
         ChangeNotifierProvider(create: (_) => LoginNotifier()),
       ],
       child: const MyApp(), // Ensure MyApp is properly imported
