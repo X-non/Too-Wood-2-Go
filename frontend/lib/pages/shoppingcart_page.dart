@@ -1,7 +1,8 @@
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
+import 'package:eatwise/models/company_item.dart';
+import 'package:eatwise/models/pickup_notifier.dart';
 import 'package:eatwise/models/product_notifier.dart';
-import 'package:eatwise/pages/payment.dart';
 import 'package:eatwise/widgets/ew_product_list.dart';
 import 'package:eatwise/widgets/ew_scaffold.dart';
 import 'package:eatwise/widgets/ew_shopping_cart_button.dart';
@@ -9,9 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ShoppingCartPage extends StatefulWidget {
-  const ShoppingCartPage({super.key, required this.companyName});
+  const ShoppingCartPage({super.key, required this.company});
 
-  final String companyName;
+  final CompanyItem company;
 
   @override
   State<ShoppingCartPage> createState() => _ShoppingCartPageState();
@@ -21,6 +22,8 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
   @override
   Widget build(BuildContext context) {
     final productItem = Provider.of<ProductNotifier>(context);
+    // final pickupItem = Provider.of<PickUpNotifier>(context); TODO
+
     if (productItem.productItems.isEmpty) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Navigator.pop(context);
@@ -60,7 +63,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                         padding: const EdgeInsets.symmetric(
                             vertical: 8, horizontal: 20),
                         child: Text(
-                          widget.companyName,
+                          widget.company.title,
                           style: EWTextStyles.title
                               .copyWith(color: EWColors.darkbrown),
                         ),
@@ -90,11 +93,10 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 50.0),
                     child: EWshoppingCartButton(
-                      onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  const Payment())),
+                      onTap: () => {
+                        Provider.of<PickUpNotifier>(context)
+                            .togglePickUp(widget.company)
+                      },
                       buttonText: 'Betala',
                     ),
                   ),

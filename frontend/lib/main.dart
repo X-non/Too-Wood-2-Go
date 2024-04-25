@@ -1,10 +1,10 @@
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/models/category_notifier.dart';
 import 'package:eatwise/models/favorite_notifier.dart';
+import 'package:eatwise/models/pickup_notifier.dart';
 import 'package:eatwise/models/product_notifier.dart';
 import 'package:eatwise/pages/favorites_page.dart';
 import 'package:eatwise/pages/home_page.dart';
-import 'package:eatwise/pages/login.dart';
 import 'package:eatwise/pages/map_page.dart';
 import 'package:eatwise/pages/profile_page.dart';
 import 'package:eatwise/widgets/ew_scaffold.dart';
@@ -21,7 +21,8 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => FavoriteItemsNotifier()),
         ChangeNotifierProvider(create: (_) => ProductNotifier()),
-        ChangeNotifierProvider(create: (_) => CategoryNotifier())
+        ChangeNotifierProvider(create: (_) => CategoryNotifier()),
+        ChangeNotifierProvider(create: (_) => PickUpNotifier())
       ],
       child: const MyApp(), // Ensure MyApp is properly imported
     ),
@@ -50,7 +51,7 @@ class MaterialYou extends StatefulWidget {
 class _MaterialYouState extends State<MaterialYou> {
   int _currentIndex = 0;
   final List<Widget> pages = [
-    const Login(),
+    //const Login(),
     //const ShoppingCartPage(),
     const HomePage(),
     const FavoritesPage(),
@@ -73,14 +74,14 @@ class _MaterialYouState extends State<MaterialYou> {
           });
         },
         destinations: const [
-          NavigationDestination(
-            selectedIcon: Icon(Icons.face, color: EWColors.darkgreen),
-            icon: Icon(
-              Icons.face,
-              color: EWColors.darkgreen,
-            ),
-            label: 'Logga in',
-          ),
+          // NavigationDestination(
+          //   selectedIcon: Icon(Icons.face, color: EWColors.darkgreen),
+          //   icon: Icon(
+          //     Icons.face,
+          //     color: EWColors.darkgreen,
+          //   ),
+          //   label: 'Logga in',
+          // ),
           // NavigationDestination(
           //   selectedIcon: Icon(
           //     Icons.shopping_basket,
