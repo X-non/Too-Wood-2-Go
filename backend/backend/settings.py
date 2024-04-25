@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -109,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AWS_ACCESS_KEY_ID = "AKIA6ODU75VINENSSC7B"
-AWS_SECRET_ACCESS_KEY = "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"
+AWS_SECRET_ACCESS_KEY = config("SECRET_KEY")
 AWS_STORAGE_BUCKET_NAME = "eatwisebucket"
 AWS_S3_REGION_NAME = "eu-north-1"
 AWS_S3_SIGNATURE_NAME = "s3v4"
