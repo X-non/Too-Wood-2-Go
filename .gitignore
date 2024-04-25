@@ -163,3 +163,7 @@ cython_debug/
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+backend/aws/install
+backend/aws/README.md
+backend/aws/THIRD_PARTY_LICENSES
+backend/awscliv2.zip
