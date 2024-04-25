@@ -4,24 +4,25 @@ import 'package:eatwise/models/account.dart';
 import 'package:eatwise/widgets/ew_scaffold.dart';
 import 'package:flutter/material.dart';
 
-final List<AccountItem> accountinfo = AccountItem.mockdata();
-
 class SettingsPage extends StatelessWidget {
-  const SettingsPage({super.key});
+  SettingsPage({super.key});
 
-  //const SettingsPage({super.key});
+  final List<String> settingLabels = [
+    'Användarnamn',
+    'E-post',
+    'Telefonnummer',
+    'Lösenord'
+  ];
+
+  final AccountItem value = AccountItem.mockdata();
 
   @override
   Widget build(BuildContext context) {
     return EWScaffold(
-      appBar: AppBar(
-        surfaceTintColor: Colors.transparent,
-        backgroundColor: Colors.transparent,
-      ),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: [
-            Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 4),
               child: Align(
                 alignment: Alignment.centerLeft,
@@ -31,9 +32,21 @@ class SettingsPage extends StatelessWidget {
                 ),
               ),
             ),
-            EWSettingbutton(
-              settingtype: 'Användarnamn',
-              accountinfo: 'Cissi123',
+            ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: settingLabels.length,
+              itemBuilder: (context, index) {
+                return EWSettingButton(
+                  settingLabel: settingLabels[index],
+                  settingValue: [
+                    value.username,
+                    value.email,
+                    value.phonenumber,
+                    value.password
+                  ][index],
+                );
+              },
             ),
           ],
         ),
@@ -42,15 +55,15 @@ class SettingsPage extends StatelessWidget {
   }
 }
 
-class EWSettingbutton extends StatelessWidget {
-  const EWSettingbutton({
+class EWSettingButton extends StatelessWidget {
+  const EWSettingButton({
     super.key,
-    required this.settingtype,
-    required this.accountinfo,
+    required this.settingLabel,
+    required this.settingValue,
   });
 
-  final String settingtype;
-  final String accountinfo;
+  final String settingLabel;
+  final String settingValue;
 
   @override
   Widget build(BuildContext context) {
@@ -63,16 +76,19 @@ class EWSettingbutton extends StatelessWidget {
             builder: (BuildContext context) {
               return Container(
                 height: 200,
-                color: Colors.amber,
+                color: Colors.white,
                 child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      const Text('Modal BottomSheet'),
-                      ElevatedButton(
-                        child: const Text('Close BottomSheet'),
-                        onPressed: () => Navigator.pop(context),
+                      Text(
+                        'Ändra ${settingLabel.toLowerCase()}:',
+                        style: EWTextStyles.headline,
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: TextField(),
                       ),
                     ],
                   ),
@@ -94,10 +110,16 @@ class EWSettingbutton extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
-                child: Text('$settingtype: '),
+                child: Text(
+                  '$settingLabel: ',
+                  style: EWTextStyles.body,
+                ),
               ),
               const Spacer(),
-              Text(accountinfo),
+              Text(
+                settingValue,
+                style: EWTextStyles.body,
+              ),
               const Padding(
                 padding: EdgeInsets.only(right: 8.0),
                 child: Icon(Icons.chevron_right_sharp),

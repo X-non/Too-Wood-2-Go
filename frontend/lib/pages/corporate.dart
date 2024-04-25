@@ -1,12 +1,12 @@
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
+import 'package:eatwise/models/category_notifier.dart';
 import 'package:eatwise/models/company_item.dart';
 import 'package:eatwise/models/favorite_notifier.dart';
-import 'package:eatwise/models/product.dart';
 import 'package:eatwise/models/product_notifier.dart';
 import 'package:eatwise/pages/shoppingcart_page.dart';
-import 'package:eatwise/widgets/ew_categori_searchbar.dart';
-import 'package:eatwise/widgets/ew_product_widget.dart';
+import 'package:eatwise/widgets/ew_category_searchbar.dart';
+import 'package:eatwise/widgets/ew_product_list.dart';
 import 'package:eatwise/widgets/ew_scaffold.dart';
 import 'package:eatwise/widgets/ew_shopping_cart_button.dart';
 import 'package:flutter/material.dart';
@@ -22,18 +22,13 @@ class CorporatePage extends StatefulWidget {
 }
 
 class _CorporatePageState extends State<CorporatePage> {
-  final ProductItem item = (ProductItem(
-      img: 'assets/image/Gateau1.jpg',
-      name: 'Vatten',
-      priceOld: '100 kr',
-      priceNew: '10 kr',
-      amount: 0));
-
   bool _showExitConfirmation = false;
 
   @override
   Widget build(BuildContext context) {
     final productItem = Provider.of<ProductNotifier>(context);
+    final categoryItem = Provider.of<CategoryNotifier>(context);
+
     return PopScope(
         canPop: productItem.productItems.isEmpty ? true : false,
         onPopInvoked: (didPop) async {
@@ -64,12 +59,9 @@ class _CorporatePageState extends State<CorporatePage> {
                   EWCompanyProfile(widget: widget),
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 16.0),
-                    child: EWCategoriSearchbar(),
+                    child: EWCategorySearchbar(),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: EWProductWidget(product: item),
-                  ),
+                  EWProductList(items: categoryItem.categoryitems),
                 ],
               ),
             ),
@@ -98,18 +90,17 @@ class _CorporatePageState extends State<CorporatePage> {
                     color: Colors.black.withOpacity(0.5),
                     child: Center(
                       child: AlertDialog(
-                        title: const Text('Är du säker?'),
+                        backgroundColor: Colors.white,
+                        surfaceTintColor: Colors.transparent,
+                        title: const Text(
+                          'Är du säker?',
+                          style: EWTextStyles.headline,
+                        ),
                         content: const Text(
-                            'Om du lämnar sidan kommer din kundkorg att raderas'),
+                          'Om du lämnar sidan kommer din kundkorg att raderas',
+                          style: EWTextStyles.body,
+                        ),
                         actions: [
-                          TextButton(
-                            onPressed: () {
-                              setState(() {
-                                _showExitConfirmation = false;
-                              });
-                            },
-                            child: const Text('Avbryt'),
-                          ),
                           TextButton(
                             onPressed: () {
                               setState(() {
@@ -118,7 +109,21 @@ class _CorporatePageState extends State<CorporatePage> {
                               Navigator.pop(context);
                               productItem.removeAll();
                             },
-                            child: const Text('Ja'),
+                            child: const Text(
+                              'Ja',
+                              style: EWTextStyles.body,
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              setState(() {
+                                _showExitConfirmation = false;
+                              });
+                            },
+                            child: const Text(
+                              'Avbryt',
+                              style: EWTextStyles.body,
+                            ),
                           ),
                         ],
                       ),
