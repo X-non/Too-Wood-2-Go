@@ -7,9 +7,9 @@ from rest_framework.request import Request
 from rest_framework.status import HTTP_400_BAD_REQUEST
 from django.http.response import HttpResponseBadRequest
 from user_api import serializer
-from foretag.models import Store
+from foretag.models import Ad, Store
 from user_api.models import MobileUser
-from user_api.serializer import StoreSerialiser
+from user_api.serializer import AdSerializer, StoreSerialiser
 from django.db.models import F
 
 
@@ -94,3 +94,21 @@ class Favorites(APIView):
             user.favorite_stores.remove(store)
 
         return Response()
+
+
+class Ads(APIView):
+    serializer = AdSerializer
+    queryset = Ad.objects.all()
+    authentication_classes = [TokenAuthentication]
+
+    def get(self, request, store_id):
+        if not Store.objects.filter(slug_name=store_id):
+            return JsonResponse(
+                data={"reason": "unknown store", "context": "no store with name"},
+                status=HTTP_400_BAD_REQUEST,
+            )
+
+        queryset = self.queryset.filter(store__slug_name=store_id)
+        serializer = self.serializer(queryset, many=True)
+
+        return Response(serializer.data)
