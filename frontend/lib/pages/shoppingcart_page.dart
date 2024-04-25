@@ -92,12 +92,11 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 50.0),
                     child: EWshoppingCartButton(
-                      onTap: () => {
+                      onTap: () {
                         Provider.of<PickUpNotifier>(context, listen: false)
-                            .addPickUp(widget.company),
+                            .addPickUp(widget.company);
                         Provider.of<ProductNotifier>(context, listen: false)
-                            .removeAll(),
-                        Navigator.of(context).pop()
+                            .removeAll();
                       },
                       buttonText: 'Betala',
                     ),

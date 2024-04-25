@@ -23,6 +23,7 @@ class EWconfirmOrderState extends State<EWconfirmOrder> {
       ),
       child: Container(
         height: 180,
+        width: 350,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(15),
@@ -64,10 +65,10 @@ class EWconfirmOrderState extends State<EWconfirmOrder> {
                 ),
               ),
               InkWell(
-                onTap: () => () => {
-                      Provider.of<PickUpNotifier>(context, listen: false)
-                          .removePickUp(widget.item),
-                    },
+                onTap: () {
+                  Provider.of<PickUpNotifier>(context, listen: false)
+                      .removePickUp(widget.item);
+                },
                 child: Row(
                   children: [
                     Expanded(

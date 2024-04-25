@@ -51,8 +51,6 @@ class MaterialYou extends StatefulWidget {
 class _MaterialYouState extends State<MaterialYou> {
   int _currentIndex = 0;
   final List<Widget> pages = [
-    //const Login(),
-    //const ShoppingCartPage(),
     const HomePage(),
     const FavoritesPage(),
     const MapPage(),
@@ -74,25 +72,6 @@ class _MaterialYouState extends State<MaterialYou> {
           });
         },
         destinations: const [
-          // NavigationDestination(
-          //   selectedIcon: Icon(Icons.face, color: EWColors.darkgreen),
-          //   icon: Icon(
-          //     Icons.face,
-          //     color: EWColors.darkgreen,
-          //   ),
-          //   label: 'Logga in',
-          // ),
-          // NavigationDestination(
-          //   selectedIcon: Icon(
-          //     Icons.shopping_basket,
-          //     color: EWColors.darkgreen,
-          //   ),
-          //   icon: Icon(
-          //     Icons.shopping_basket_outlined,
-          //     color: EWColors.darkgreen,
-          //   ),
-          //   label: 'Kundkorg',
-          // ),
           NavigationDestination(
             selectedIcon: Icon(Icons.home, color: EWColors.darkgreen),
             icon: Icon(
