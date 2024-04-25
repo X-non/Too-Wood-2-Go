@@ -25,7 +25,10 @@ class Register(APIView):
 
         parsed = request.data
         if not isinstance(request.data, dict):
-            return JsonResponse({"reason": "not json"}, status=HTTP_400_BAD_REQUEST)
+            return JsonResponse(
+                {"reason": "not json", "context": "request must be JSON"},
+                status=HTTP_400_BAD_REQUEST,
+            )
         try:
             username = parsed["username"]  # type: ignore
             password = parsed["password"]  # type: ignore
