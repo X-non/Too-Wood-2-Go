@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.contrib.auth.forms import UserCreationForm
 from .forms import RegisterStoreForm
 from .decorators import login_page
 from django.contrib.auth.models import Group
+from django.shortcuts import render
 
 
 @login_page("home")
