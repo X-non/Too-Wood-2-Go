@@ -1,8 +1,10 @@
 import 'package:eatwise/constants/EW_styles.dart';
 import 'package:eatwise/constants/ew_colors.dart';
+import 'package:eatwise/models/login_notifier.dart';
 import 'package:eatwise/pages/settings_page.dart';
 import 'package:eatwise/services/ew_tuple.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class EWprofileList extends StatelessWidget {
   const EWprofileList({super.key});
@@ -82,6 +84,7 @@ class LogOut extends StatelessWidget {
         TextButton(
           onPressed: () {
             Navigator.pop(context, 'Ja, logga ut mig');
+            Provider.of<LoginNotifier>(context, listen: false).toggleLogin();
           },
           child: const Text(
             'Ja, logga ut mig',
