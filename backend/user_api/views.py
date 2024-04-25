@@ -5,7 +5,8 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.status import HTTP_400_BAD_REQUEST, JSONParser
+from rest_framework.status import HTTP_400_BAD_REQUEST
+from rest_framework.parsers import JSONParser
 from rest_framework.request import Request
 from django.http.response import HttpResponseBadRequest
 from user_api import serializer
