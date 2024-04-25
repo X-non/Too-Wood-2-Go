@@ -105,6 +105,7 @@ class CustomShowDelegate extends SearchDelegate {
             onTap: () {
               Provider.of<CategoryNotifier>(context, listen: false)
                   .createList(productItems, "");
+              Navigator.pop(context);
               Navigator.push(
                   context,
                   MaterialPageRoute(
