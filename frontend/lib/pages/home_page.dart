@@ -1,3 +1,4 @@
+import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/category_notifier.dart';
 import 'package:eatwise/models/company_item.dart';
@@ -45,16 +46,41 @@ class HomePage extends StatelessWidget {
           ),
           pickupNotifier.pickItems.isEmpty
               ? Container()
-              : SizedBox(
-                  height: 200,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: pickupNotifier.pickItems.length,
-                    itemBuilder: (context, index) {
-                      final currentitem = pickupNotifier.pickItems[index];
-                      return EWconfirmOrder(item: currentitem);
-                    },
-                  ),
+              : Column(
+                  children: [
+                    SizedBox(
+                      height: 200,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: pickupNotifier.pickItems.length,
+                        itemBuilder: (context, index) {
+                          final currentItem = pickupNotifier.pickItems[index];
+                          return EWconfirmOrder(item: currentItem);
+                        },
+                      ),
+                    ),
+                    pickupNotifier.pickItems.length > 1
+                        ? Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: List.generate(
+                                pickupNotifier.pickItems.length,
+                                (index) => Container(
+                                  width: 8,
+                                  height: 8,
+                                  margin:
+                                      const EdgeInsets.symmetric(horizontal: 4),
+                                  decoration: const BoxDecoration(
+                                    color: EWColors.primary,
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        : const SizedBox()
+                  ],
                 ),
           Column(
             children: [
