@@ -6,18 +6,17 @@ class CompanyItem {
   final String address;
   final String openHours;
   bool favorite;
-  bool pickup;
   // int id...
 
-  CompanyItem(
-      {required this.img,
-      required this.icon,
-      required this.favorite,
-      required this.description,
-      required this.title,
-      required this.openHours,
-      required this.address,
-      required this.pickup});
+  CompanyItem({
+    required this.img,
+    required this.icon,
+    required this.favorite,
+    required this.description,
+    required this.title,
+    required this.openHours,
+    required this.address,
+  });
 
   static List<CompanyItem> mockdata() {
     final List<String> companyNames = [
@@ -49,13 +48,13 @@ class CompanyItem {
     return List<CompanyItem>.generate(
         10,
         (index) => CompanyItem(
-            img: 'assets/image/Gateau1.jpg',
-            icon: 'assets/image/icon.jpeg',
-            favorite: false,
-            description: companyDescription[index],
-            title: companyNames[index],
-            address: 'Östra Ågatan 31, 753 22 Uppsala',
-            openHours: '09:00 - 18:00',
-            pickup: false));
+              img: 'assets/image/Gateau1.jpg',
+              icon: 'assets/image/icon.jpeg',
+              favorite: false,
+              description: companyDescription[index],
+              title: companyNames[index],
+              address: 'Östra Ågatan 31, 753 22 Uppsala',
+              openHours: '09:00 - 18:00',
+            ));
   }
 }
