@@ -59,27 +59,24 @@ class HomePage extends StatelessWidget {
                         },
                       ),
                     ),
-                    pickupNotifier.pickItems.length > 1
-                        ? Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: List.generate(
-                                pickupNotifier.pickItems.length,
-                                (index) => Container(
-                                  width: 8,
-                                  height: 8,
-                                  margin:
-                                      const EdgeInsets.symmetric(horizontal: 4),
-                                  decoration: const BoxDecoration(
-                                    color: EWColors.primary,
-                                    shape: BoxShape.circle,
-                                  ),
-                                ),
-                              ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(
+                          pickupNotifier.pickItems.length,
+                          (index) => Container(
+                            width: 8,
+                            height: 8,
+                            margin: const EdgeInsets.symmetric(horizontal: 4),
+                            decoration: const BoxDecoration(
+                              color: EWColors.primary,
+                              shape: BoxShape.circle,
                             ),
-                          )
-                        : const SizedBox()
+                          ),
+                        ),
+                      ),
+                    )
                   ],
                 ),
           Column(
