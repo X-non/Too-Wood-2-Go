@@ -45,7 +45,21 @@ class HomePage extends StatelessWidget {
           ),
           pickupNotifier.pickItems.isEmpty
               ? Container()
-              : EWconfirmOrder(item: items[1]),
+              : SizedBox(
+                  height: 200,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: pickupNotifier.pickItems.length,
+                    itemBuilder: (context, index) {
+                      final currentitem = pickupNotifier.pickItems[index];
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: EWconfirmOrder(item: currentitem),
+                      );
+                    },
+                  ),
+                ),
           Column(
             children: [
               const Row(

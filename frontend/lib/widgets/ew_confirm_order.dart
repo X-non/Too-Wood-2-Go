@@ -1,7 +1,9 @@
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/company_item.dart';
+import 'package:eatwise/models/pickup_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class EWconfirmOrder extends StatefulWidget {
   const EWconfirmOrder({super.key, required this.item});
@@ -13,8 +15,6 @@ class EWconfirmOrder extends StatefulWidget {
 }
 
 class EWconfirmOrderState extends State<EWconfirmOrder> {
-  void _onpressed() {}
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -64,7 +64,10 @@ class EWconfirmOrderState extends State<EWconfirmOrder> {
                 ),
               ),
               InkWell(
-                onTap: _onpressed,
+                onTap: () => () => {
+                      Provider.of<PickUpNotifier>(context, listen: false)
+                          .removePickUp(widget.item),
+                    },
                 child: Row(
                   children: [
                     Expanded(

@@ -6,12 +6,13 @@ class PickUpNotifier extends ChangeNotifier {
 
   List<CompanyItem> get pickItems => _pickupItems;
 
-  void togglePickUp(CompanyItem item) {
-    if (_pickupItems.contains(item)) {
-      _pickupItems.remove(item);
-    } else {
-      _pickupItems.add(item);
-    }
+  void addPickUp(CompanyItem item) {
+    _pickupItems.add(item);
+    notifyListeners();
+  }
+
+  void removePickUp(CompanyItem item) {
+    _pickupItems.remove(item);
     notifyListeners();
   }
 }

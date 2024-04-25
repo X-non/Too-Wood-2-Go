@@ -22,7 +22,6 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
   @override
   Widget build(BuildContext context) {
     final productItem = Provider.of<ProductNotifier>(context);
-    // final pickupItem = Provider.of<PickUpNotifier>(context); TODO
 
     if (productItem.productItems.isEmpty) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -94,8 +93,11 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                     padding: const EdgeInsets.only(bottom: 50.0),
                     child: EWshoppingCartButton(
                       onTap: () => {
-                        Provider.of<PickUpNotifier>(context)
-                            .togglePickUp(widget.company)
+                        Provider.of<PickUpNotifier>(context, listen: false)
+                            .addPickUp(widget.company),
+                        Provider.of<ProductNotifier>(context, listen: false)
+                            .removeAll(),
+                        Navigator.of(context).pop()
                       },
                       buttonText: 'Betala',
                     ),
