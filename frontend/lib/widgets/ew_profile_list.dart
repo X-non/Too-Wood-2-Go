@@ -1,4 +1,4 @@
-import 'package:eatwise/constants/EW_styles.dart';
+import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/models/login_notifier.dart';
 import 'package:eatwise/pages/settings_page.dart';

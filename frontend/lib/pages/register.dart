@@ -10,6 +10,10 @@ class Register extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController _mailController = TextEditingController();
+    final TextEditingController _passController = TextEditingController();
+    final TextEditingController _userPassController = TextEditingController();
+
     return EWScaffold(
       body: SizedBox(
           child: Column(
@@ -38,24 +42,30 @@ class Register extends StatelessWidget {
                     style: EWTextStyles.titleBold,
                   ),
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.all(8.0),
                   child: SizedBox(
                     child: EWLoginBar(
                       name: 'Email',
+                      controllerUser: _mailController,
                     ),
                   ),
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.all(8.0),
                   child: SizedBox(
-                    child: EWLoginBar(name: 'Användarnamn'),
+                    child: EWLoginBar(
+                      name: 'Användarnamn',
+                      controllerUser: _userPassController,
+                    ),
                   ),
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.all(8.0),
                   child: SizedBox(
-                    child: EWPasswordBar(),
+                    child: EWPasswordBar(
+                      controllerPassword: _passController,
+                    ),
                   ),
                 ),
                 ElevatedButton(

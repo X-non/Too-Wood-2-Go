@@ -1,4 +1,4 @@
-import 'package:eatwise/constants/EW_styles.dart';
+import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/widgets/ew_profile_list.dart';
 import 'package:flutter/material.dart';

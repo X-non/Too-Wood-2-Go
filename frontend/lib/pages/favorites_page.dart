@@ -1,4 +1,4 @@
-import 'package:eatwise/constants/EW_styles.dart';
+import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/models/company_item.dart';
 import 'package:eatwise/models/favorite_notifier.dart';

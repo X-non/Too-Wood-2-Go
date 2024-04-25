@@ -3,7 +3,9 @@ import 'package:eatwise/constants/ew_styles.dart';
 import 'package:flutter/material.dart';
 
 class EWPasswordBar extends StatelessWidget {
-  const EWPasswordBar({super.key});
+  EWPasswordBar({super.key, required this.controllerPassword});
+
+  TextEditingController controllerPassword;
 
   @override
   Widget build(BuildContext context) {
@@ -12,6 +14,7 @@ class EWPasswordBar extends StatelessWidget {
         SizedBox(
           height: 50,
           child: TextField(
+            controller: controllerPassword,
             obscureText: true,
             cursorColor: EWColors.primary,
             style: EWTextStyles.body,
