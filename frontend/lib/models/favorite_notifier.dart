@@ -18,4 +18,9 @@ class FavoriteItemsNotifier extends ChangeNotifier {
   bool isFavorite(CompanyItem item) {
     return _favoriteItems.contains(item);
   }
+
+  void updateList(List<CompanyItem> favoriteItems) {
+    _favoriteItems.clear();
+    _favoriteItems.addAll(favoriteItems);
+  }
 }

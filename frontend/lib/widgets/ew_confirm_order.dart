@@ -1,7 +1,9 @@
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/company_item.dart';
+import 'package:eatwise/models/pickup_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class EWconfirmOrder extends StatefulWidget {
   const EWconfirmOrder({super.key, required this.item});
@@ -13,8 +15,6 @@ class EWconfirmOrder extends StatefulWidget {
 }
 
 class EWconfirmOrderState extends State<EWconfirmOrder> {
-  void _onpressed() {}
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -23,6 +23,7 @@ class EWconfirmOrderState extends State<EWconfirmOrder> {
       ),
       child: Container(
         height: 180,
+        width: 350,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(15),
@@ -30,13 +31,12 @@ class EWconfirmOrderState extends State<EWconfirmOrder> {
             color: EWColors.lightgreen,
           ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 35.0, vertical: 8),
-              child: Row(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(right: 16),
@@ -45,29 +45,30 @@ class EWconfirmOrderState extends State<EWconfirmOrder> {
                       backgroundImage: AssetImage(widget.item.icon),
                     ),
                   ),
-                  const Center(
+                  Flexible(
                     child: Text(
-                      'Nice! Du har köpt från',
+                      'Nice! Du har köpt från ${widget.item.title}',
                       style: EWTextStyles.headline,
+                      overflow: TextOverflow.clip,
                     ),
                   ),
                 ],
               ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(left: 35, right: 35, bottom: 10),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Hämta ut inom 10 minuter',
-                  style: EWTextStyles.body,
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 8.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Hämta ut inom 10 minuter',
+                    style: EWTextStyles.body,
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 35),
-              child: InkWell(
-                onTap: _onpressed,
+              InkWell(
+                onTap: () {
+                  Provider.of<PickUpNotifier>(context, listen: false)
+                      .removePickUp(widget.item);
+                },
                 child: Row(
                   children: [
                     Expanded(
@@ -89,20 +90,9 @@ class EWconfirmOrderState extends State<EWconfirmOrder> {
                     ),
                   ],
                 ),
-              ),
-            )
-            // ElevatedButton(
-            //   onPressed: _onpressed,
-            //   style: ElevatedButton.styleFrom(
-            //     backgroundColor: EWColors.primary,
-            //     shape: RoundedRectangleBorder(
-            //       borderRadius: BorderRadius.circular(5),
-            //     ),
-            //   ),
-            //   child: Text('Jag har hämtat ut mina varor',
-            //       style: EWTextStyles.headline.copyWith(color: Colors.white)),
-            // ),
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );
