@@ -135,8 +135,9 @@
     }
     
     input[type=submit]{
+        cursor: pointer;
         border: none;
-        padding: 8px;
+        padding: 8px 20px;
         margin-bottom: 20px;
         margin-top: 10px;
         border-radius: 5px;
@@ -166,10 +167,10 @@
         background-color: white;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         width: 60%;
-        height: 80%;
+        height: 70%;
         border: none;
         border-radius: 5px;
-        padding: 10px;
+        padding: 20px;
         text-align: center;
     }
     .hl1{
@@ -189,6 +190,14 @@
         color: black;
         text-decoration: none;
     }
+    a:hover{
+        color: grey;
+    }
+    .register{
+        padding: 8px;
+        border: 1px solid grey;
+        border-radius: 5px;
+    }
     </style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
@@ -200,6 +209,7 @@
         <div class="main-mid">
             <div class="login">
                 <h1>Logga In Företag</h1>
+                <br>
                 <form method="post" style="padding: 10px;">
                     {% csrf_token %}
                     <input name="name" type="text" required placeholder="Företag"><br>
@@ -209,15 +219,17 @@
                         <strong>Error:</strong> Company does not exist! Please try again.
                     </div>
                     {% endif %}-->
-                    <br><br>
+                    <br>
                     <a href="#">Glömt lösenord?</a><br>
                     <input type="submit" value="Logga In">
                 </form>
                 <div class="lines">
                     <div class="hl1"></div>
-                    <h3>Eller</h3>
+                    <p style="font-size: large;">Eller</p>
                     <div class="hl1"></div>
                 </div>
+                <br>
+                <a href="#" class="register">Registrera Företag</a><br>
             </div>
         </div>
         <div class="right-side"></div>  
