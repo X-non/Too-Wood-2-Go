@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from user_api.models import MobileUser
-from foretag.models import Store
+from foretag.models import Ad, Store
 
 
 # {
@@ -27,3 +27,10 @@ class StoreSerialiser(serializers.Serializer):
 
         user = MobileUser.objects.get(credentials=user)
         return user.favorite_stores.contains(obj)
+
+
+class AdSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Ad
+        exclude = ["store"]

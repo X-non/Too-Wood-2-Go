@@ -1,12 +1,15 @@
+import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/constants/ew_token.dart';
 import 'package:eatwise/models/category_notifier.dart';
 import 'package:eatwise/models/company_item.dart';
 import 'package:eatwise/models/favorite_notifier.dart';
+import 'package:eatwise/models/pickup_notifier.dart';
 import 'package:eatwise/models/product.dart';
 import 'package:eatwise/pages/corporate.dart';
 import 'package:eatwise/widgets/ew_company_container_small.dart';
 import 'package:eatwise/widgets/ew_company_list.dart';
+import 'package:eatwise/widgets/ew_confirm_order.dart';
 import 'package:eatwise/widgets/ew_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,8 +22,8 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final favoriteItemsNotifier = Provider.of<FavoriteItemsNotifier>(context);
-    var t = EWToken.token;
-    print('$t');
+
+    final pickupNotifier = Provider.of<PickUpNotifier>(context);
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -38,12 +41,46 @@ class HomePage extends StatelessWidget {
             ],
           ),
           Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-              child: SizedBox(
-                child: EWSearchBar(
-                  corporationNames: items,
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+            child: SizedBox(
+              child: EWSearchBar(corporationNames: items),
+            ),
+          ),
+          pickupNotifier.pickItems.isEmpty
+              ? Container()
+              : Column(
+                  children: [
+                    SizedBox(
+                      height: 200,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: pickupNotifier.pickItems.length,
+                        itemBuilder: (context, index) {
+                          final currentItem = pickupNotifier.pickItems[index];
+                          return EWconfirmOrder(item: currentItem);
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(
+                          pickupNotifier.pickItems.length,
+                          (index) => Container(
+                            width: 8,
+                            height: 8,
+                            margin: const EdgeInsets.symmetric(horizontal: 4),
+                            decoration: const BoxDecoration(
+                              color: EWColors.primary,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
                 ),
-              )),
           Column(
             children: [
               const Row(
