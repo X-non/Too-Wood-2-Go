@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
-from django.http import  HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse
 from .forms import RegisterStoreForm
 from .forms import AdForm
 from .decorators import login_page
@@ -57,37 +57,46 @@ def register_store(request):
         form = RegisterStoreForm()
     return render(request, "authenticate/register_store.html", {"form": form})
 
+
 def ads(request):
-    query = request.GET.get('q')
+    query = request.GET.get("q")
     if query:
         myData = Ad.objects.filter(title__icontains=query)
     else:
         myData = Ad.objects.all()
-    if request.method == 'POST':
+    if request.method == "POST":
         form = AdForm(request.POST)
         if form.is_valid():
             form.save()
     else:
         form = AdForm()
     context = {
-        'adsData': myData,
-        'form': form,
+        "adsData": myData,
+        "form": form,
     }
     return render(request, "corporate/product.html", context)
 
+
 def get_id(id):
-    return Ad.objects.filter(id = id)
+    return Ad.objects.filter(id=id)
+
 
 def delete_product(request, product_id):
     product = get_object_or_404(Ad, pk=product_id)
-    if request.method == 'POST':
+    if request.method == "POST":
         product.delete()
     return redirect("ads")
 
-def main(request : HttpRequest):
+
+def main(request: HttpRequest):
     request.method
-    myData = Store.objects.get(id = 1)
+    myData = Store.objects.get(id=1)
     context = {
-        'storeData': myData,
+        "storeData": myData,
     }
     return render(request, "corporate/main.html", context)
+
+
+def login(request: HttpRequest):
+    request.method
+    return render(request, "corporate/login.html")
