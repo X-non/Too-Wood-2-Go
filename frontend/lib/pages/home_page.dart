@@ -1,4 +1,3 @@
-import 'package:eatwise/backend/network.dart';
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/category_notifier.dart';
@@ -139,33 +138,24 @@ class HomePage extends StatelessWidget {
           ),
 
           // Vertical ListView
-          FutureBuilder(
-              future: fetchCompanies(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Column(
-                    children: [
-                      const Row(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 8),
-                            child: Text(
-                              "Butiker i din närhet",
-                              style: EWTextStyles.headline,
-                            ),
-                          ),
-                        ],
-                      ),
-                      EWCompanyList(
-                        items: snapshot.requireData,
-                      ),
-                    ],
-                  );
-                } else {
-                  return const SizedBox(); //TODO Maybe loading-screen
-                }
-              }),
+          Column(
+            children: [
+              const Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                    child: Text(
+                      "Butiker i din närhet",
+                      style: EWTextStyles.headline,
+                    ),
+                  ),
+                ],
+              ),
+              EWCompanyList(
+                items: items,
+              ),
+            ],
+          )
         ],
       ),
     );
