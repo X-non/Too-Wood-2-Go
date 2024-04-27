@@ -18,6 +18,27 @@ class CompanyItem {
     required this.address,
   });
 
+  //   "catagory": "supermarket" | "bakery" | ...,
+  // "pretty name": "Ica Supermarket Väst",
+  // "store_id": "ica-supermarket-vest"
+  // "plats": "kordinater",
+  // "address": "Exempelvägen 42, Uppsala",
+  // "opening_hours": ...,
+  // "thumbnail": "assets/bla.png"
+  // "banner_image":"assets/big.png"
+  // "favorite": bool
+
+  static fromJson(json) {
+    return CompanyItem(
+        img: json["banner_image"] ?? "assets/image/Gateau1.jpg",
+        icon: json["thumbnail"] ?? "assets/image/icon.jpeg",
+        favorite: json["favorite"] ?? false,
+        description: json["description"] ?? "",
+        title: json["pretty_name"],
+        openHours: json["open_hours"] ?? "",
+        address: json["address"] ?? "");
+  }
+
   static List<CompanyItem> mockdata() {
     final List<String> companyNames = [
       'UNO',

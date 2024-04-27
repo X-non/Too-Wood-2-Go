@@ -1,6 +1,6 @@
+import 'package:eatwise/backend/network.dart';
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
-import 'package:eatwise/constants/ew_token.dart';
 import 'package:eatwise/models/category_notifier.dart';
 import 'package:eatwise/models/company_item.dart';
 import 'package:eatwise/models/favorite_notifier.dart';
@@ -22,7 +22,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final favoriteItemsNotifier = Provider.of<FavoriteItemsNotifier>(context);
-
     final pickupNotifier = Provider.of<PickUpNotifier>(context);
     return SingleChildScrollView(
       child: Column(
@@ -140,24 +139,33 @@ class HomePage extends StatelessWidget {
           ),
 
           // Vertical ListView
-          Column(
-            children: [
-              const Row(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                    child: Text(
-                      "Butiker i din närhet",
-                      style: EWTextStyles.headline,
-                    ),
-                  ),
-                ],
-              ),
-              EWCompanyList(
-                items: items,
-              ),
-            ],
-          ),
+          FutureBuilder(
+              future: fetchCompanies(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Column(
+                    children: [
+                      const Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 8),
+                            child: Text(
+                              "Butiker i din närhet",
+                              style: EWTextStyles.headline,
+                            ),
+                          ),
+                        ],
+                      ),
+                      EWCompanyList(
+                        items: snapshot.requireData,
+                      ),
+                    ],
+                  );
+                } else {
+                  return const SizedBox(); //TODO Maybe loading-screen
+                }
+              }),
         ],
       ),
     );
