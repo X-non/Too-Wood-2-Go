@@ -1,12 +1,62 @@
-import 'package:dio/dio.dart';
+import 'dart:convert';
 
-final dio = Dio();
+import 'package:eatwise/constants/ew_token.dart';
+import 'package:eatwise/constants/ew_urls.dart';
+import 'package:eatwise/models/company_item.dart';
+import 'package:http/http.dart' as http;
 
-void fetchDadJoke() async {
-  Response response;
-  response = await dio.get(
-    'https://icanhazdadjoke.com/',
-    //queryParameters: {'id': 12, 'name': 'dio'},
-  );
-  print(response.data.toString());
+Future<bool> login(String username, String password) async {
+  Map<String, dynamic> jsonData = {'username': username, 'password': password};
+
+  String object = jsonEncode(jsonData);
+  var url = EWApiUrls.apiLogin;
+
+  http.Response request = await http.post(Uri.parse(url),
+      headers: {"Content-Type": "application/json"}, body: object);
+
+  if (request.statusCode == 200) {
+    Map<String, dynamic> response = jsonDecode(request.body);
+    String token = response["token"];
+    EWToken.token = token;
+
+    return true;
+  } else {
+    return false;
+  }
+}
+
+Future<List<CompanyItem>> fetchFavorite() async {
+  var url = EWApiUrls.apiFavorite;
+  var token = EWToken.token;
+
+  http.Response request = await http.get(Uri.parse(url), headers: {
+    "Content-Type": "application/json",
+    "Authorization": "Token $token"
+  });
+  if (request.statusCode == 200) {
+    var result = json.decode(request.body) as List;
+    List<CompanyItem> favorites =
+        result.map<CompanyItem>((e) => CompanyItem.fromJson(e)).toList();
+    return favorites;
+  } else {
+    return List.empty();
+  }
+}
+
+Future<List<CompanyItem>> fetchCompanies() async {
+  var url = EWApiUrls.apiStores;
+  var token = EWToken.token;
+
+  http.Response request = await http.get(Uri.parse(url), headers: {
+    "Content-Type": "application/json",
+    "Authorization": "Token $token"
+  });
+  if (request.statusCode == 200) {
+    var result = json.decode(request.body) as List;
+    List<CompanyItem> companies =
+        result.map<CompanyItem>((e) => CompanyItem.fromJson(e)).toList();
+    return companies;
+  } else {
+    return List.empty();
+  }
 }
