@@ -77,6 +77,18 @@ def ads(request):
     return render(request, "corporate/product.html", context)
 
 
+def update_product(request, id):
+    product = Ad.objects.get(id=id)
+    if request.method == "POST":
+        form = AdForm(request.POST, instance=product)
+        if form.is_valid():
+            form.save()
+    else:
+        form = AdForm(instance=product)
+    return redirect("ads")
+    # return render(request, "corporate/product.html", {"form": form})
+
+
 def get_id(id):
     return Ad.objects.filter(id=id)
 

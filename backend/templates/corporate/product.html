@@ -1,271 +1,284 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>Produkt</title>
-<style>
-@font-face {
-    font-family: Atkinson;
-    src: url(Atkinson-Hyperlegible-Font-Print-and-Web-2020-0514/Print\ Fonts/Atkinson-Hyperlegible-Regular-102.otf);
-}
-body{
-    font-family: Atkinson;
-    color: black;
-}
-
-input[type=button], input[type=checkbox]{
-    cursor: pointer;
-}
-
-h1{
-    text-align: center;
-}
-
-.left-side {
-    background-color: Rgb(127, 143, 110);
-    color: white;
-}
-.main-mid {
-    background-image: linear-gradient(Rgb(219, 216, 208), white);
-    padding: 20px;
-    overflow-y: auto;
-}
-.right-side {
-    background-color: Rgb(127, 143, 110);
-    padding: 20px;
-}
-
-.grid-container {
-    position: fixed;
-    inset: 0;
-    display: grid;
-    grid-template-columns: 12.5% 62.5% 25%;
-}
-
-.navbar {
-    text-align: left;
-    font-size: 16px;
-    position: relative;
-    top: 20px;
-}
-
-.navbar a:hover {
-    color: #f1f1f1;
-}
-
-.navbar a {
-    padding: 10px 8px 10px 10px;
-    text-decoration: none;
-    font-size: 18px;
-    color: white;
-    display: block;
-}
-
-.navbar a.current{
-    background-color: white;
-    color: black;
-    padding: 10px;
-    border-radius: 0 25px 25px 0;
-}
-
-input[type=search]{
-    padding: 8px;
-    border-radius: 5px;
-    border: none;
-}
-
-table {
-    position: relative;
-    top: 10px;
-    border-collapse: collapse;
-    width: 100%;
-    overflow: auto;
-}
-
-tr{
-    border-bottom: 1px solid #302c2c;
-    text-align: center;
-}
-tr:hover {
-    background-color: Rgb(219, 220, 208);
-}
-
-th, td {
-    padding: 10px;
-}
-
-.add{
-    float: right;
-    border: none;
-    padding: 8px;
-    border-radius: 5px;
-    background-color: #ADB191;
-}
-
-.rmv{
-    float: left;
-    border: none;
-    padding: 8px;
-    border-radius: 5px;
-    background-color: #ADB191;
-    position: relative;
-    top: 10px;
-}
-
-.addForm {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    padding-top: 100px; 
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
-  }
-
-.modal-content {
-    background-color: Rgb(219, 216, 208);
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 20%;
-    border-radius: 5px;
-    border: none;
-}
-
-.close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-  
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-input[type=submit]{
-    border: none;
-    padding: 8px;
-    border-radius: 5px;
-    background-color: #ADB191;
-}
-
-input[type=text]{
-    padding: 5px;
-    border-radius: 5px;
-    border: none;
-}
-
-input[type=number]{
-    padding: 5px;
-    width: 20%;
-    border-radius: 5px;
-    border: none;
-}
-.form-container{
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
-}
-</style>
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <title>Produkt</title>
+    <style>
+        @font-face {
+            font-family: Atkinson;
+            src: url(Atkinson-Hyperlegible-Font-Print-and-Web-2020-0514/Print\ Fonts/Atkinson-Hyperlegible-Regular-102.otf);
+        }
+        body{
+            font-family: Atkinson;
+            color: black;
+        }
+        
+        input[type=button], input[type=checkbox]{
+            cursor: pointer;
+        }
+        
+        h1{
+            text-align: center;
+        }
+        
+        .left-side {
+            background-color: Rgb(127, 143, 110);
+            color: white;
+        }
+        .main-mid {
+            background-image: linear-gradient(Rgb(219, 216, 208), white);
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .right-side {
+            background-color: Rgb(127, 143, 110);
+            padding: 20px;
+        }
+        
+        .grid-container {
+            position: fixed;
+            inset: 0;
+            display: grid;
+            grid-template-columns: 12.5% 62.5% 25%;
+        }
+        
+        .navbar {
+            text-align: left;
+            font-size: 16px;
+            position: relative;
+            top: 20px;
+        }
+        
+        .navbar a:hover {
+            color: #f1f1f1;
+        }
+        
+        .navbar a {
+            padding: 10px 8px 10px 10px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+        }
+        
+        .navbar a.current{
+            background-color: white;
+            color: black;
+            padding: 10px;
+            border-radius: 0 25px 25px 0;
+        }
+        
+        input[type=search]{
+            padding: 8px;
+            border-radius: 5px;
+            border: none;
+        }
+        
+        table {
+            position: relative;
+            top: 10px;
+            border-collapse: collapse;
+            width: 100%;
+            overflow: auto;
+        }
+        
+        tr{
+            border-bottom: 1px solid #302c2c;
+            text-align: center;
+        }
+        tr:hover {
+            background-color: Rgb(219, 220, 208);
+        }
+        
+        th, td {
+            padding: 10px;
+        }
+        
+        .add{
+            float: right;
+            border: none;
+            padding: 8px;
+            border-radius: 5px;
+            background-color: #ADB191;
+        }
+        
+        .rmv{
+            float: left;
+            border: none;
+            padding: 8px;
+            border-radius: 5px;
+            background-color: #ADB191;
+            position: relative;
+            top: 10px;
+        }
+        
+        .addForm {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 100px; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+          }
+        
+        .modal-content {
+            background-color: Rgb(219, 216, 208);
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 20%;
+            border-radius: 5px;
+            border: none;
+        }
+        
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+          
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        input[type=submit]{
+            border: none;
+            padding: 8px;
+            border-radius: 5px;
+            background-color: #ADB191;
+        }
+        
+        input[type=text]{
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+        }
+        
+        input[type=number]{
+            padding: 5px;
+            width: 20%;
+            border-radius: 5px;
+            border: none;
+        }
+        .form-container{
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+        }
+        .edit:hover{
+            color: grey;
+        }
+        .remove:hover{
+            color: rgb(234, 92, 92);
+        }
+        #productView{
+            color: white;
+        }
+        .edit-form{
+            color: black;
+            background-color: Rgb(219, 216, 208);
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            border-radius: 5px;
+            border: none;
+        }
+    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
+
 <body></body>
-    <div class="grid-container">
-        <div class="left-side">
-            <h1 >Eatwise</h1>
-            <div class="navbar">
-                <a href="{% url 'main' %}">
-                    <i class="material-icons" style="font-size:16px;">home</i>
-                    Hem
-                </a>
-                <a href="{% url 'ads' %}" class="current">
-                    <i class="material-icons" style="font-size:16px";>add</i>
-                    Produkt
-                </a>
-                <a href="#">
-                    <i class="material-icons" style="font-size:16px;">shopping_basket</i>
-                    Beställningar
-                </a>
-                <a href="#">
-                    <i class="material-icons" style="font-size:16px;">settings</i>
-                        Inställningar
-                    </a>
-                <a href="#">
-                    <i class="material-icons" style="font-size:16px;">arrow_back</i>
-                    Logga ut
-                </a>
-            </div>
+<div class="grid-container">
+    <div class="left-side">
+        <h1>Eatwise</h1>
+        <div class="navbar">
+            <a href="{% url 'main' %}">
+                <i class="material-icons" style="font-size:16px;">home</i> Hem
+            </a>
+            <a href="{% url 'ads' %}" class="current">
+                <i class="material-icons" style="font-size:16px" ;>add</i> Produkt
+            </a>
+            <a href="#">
+                <i class="material-icons" style="font-size:16px;">shopping_basket</i> Beställningar
+            </a>
+            <a href="#">
+                <i class="material-icons" style="font-size:16px;">settings</i> Inställningar
+            </a>
+            <a href="#">
+                <i class="material-icons" style="font-size:16px;">arrow_back</i> Logga ut
+            </a>
         </div>
-        <div class="main-mid">
-            <div class="form-container">
+    </div>
+    <div class="main-mid">
+        <div class="form-container">
             <form method="GET">
-                <input type="search" name="q", placeholder="Sök">
+                <input type="search" name="q" , placeholder="Sök">
                 <input type="submit" value="Sök">
             </form>
             <input type="button" value="Lägg till" class="add" onclick=displayForm()>
+        </div>
+
+        <div id="addForm" class="addForm">
+            <div class="modal-content">
+                <span class="close" onclick=closeForm()>&times;</span>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %} {{ form.as_p }}
+                    <input type="submit" value="Lägg till">
+                </form>
             </div>
 
-            <div id="addForm" class="addForm">
-                <div class="modal-content">
-                  <span class="close" onclick=closeForm()>&times;</span>
-                  <form method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <input type="submit" value="Lägg till">
-                  </form>
-                </div>
-              
-              </div>
-              <h1>Uppladdade produkter</h1>
-            <table id="productTable">
-                <tr>
-                    <th>Produktnamn</th>
-                    <th>Kategori</th>
-                    <th>Gammalt pris</th>
-                    <th>Nytt pris</th>
-                    <th>Antal</th>
-                    <th>Redigera</th>
-                </tr>
-                {% for ad in adsData %}
-                <tr onclick="showId('{{ ad.title }}', '{{ ad.desc }}','{{ ad.store }}', '{{ ad.old_price }}', '{{ ad.new_price }}', '{{ ad.available }}')">
-                    <td>{{ ad.title }}</td>
-                    <td>{{ ad.desc }}</td>
-                    <td>{{ ad.old_price }}</td>
-                    <td>{{ ad.old_price }}</td>
-                    <td>{{ ad.available }}</td>
-                    <td>
+        </div>
+        <h1>Uppladdade produkter</h1>
+        <table id="productTable">
+            <tr>
+                <th>Produktnamn</th>
+                <th>Kategori</th>
+                <th>Gammalt pris</th>
+                <th>Nytt pris</th>
+                <th>Antal</th>
+                <th>Redigera</th>
+            </tr>
+            {% for ad in adsData %}
+            <tr>
+                <td>{{ ad.title }}</td>
+                <td>{{ ad.desc }}</td>
+                <td>{{ ad.old_price }}</td>
+                <td>{{ ad.new_price }}</td>
+                <td>{{ ad.available }}</td>
+                <td>
                     <div style="display: flex; justify-content: center;">
                         <form method="POST" action="{% url 'delete_product' ad.id %}">
                             {% csrf_token %}
                             <button type="submit" style="border: none; background: none; cursor: pointer;">
-                                <i class="material-icons" style="font-size:16px;">delete</i>
+                                <i class="material-icons remove" style="font-size:16px;">delete</i>
                             </button>
                         </form>
-                        <form method="POST" action="">
-                            {% csrf_token %}
-                            <button type="submit" style="border: none; background: none; cursor: pointer;">
-                                <i class="material-icons" style="font-size:16px;">edit</i>
-                            </button>
-                        </form>
+                        {% url 'update_product' ad.id as update_product_url %}
+                        <button onclick="showId('{{ update_product_url }}', '{{ ad.title }}')" style="border: none; background: none; cursor: pointer;">
+                            <i class="material-icons edit" style="font-size:16px;">edit</i>
+                        </button>
                     </div>
-                    </td>
-                </tr>
-                {% endfor %}
-            </table>
-        </div>
-        <div class="right-side">
-            <div id="productView"></div>
-        </div>  
-      </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="right-side">
+        <div id="productView"></div>
+    </div>
+</div>
 
-      <script>
+<script>
     var modal = document.getElementById("addForm");
     var span = document.getElementsByClassName("close")[0];
     
@@ -277,19 +290,22 @@ input[type=number]{
         modal.style.display = "none";
     };
 
-    function showId(title, desc, store, old_price, new_price, available){
-
+    function showId(url, title){
         var content = `
-            <p>Produktnamn: ${title}</p>
-            <p>Kategori: ${desc}</p>
-            <p>Butik: ${store}</p>
-            <p>Gammalt pris: ${old_price}</p>
-            <p>Nytt pris: ${new_price}</p>
-            <p>Antal: ${available}</p>
+            <h2>Redigera</h2><br>
+            <div class="edit-form">
+            <h2 style="text-align: center;">${title}</h2>
+                <form method='POST' action="${url}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Spara">
+                </form>
+            </div>
         `;
 
         document.getElementById("productView").innerHTML = content;
     };
-    </script> 
+</script>
 </body>
-</html> 
+
+</html>
