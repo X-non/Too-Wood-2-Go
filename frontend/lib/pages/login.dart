@@ -1,24 +1,20 @@
-import 'dart:convert';
+import 'package:eatwise/backend/network.dart';
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
-import 'package:eatwise/constants/ew_token.dart';
-import 'package:eatwise/constants/ew_urls.dart';
 import 'package:eatwise/models/login_notifier.dart';
-import 'package:eatwise/pages/home_page.dart';
 import 'package:eatwise/pages/register.dart';
 import 'package:eatwise/widgets/ew_login_bar.dart';
 import 'package:eatwise/widgets/ew_password_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
 
 class Login extends StatelessWidget {
   const Login({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController _userController = TextEditingController();
-    final TextEditingController _passController = TextEditingController();
+    final TextEditingController userController = TextEditingController();
+    final TextEditingController passController = TextEditingController();
 
     return Consumer<LoginNotifier>(builder: (context, loginNotifier, _) {
       return SizedBox(
@@ -47,46 +43,30 @@ class Login extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
                     child: EWLoginBar(
                       name: 'Användarnamn',
-                      controllerUser: _userController,
+                      controllerUser: userController,
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
                     child: EWPasswordBar(
-                      controllerPassword: _passController,
+                      controllerPassword: passController,
                     ),
                   ),
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    String Username = _userController.text;
-                    String password = _passController.text;
-                    _userController.text = '';
-                    _passController.text = '';
+                    String username = userController.text;
+                    String password = passController.text;
+                    userController.text = '';
+                    passController.text = '';
 
-                    Map<String, dynamic> jsonData = {
-                      'username': Username,
-                      'password': password
-                    };
-
-                    String object = jsonEncode(jsonData);
-                    var url = EWApiUrls.apiLogin;
-
-                    http.Response request = await http.post(Uri.parse(url),
-                        headers: {"Content-Type": "application/json"},
-                        body: object);
-
-                    if (request.statusCode == 200) {
-                      Map<String, dynamic> response = jsonDecode(request.body);
-                      String token = response["token"];
-                      EWToken.token = token;
-
+                    if (await login(username, password)) {
                       loginNotifier.toggleLogin();
                     } else {
                       showDialog(
@@ -99,7 +79,7 @@ class Login extends StatelessWidget {
                                 "Felaktigt användarnamn eller lösenord"),
                             actions: [
                               ElevatedButton(
-                                child: Text("OK"),
+                                child: const Text("OK"),
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
