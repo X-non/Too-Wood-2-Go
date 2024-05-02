@@ -1,5 +1,4 @@
-
-import json
+import select
 from django.http import JsonResponse
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
@@ -8,13 +7,18 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST
 from rest_framework.parsers import JSONParser
 from rest_framework.request import Request
+from django.db import transaction
 from django.http.response import HttpResponseBadRequest
 from user_api import serializer
 from foretag.models import Ad, Store
 from user_api.models import MobileUser, Reservation
 from user_api.serializer import AdSerializer, StoreSerialiser
-from django.db.models import F
+from django.db.models import Sum
 from django.contrib.auth.models import User
+
+
+def json_error(data) -> JsonResponse:
+    return JsonResponse(data, status=HTTP_400_BAD_REQUEST)
 
 
 class Register(APIView):
@@ -147,3 +151,67 @@ class Ads(APIView):
         serializer = self.serializer(queryset, many=True)
 
         return Response(serializer.data)
+
+
+class Cart(APIView):
+    authentication_classes = [TokenAuthentication]
+
+    @transaction.atomic
+    def post(self, request: Request):
+        user = MobileUser.objects.get(credentials=request.user)
+
+        if not isinstance(request.data, dict):
+            return json_error({"reason": "not json", "context": "request must be json"})
+
+        data: dict = request.data
+        try:
+            ad_id = data["ad_id"]
+            amount = data["amount"]
+        except KeyError:
+            return json_error(
+                {
+                    "reason": "missing fields",
+                    "context": "both 'ad_id' and 'amount' is needed",
+                }
+            )
+        if not isinstance(ad_id, int) or not isinstance(amount, int):
+            return json_error(
+                {
+                    "reason": "should be int",
+                    "context": "both 'ad_id' and 'amount' should be ints",
+                }
+            )
+        try:
+            ad = Ad.objects.get(id=ad_id)
+        except Ad.DoesNotExist:
+            return json_error(
+                {
+                    "reason": "unknown id",
+                    "context": "The ad does not exist",
+                }
+            )
+
+        reserved_amount = Reservation.objects.filter(ad=ad).aggregate(
+            sum=Sum("amount_claimed", default=0)
+        )["sum"]
+
+        unreserved_amount = ad.available - reserved_amount
+
+        if unreserved_amount < amount:
+            return json_error(
+                {
+                    "reason": "can't reserve amount",
+                    "context": "There aren't enough available",
+                }
+            )
+
+        Reservation.objects.create(ad=ad, claimer=user, amount_claimed=amount)
+
+        return Response()
+
+    def get(self, request):
+        user = MobileUser.objects.get(credentials=request.user)
+
+        current_cart = Reservation.objects.filter(claimer=user, paid_for=False)
+
+        return Response()
