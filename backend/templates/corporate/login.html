@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login</title>
+    <style>
+        @font-face {
+            font-family: Atkinson;
+            src: url(Atkinson-Hyperlegible-Font-Print-and-Web-2020-0514/Print\ Fonts/Atkinson-Hyperlegible-Regular-102.otf);
+          }
+        body{
+            font-family: Atkinson;
+            color: black;
+        }
+        
+        h1{
+            text-align: center;
+        }
+        
+        .left-side {
+            background-color: Rgb(127, 143, 110);
+            color: white;
+        }
+        .main-mid {
+            background-image: linear-gradient(Rgb(219, 216, 208), white);
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .right-side {
+            background-color: Rgb(127, 143, 110);
+        }
+        
+        .grid-container {
+            position: fixed;
+            inset: 0;
+            display: grid;
+            grid-template-columns: 12.5% 62.5% 25%;
+        }
+        
+        .navbar {
+            text-align: left;
+            font-size: 16px;
+            position: relative;
+            top: 20px;
+        }
+        
+        .navbar a:hover {
+            color: #f1f1f1;
+        }
+        
+        .navbar a {
+            padding: 10px 8px 10px 10px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+        }
+        
+        .navbar a.current{
+            background-color: white;
+            color: black;
+            padding: 10px;
+            border-radius: 0 25px 25px 0;
+        }
+        
+        input[type=search]{
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+        }
+        
+        table {
+            position: relative;
+            top: 10px;
+            border-collapse: collapse;
+            width: 100%;
+            overflow: auto;
+        }
+        
+        tr{
+            border-bottom: 1px solid #302c2c;
+            text-align: center;
+        }
+        tr:hover {
+            background-color: Rgb(219, 220, 208);
+        }
+        
+        th, td {
+            padding: 10px;
+        }
+        
+        .add{
+            float: right;
+            border: none;
+            padding: 8px;
+            border-radius: 5px;
+            background-color: #ADB191;
+        }
+        
+        .addForm {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 100px; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+          }
+        
+        .modal-content {
+            background-color: Rgb(219, 216, 208);
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 20%;
+            border-radius: 5px;
+            border: none;
+        }
+        
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+          
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        input[type=submit]{
+            cursor: pointer;
+            border: none;
+            padding: 8px 20px;
+            margin-bottom: 20px;
+            margin-top: 10px;
+            border-radius: 5px;
+            background-color: #ADB191;
+        }
+        
+        input[type=text], input[type=password]{
+            padding: 8px;
+            margin: 10px;
+            width: 50%;
+            border-radius: 5px;
+            border: 1px solid grey;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        
+        input[type=number]{
+            padding: 5px;
+            width: 20%;
+            border-radius: 5px;
+            border: none;
+        }
+        .login{
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            width: 60%;
+            height: 70%;
+            border: none;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+        }
+        .hl1{
+            border-bottom: 1px solid black;
+            width: 50px;
+            flex: 1;
+            margin: 0 30px;
+        }
+    
+        .lines{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+        a{
+            color: black;
+            text-decoration: none;
+        }
+        a:hover{
+            color: grey;
+        }
+        .register{
+            padding: 8px;
+            border: 1px solid grey;
+            border-radius: 5px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<body>
+    <div class="grid-container">
+        <div class="left-side">
+            <h1>Eatwise</h1>
+        </div>
+        <div class="main-mid">
+            <div class="login">
+                <h1>Logga In Företag</h1>
+                <br>
+                <form method="post" style="padding: 10px;">
+                    {% csrf_token %}
+                    <input name="name" type="text" required placeholder="Företag"><br>
+                    <input name="password" type="password" required placeholder="Lösenord"><br>
+                    <!--{% if not nameExists %}
+                    <div class="error-box">
+                        <strong>Error:</strong> Company does not exist! Please try again.
+                    </div>
+                    {% endif %}-->
+                    <br>
+                    <a href="#">Glömt lösenord?</a><br>
+                    <input type="submit" value="Logga In">
+                </form>
+                <div class="lines">
+                    <div class="hl1"></div>
+                    <p style="font-size: large;">Eller</p>
+                    <div class="hl1"></div>
+                </div>
+                <br>
+                <a href="#" class="register">Registrera Företag</a><br>
+            </div>
+        </div>
+        <div class="right-side"></div>
+    </div>
+</body>
+
+</html>
