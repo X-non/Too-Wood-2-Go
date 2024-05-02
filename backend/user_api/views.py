@@ -43,15 +43,34 @@ class Register(APIView):
                 },
                 status=HTTP_400_BAD_REQUEST,
             )
+
+        if not username: 
+            return JsonResponse(
+                {
+                    "reason": "Tomt fält användare",
+                    "context": "Användarnamn måste anges",
+                },
+                status=HTTP_400_BAD_REQUEST,
+            ) 
+        
+        if not email: 
+            return JsonResponse(
+                {
+                    "reason": "Tomt fält email",
+                    "context": "Email måste anges",
+                },
+                status=HTTP_400_BAD_REQUEST,
+            ) 
         # TODO We should probobly filter allowed passwords and usernames
         if User.objects.filter(username=username).exists():
             return JsonResponse(
                 {
-                    "reason": "username already exists",
-                    "context": "The username is already in use",
+                    "reason": "Användare finns redan",
+                    "context": "Användarnamnet används redan, vänligen välj ett nytt",
                 },
                 status=HTTP_400_BAD_REQUEST,
-            )
+            ) 
+
 
         user = MobileUser.create(username=username, password=password, email=email)
         token, created = Token.objects.get_or_create(user=user.credentials)

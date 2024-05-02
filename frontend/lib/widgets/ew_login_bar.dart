@@ -41,8 +41,5 @@ class EWLoginBar extends StatelessWidget {
         )
       ],
     );
-
-    ///TODO: det kommer behövas någon form av action när man trycker enter.
-    //Vad händer när man sökt?
   }
 }

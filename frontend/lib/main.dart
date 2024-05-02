@@ -28,7 +28,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => PickUpNotifier()),
         ChangeNotifierProvider(create: (_) => LoginNotifier()),
       ],
-      child: const MyApp(), // Ensure MyApp is properly imported
+      child: const MyApp(), 
     ),
   );
 }
@@ -61,7 +61,9 @@ class _MaterialYouState extends State<MaterialYou> {
     const ProfilePage(),
   ];
 
+
   @override
+
   Widget build(BuildContext context) {
     Provider.of<LoginNotifier>(context).loggedIn
         ? _currentIndex = _currentIndex

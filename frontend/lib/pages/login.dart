@@ -74,12 +74,15 @@ class Login extends StatelessWidget {
                         barrierDismissible: true,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: const Text("Error"),
                             content: const Text(
-                                "Felaktigt användarnamn eller lösenord"),
+                                "Felaktigt användarnamn eller lösenord",
+                                style: EWTextStyles.body,),
                             actions: [
                               ElevatedButton(
-                                child: const Text("OK"),
+
+                                child: const Text("OK",
+                                style: EWTextStyles.body,),
+                                
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
