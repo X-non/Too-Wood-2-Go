@@ -43,6 +43,24 @@ Future<List<CompanyItem>> fetchFavorite() async {
   }
 }
 
+Future<void> setFavorite(String storeId, bool favorite) async {
+  Map<String, dynamic> jsonData = {
+    'store_id': storeId,
+    'set_favorite': favorite
+  };
+  var url = EWApiUrls.apiFavorite;
+  var token = EWToken.token;
+
+  String object = jsonEncode(jsonData);
+
+  await http.put(Uri.parse(url),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Token $token"
+      },
+      body: object);
+}
+
 Future<List<CompanyItem>> fetchCompanies() async {
   var url = EWApiUrls.apiStores;
   var token = EWToken.token;

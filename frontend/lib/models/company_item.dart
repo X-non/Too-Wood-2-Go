@@ -5,18 +5,18 @@ class CompanyItem {
   final String description;
   final String address;
   final String openHours;
+  final String storeId;
   bool favorite;
-  // int id...
 
-  CompanyItem({
-    required this.img,
-    required this.icon,
-    required this.favorite,
-    required this.description,
-    required this.title,
-    required this.openHours,
-    required this.address,
-  });
+  CompanyItem(
+      {required this.img,
+      required this.icon,
+      required this.favorite,
+      required this.description,
+      required this.title,
+      required this.openHours,
+      required this.address,
+      required this.storeId});
 
   //   "catagory": "supermarket" | "bakery" | ...,
   // "pretty name": "Ica Supermarket Väst",
@@ -33,10 +33,11 @@ class CompanyItem {
         img: json["banner_image"] ?? "assets/image/Gateau1.jpg",
         icon: json["thumbnail"] ?? "assets/image/icon.jpeg",
         favorite: json["favorite"] ?? false,
-        description: json["description"] ?? "",
+        description: json["description"] ?? "Här säljs något gott.",
         title: json["pretty_name"],
-        openHours: json["open_hours"] ?? "",
-        address: json["address"] ?? "");
+        openHours: json["open_hours"] ?? "00:00 - 00:00",
+        address: json["address"] ?? "Hugingatan 11, 753 08, Uppsala",
+        storeId: json["store_id"] ?? "");
   }
 
   static List<CompanyItem> mockdata() {
@@ -69,13 +70,13 @@ class CompanyItem {
     return List<CompanyItem>.generate(
         10,
         (index) => CompanyItem(
-              img: 'assets/image/Gateau1.jpg',
-              icon: 'assets/image/icon.jpeg',
-              favorite: false,
-              description: companyDescription[index],
-              title: companyNames[index],
-              address: 'Östra Ågatan 31, 753 22 Uppsala',
-              openHours: '09:00 - 18:00',
-            ));
+            img: 'assets/image/Gateau1.jpg',
+            icon: 'assets/image/icon.jpeg',
+            favorite: false,
+            description: companyDescription[index],
+            title: companyNames[index],
+            address: 'Östra Ågatan 31, 753 22 Uppsala',
+            openHours: '09:00 - 18:00',
+            storeId: ''));
   }
 }

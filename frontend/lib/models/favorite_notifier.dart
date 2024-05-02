@@ -8,11 +8,14 @@ class FavoriteItemsNotifier extends ChangeNotifier {
   List<CompanyItem> get favoriteItems => _favoriteItems;
 
   void toggleFavorite(CompanyItem item) {
+    bool favorite = false;
     if (_favoriteItems.contains(item)) {
       _favoriteItems.remove(item);
     } else {
+      favorite = true;
       _favoriteItems.add(item);
     }
+    setFavorite(item.storeId, favorite);
     notifyListeners();
   }
 
@@ -20,7 +23,7 @@ class FavoriteItemsNotifier extends ChangeNotifier {
     return _favoriteItems.contains(item);
   }
 
-  Future<bool> updateList() async {
+  Future<bool> fetch() async {
     try {
       _favoriteItems.clear();
       _favoriteItems.addAll(await fetchFavorite());
@@ -28,5 +31,10 @@ class FavoriteItemsNotifier extends ChangeNotifier {
     } catch (e) {
       return false;
     }
+  }
+
+  void clearCache() {
+    _favoriteItems.clear();
+    notifyListeners();
   }
 }
