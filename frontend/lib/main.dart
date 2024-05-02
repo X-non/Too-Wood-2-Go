@@ -1,5 +1,6 @@
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/models/category_notifier.dart';
+import 'package:eatwise/models/company_notifier.dart';
 import 'package:eatwise/models/favorite_notifier.dart';
 import 'package:eatwise/models/login_notifier.dart';
 import 'package:eatwise/models/pickup_notifier.dart';
@@ -25,10 +26,10 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => ProductNotifier()),
         ChangeNotifierProvider(create: (_) => CategoryNotifier()),
         ChangeNotifierProvider(create: (_) => PickUpNotifier()),
-        ChangeNotifierProvider(create: (_) => PickUpNotifier()),
         ChangeNotifierProvider(create: (_) => LoginNotifier()),
+        ChangeNotifierProvider(create: (_) => CompanyNotifier()),
       ],
-      child: const MyApp(), 
+      child: const MyApp(),
     ),
   );
 }
@@ -61,9 +62,7 @@ class _MaterialYouState extends State<MaterialYou> {
     const ProfilePage(),
   ];
 
-
   @override
-
   Widget build(BuildContext context) {
     Provider.of<LoginNotifier>(context).loggedIn
         ? _currentIndex = _currentIndex

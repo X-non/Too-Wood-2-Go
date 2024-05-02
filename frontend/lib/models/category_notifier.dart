@@ -28,4 +28,9 @@ class CategoryNotifier extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  void clearCache() {
+    allItems.clear();
+    _categoryItems.clear();
+  }
 }

@@ -1,6 +1,8 @@
 import 'package:eatwise/backend/network.dart';
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
+import 'package:eatwise/models/company_notifier.dart';
+import 'package:eatwise/models/favorite_notifier.dart';
 import 'package:eatwise/models/login_notifier.dart';
 import 'package:eatwise/pages/register.dart';
 import 'package:eatwise/widgets/ew_login_bar.dart';
@@ -68,6 +70,10 @@ class Login extends StatelessWidget {
 
                     if (await login(username, password)) {
                       loginNotifier.toggleLogin();
+                      Provider.of<CompanyNotifier>(context, listen: false)
+                          .fetch();
+                      Provider.of<FavoriteItemsNotifier>(context, listen: false)
+                          .fetch();
                     } else {
                       showDialog(
                         context: context,
@@ -75,14 +81,15 @@ class Login extends StatelessWidget {
                         builder: (BuildContext context) {
                           return AlertDialog(
                             content: const Text(
-                                "Felaktigt användarnamn eller lösenord",
-                                style: EWTextStyles.body,),
+                              "Felaktigt användarnamn eller lösenord",
+                              style: EWTextStyles.body,
+                            ),
                             actions: [
                               ElevatedButton(
-
-                                child: const Text("OK",
-                                style: EWTextStyles.body,),
-                                
+                                child: const Text(
+                                  "OK",
+                                  style: EWTextStyles.body,
+                                ),
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
