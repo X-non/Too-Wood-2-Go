@@ -29,7 +29,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => PickUpNotifier()),
         ChangeNotifierProvider(create: (_) => LoginNotifier()),
       ],
-      child: const MyApp(), // Ensure MyApp is properly imported
+      child: const MyApp(), 
     ),
   );
 }
@@ -64,9 +64,9 @@ class _MaterialYouState extends State<MaterialYou> {
 
   @override
   void initState() {
-    fetchDadJoke();
+    //fetchDadJoke();
     // Provider.of<FavoriteItemsNotifier>(context, listen: false)
-    //                         .updateList(fetchFavorites());
+    //     .updateList(fetchFavorites());
     super.initState();
   }
 
