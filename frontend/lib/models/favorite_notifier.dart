@@ -1,3 +1,4 @@
+import 'package:eatwise/backend/network.dart';
 import 'package:eatwise/models/company_item.dart';
 import 'package:flutter/material.dart';
 
@@ -17,5 +18,15 @@ class FavoriteItemsNotifier extends ChangeNotifier {
 
   bool isFavorite(CompanyItem item) {
     return _favoriteItems.contains(item);
+  }
+
+  Future<bool> updateList() async {
+    try {
+      _favoriteItems.clear();
+      _favoriteItems.addAll(await fetchFavorite());
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }

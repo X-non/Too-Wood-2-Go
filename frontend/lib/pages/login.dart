@@ -1,7 +1,7 @@
+import 'package:eatwise/backend/network.dart';
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/login_notifier.dart';
-import 'package:eatwise/pages/home_page.dart';
 import 'package:eatwise/pages/register.dart';
 import 'package:eatwise/widgets/ew_login_bar.dart';
 import 'package:eatwise/widgets/ew_password_bar.dart';
@@ -13,6 +13,9 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController userController = TextEditingController();
+    final TextEditingController passController = TextEditingController();
+
     return Consumer<LoginNotifier>(builder: (context, loginNotifier, _) {
       return SizedBox(
         child: Column(
@@ -39,23 +42,56 @@ class Login extends StatelessWidget {
                     style: EWTextStyles.titleBold,
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
                     child: EWLoginBar(
                       name: 'Användarnamn',
+                      controllerUser: userController,
                     ),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
-                    child: EWPasswordBar(),
+                    child: EWPasswordBar(
+                      controllerPassword: passController,
+                    ),
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    loginNotifier.toggleLogin();
+                  onPressed: () async {
+                    String username = userController.text;
+                    String password = passController.text;
+                    userController.text = '';
+                    passController.text = '';
+
+                    if (await login(username, password)) {
+                      loginNotifier.toggleLogin();
+                    } else {
+                      showDialog(
+                        context: context,
+                        barrierDismissible: true,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            content: const Text(
+                                "Felaktigt användarnamn eller lösenord",
+                                style: EWTextStyles.body,),
+                            actions: [
+                              ElevatedButton(
+
+                                child: const Text("OK",
+                                style: EWTextStyles.body,),
+                                
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    }
                   },
                   style: const ButtonStyle(
                     backgroundColor:

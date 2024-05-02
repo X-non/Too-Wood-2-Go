@@ -1,11 +1,16 @@
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class EWLoginBar extends StatelessWidget {
-  const EWLoginBar({super.key, required this.name});
+  EWLoginBar({super.key, required this.name, required this.controllerUser});
 
   final String name;
+
+  final TextEditingController controllerUser;
+  
+
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +19,7 @@ class EWLoginBar extends StatelessWidget {
         SizedBox(
           height: 50,
           child: TextField(
+            controller: controllerUser,
             cursorColor: EWColors.primary,
             style: EWTextStyles.body,
             decoration: InputDecoration(
@@ -35,8 +41,5 @@ class EWLoginBar extends StatelessWidget {
         )
       ],
     );
-
-    ///TODO: det kommer behövas någon form av action när man trycker enter.
-    //Vad händer när man sökt?
   }
 }
