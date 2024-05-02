@@ -1,5 +1,5 @@
 from django.db import models
-from foretag.models import Store
+from foretag.models import Store, Ad
 from django.contrib.auth.models import User
 
 
@@ -21,3 +21,11 @@ class MobileUser(models.Model):
     class Meta:
         verbose_name = "MobileUser"
         verbose_name_plural = "MobileUsers"
+
+
+class Reservation(models.Model):
+    ad = models.ForeignKey(Ad, on_delete=models.CASCADE)
+    claimer = models.ForeignKey(MobileUser, on_delete=models.CASCADE)
+    amount_claimed = models.PositiveSmallIntegerField()
+    claim_time = models.DateTimeField(auto_now_add=True)
+    paid_for = models.BooleanField(default=False)  # Dictates whether in cart or not

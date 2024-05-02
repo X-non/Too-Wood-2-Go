@@ -2,4 +2,4 @@ from django.contrib import admin
 from user_api import models
 
 # Register your models here.
-admin.site.register((models.MobileUser))
+admin.site.register((models.MobileUser, models.Reservation))

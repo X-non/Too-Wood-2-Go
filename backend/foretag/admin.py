@@ -2,4 +2,4 @@ from django.contrib import admin
 from . import models
 
 # Register your models here.
-admin.site.register((models.Ad, models.Reservation, models.Store))
+admin.site.register((models.Ad, models.Store))

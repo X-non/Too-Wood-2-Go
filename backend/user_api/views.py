@@ -11,7 +11,7 @@ from rest_framework.request import Request
 from django.http.response import HttpResponseBadRequest
 from user_api import serializer
 from foretag.models import Ad, Store
-from user_api.models import MobileUser
+from user_api.models import MobileUser, Reservation
 from user_api.serializer import AdSerializer, StoreSerialiser
 from django.db.models import F
 from django.contrib.auth.models import User
