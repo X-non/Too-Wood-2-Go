@@ -1,4 +1,3 @@
-import 'package:eatwise/backend/network.dart';
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/models/category_notifier.dart';
 import 'package:eatwise/models/favorite_notifier.dart';
@@ -62,15 +61,9 @@ class _MaterialYouState extends State<MaterialYou> {
     const ProfilePage(),
   ];
 
-  @override
-  void initState() {
-    //fetchDadJoke();
-    // Provider.of<FavoriteItemsNotifier>(context, listen: false)
-    //     .updateList(fetchFavorites());
-    super.initState();
-  }
 
   @override
+
   Widget build(BuildContext context) {
     Provider.of<LoginNotifier>(context).loggedIn
         ? _currentIndex = _currentIndex
