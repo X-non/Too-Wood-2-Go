@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from user_api.models import MobileUser, Reservation, reserved_item_from_ad
+from user_api.models import MobileUser, Reservation, unreserved_item_from_ad
 from foretag.models import Ad, Store
 from django.db.models import Sum
 
@@ -38,6 +38,4 @@ class AdSerializer(serializers.ModelSerializer):
         exclude = ["store", "available"]
 
     def get_amount(self, obj: Ad):
-        reserved_amount = reserved_item_from_ad(obj)
-
-        return obj.available - reserved_amount
+        return unreserved_item_from_ad(obj)

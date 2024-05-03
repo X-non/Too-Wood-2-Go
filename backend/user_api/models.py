@@ -38,5 +38,5 @@ def reserved_item_from_ad(ad: Ad):
     )["sum"]
 
 
-def unreseved_items_from_ad(ad: Ad):
+def unreserved_item_from_ad(ad: Ad):
     return ad.available - reserved_item_from_ad(ad)
