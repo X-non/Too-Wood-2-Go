@@ -1,3 +1,4 @@
+from django.db.models.aggregates import Sum
 from django.db import models
 from foretag.models import Store, Ad
 from django.contrib.auth.models import User
@@ -29,3 +30,13 @@ class Reservation(models.Model):
     amount_claimed = models.PositiveSmallIntegerField()
     claim_time = models.DateTimeField(auto_now_add=True)
     paid_for = models.BooleanField(default=False)  # Dictates whether in cart or not
+
+
+def reserved_item_from_ad(ad: Ad):
+    return Reservation.objects.filter(ad=ad).aggregate(
+        sum=Sum("amount_claimed", default=0)
+    )["sum"]
+
+
+def unreseved_items_from_ad(ad: Ad):
+    return ad.available - reserved_item_from_ad(ad)
