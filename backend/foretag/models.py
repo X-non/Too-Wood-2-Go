@@ -1,5 +1,6 @@
 from django.db import models
 from django.template.defaultfilters import slugify
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -7,10 +8,7 @@ from django.template.defaultfilters import slugify
 class Store(models.Model):
     name = models.CharField(max_length=50, unique=True)
     slug_name = models.SlugField(max_length=50)
-    credentials = models.CharField(
-        max_length=50, default="Not connected"
-    )  # TODO - Implement refrence to login
-
+    credentials = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
     address = models.CharField(max_length=100)
     postal_code = models.CharField(max_length=10)
     postal_city = models.CharField(max_length=30)

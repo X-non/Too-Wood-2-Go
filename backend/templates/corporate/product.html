@@ -4,12 +4,8 @@
 <head>
     <title>Produkt</title>
     <style>
-        @font-face {
-            font-family: Atkinson;
-            src: url(Atkinson-Hyperlegible-Font-Print-and-Web-2020-0514/Print\ Fonts/Atkinson-Hyperlegible-Regular-102.otf);
-        }
         body{
-            font-family: Atkinson;
+            font-family: 'Atkinson Hyperlegible';
             color: black;
         }
         
@@ -195,6 +191,9 @@
         }
     </style>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 </head>
 
 <body></body>
@@ -208,13 +207,13 @@
             <a href="{% url 'ads' %}" class="current">
                 <i class="material-icons" style="font-size:16px" ;>add</i> Produkt
             </a>
-            <a href="#">
+            <a href="{% url 'orders' %}">
                 <i class="material-icons" style="font-size:16px;">shopping_basket</i> Beställningar
             </a>
             <a href="#">
                 <i class="material-icons" style="font-size:16px;">settings</i> Inställningar
             </a>
-            <a href="#">
+            <a href="{% url 'logout' %}">
                 <i class="material-icons" style="font-size:16px;">arrow_back</i> Logga ut
             </a>
         </div>
