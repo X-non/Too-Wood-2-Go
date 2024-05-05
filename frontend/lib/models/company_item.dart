@@ -28,6 +28,13 @@ class CompanyItem {
   // "banner_image":"assets/big.png"
   // "favorite": bool
 
+  bool containsInList(List<CompanyItem> list) {
+    for (var element in list) {
+      if (element.storeId == storeId) return true;
+    }
+    return false;
+  }
+
   static fromJson(json) {
     return CompanyItem(
         img: json["banner_image"] ?? "assets/image/Gateau1.jpg",

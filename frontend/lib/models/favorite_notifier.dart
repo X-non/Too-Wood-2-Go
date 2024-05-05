@@ -9,8 +9,8 @@ class FavoriteItemsNotifier extends ChangeNotifier {
 
   void toggleFavorite(CompanyItem item) {
     bool favorite = false;
-    if (_favoriteItems.contains(item)) {
-      _favoriteItems.remove(item);
+    if (item.containsInList(_favoriteItems)) {
+      _favoriteItems.removeWhere((element) => element.storeId == item.storeId);
     } else {
       favorite = true;
       _favoriteItems.add(item);
