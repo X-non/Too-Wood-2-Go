@@ -198,7 +198,7 @@ class Cart(APIView):
 
         unreserved_amount = ad.available - reserved_amount
 
-        if unreserved_amount < amount:
+        if unreserved_amount < amount or amount < 1:
             return json_error(
                 {
                     "reason": "can't reserve amount",
