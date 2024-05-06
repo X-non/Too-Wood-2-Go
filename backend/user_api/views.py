@@ -1,3 +1,4 @@
+from email.policy import default
 import select
 from django.http import JsonResponse
 from rest_framework.authentication import TokenAuthentication
@@ -212,6 +213,19 @@ class Cart(APIView):
     def get(self, request):
         user = MobileUser.objects.get(credentials=request.user)
 
-        current_cart = Reservation.objects.filter(claimer=user, paid_for=False)
+        current_cart = Reservation.objects.filter(
+            claimer=user,
+            paid_for=False,
+        )
+        ads = []
+        amount_in_cart = []
+        for ad_id in current_cart.values_list("ad", flat=True).distinct():
+            ad = Ad.objects.get(pk=ad_id)
+            ads.append(AdSerializer(ad).data)
 
-        return Response()
+            claimed = current_cart.filter(ad=ad).aggregate(
+                amount_in_cart=Sum("amount_claimed")
+            )["amount_in_cart"]
+            amount_in_cart.append(claimed)  # type: ignore
+
+        return JsonResponse(data={"ads": ads, "amount_in_cart": amount_in_cart})
