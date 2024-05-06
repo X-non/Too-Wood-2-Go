@@ -158,6 +158,17 @@ class Cart(APIView):
     authentication_classes = [TokenAuthentication]
 
     @transaction.atomic
+    def delete(self, request: Request):
+        user = MobileUser.objects.get(credentials=request.user)
+
+        current_cart = Reservation.objects.filter(
+            claimer=user,
+            paid_for=False,
+        )
+        current_cart.delete()
+        return Response()
+
+    @transaction.atomic
     def post(self, request: Request):
         user = MobileUser.objects.get(credentials=request.user)
 
