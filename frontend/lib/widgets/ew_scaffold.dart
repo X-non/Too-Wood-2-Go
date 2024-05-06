@@ -15,28 +15,30 @@ class EWScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              EWColors.beige,
-              EWColors.beige,
-              Colors.white,
-              Colors.white,
-            ],
-          ),
-        ),
-        child: Scaffold(
-          bottomNavigationBar: navBar,
-          appBar: appBar ??
-              AppBar(
-                surfaceTintColor: Colors.transparent,
-                backgroundColor: Colors.transparent,
+    return Material(
+        child: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  EWColors.beige,
+                  EWColors.beige,
+                  Colors.white,
+                  Colors.white,
+                ],
               ),
-          backgroundColor: Colors.transparent,
-          body: body,
-        ));
+            ),
+            child: Scaffold(
+              bottomNavigationBar: navBar,
+              appBar: appBar ??
+                  AppBar(
+                    surfaceTintColor: Colors.transparent,
+                    backgroundColor: Colors.transparent,
+                    //automaticallyImplyLeading: false,
+                  ),
+              backgroundColor: Colors.transparent,
+              body: body,
+            )));
   }
 }

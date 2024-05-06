@@ -84,15 +84,16 @@ class Login extends StatelessWidget {
                               "Felaktigt användarnamn eller lösenord",
                               style: EWTextStyles.body,
                             ),
+                            backgroundColor: EWColors.lightgreen,
                             actions: [
-                              ElevatedButton(
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
                                 child: const Text(
                                   "OK",
                                   style: EWTextStyles.body,
                                 ),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
                               ),
                             ],
                           );

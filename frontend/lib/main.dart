@@ -10,6 +10,7 @@ import 'package:eatwise/pages/home_page.dart';
 import 'package:eatwise/pages/login.dart';
 import 'package:eatwise/pages/map_page.dart';
 import 'package:eatwise/pages/profile_page.dart';
+import 'package:eatwise/pages/shoppingcart_page.dart';
 import 'package:eatwise/widgets/ew_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
@@ -39,9 +40,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MaterialYou(),
+      home: const MaterialYou(),
+      routes: {
+        '/home': (context) => const HomePage(),
+        /*
+        '/favorites': (context) => const FavoritesPage(),
+        '/map': (context) => const MapPage(),
+        '/profile': (context) => const ProfilePage(),*/
+      },
     );
   }
 }

@@ -1,13 +1,16 @@
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
+import 'package:eatwise/main.dart';
 import 'package:eatwise/models/company_item.dart';
 import 'package:eatwise/models/pickup_notifier.dart';
 import 'package:eatwise/models/product_notifier.dart';
+import 'package:eatwise/pages/home_page.dart';
 import 'package:eatwise/widgets/ew_product_list.dart';
 import 'package:eatwise/widgets/ew_scaffold.dart';
 import 'package:eatwise/widgets/ew_shopping_cart_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:eatwise/main.dart';
 
 class ShoppingCartPage extends StatefulWidget {
   const ShoppingCartPage({super.key, required this.company});
@@ -25,8 +28,12 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
 
     if (productItem.productItems.isEmpty) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        Navigator.pop(context);
-        Navigator.pop(context);
+        Navigator.pushAndRemoveUntil(
+            context, MaterialPageRoute(builder: (context) => const HomePage()),
+            (Route<dynamic> route) {
+          //print(route);
+          return route.isFirst;
+        });
       });
       return const SizedBox.shrink();
     }
