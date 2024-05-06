@@ -86,6 +86,13 @@ class LogOut extends StatelessWidget {
       ),
       actions: <Widget>[
         TextButton(
+          onPressed: () => Navigator.pop(context, 'Avbryt'),
+          child: const Text(
+            'Avbryt',
+            style: EWTextStyles.body,
+          ),
+        ),
+        TextButton(
           onPressed: () {
             Navigator.pop(context, 'Ja, logga ut mig');
             Provider.of<LoginNotifier>(context, listen: false).toggleLogin();
@@ -97,13 +104,6 @@ class LogOut extends StatelessWidget {
           },
           child: const Text(
             'Ja, logga ut mig',
-            style: EWTextStyles.body,
-          ),
-        ),
-        TextButton(
-          onPressed: () => Navigator.pop(context, 'Avbryt'),
-          child: const Text(
-            'Avbryt',
             style: EWTextStyles.body,
           ),
         ),

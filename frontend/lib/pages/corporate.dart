@@ -106,11 +106,9 @@ class _CorporatePageState extends State<CorporatePage> {
                               setState(() {
                                 _showExitConfirmation = false;
                               });
-                              Navigator.pop(context);
-                              productItem.removeAll();
                             },
                             child: const Text(
-                              'Ja',
+                              'Avbryt',
                               style: EWTextStyles.body,
                             ),
                           ),
@@ -119,9 +117,11 @@ class _CorporatePageState extends State<CorporatePage> {
                               setState(() {
                                 _showExitConfirmation = false;
                               });
+                              Navigator.pop(context);
+                              productItem.removeAll();
                             },
                             child: const Text(
-                              'Avbryt',
+                              'Ja',
                               style: EWTextStyles.body,
                             ),
                           ),

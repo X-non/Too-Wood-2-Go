@@ -130,19 +130,19 @@ class EWdeleteCart extends StatelessWidget {
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
-                      productNotifier.removeAll();
                     },
                     child: const Text(
-                      "Ja, ta bort",
+                      "Avbryt",
                       style: EWTextStyles.body,
                     ),
                   ),
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
+                      productNotifier.removeAll();
                     },
                     child: const Text(
-                      "Avbryt",
+                      "Ja, ta bort",
                       style: EWTextStyles.body,
                     ),
                   ),
