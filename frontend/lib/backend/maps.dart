@@ -1,7 +1,8 @@
 import 'dart:async';
-
+import 'package:provider/provider.dart';
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/company_item.dart';
+import 'package:eatwise/models/distance_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -10,13 +11,20 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 //TODO: Add coordinates as field for comapnyItem
 
 class EWMap extends StatefulWidget {
-  const EWMap({super.key});
+  final Function(double) onSliderChanged;
+
+  const EWMap({super.key, required this.onSliderChanged});
 
   @override
   State<EWMap> createState() => EWMapState();
 }
 
 class EWMapState extends State<EWMap> {
+  void onSliderChanged(double value) {
+    Provider.of<DistanceNotifier>(context, listen: false)
+        .updateDistance(value * 1000);
+  }
+
   final Completer<GoogleMapController> _controller = Completer();
 
   late GoogleMapController _googleMapController;
@@ -24,6 +32,8 @@ class EWMapState extends State<EWMap> {
   LatLng? _currentPosition;
 
   Set<Marker> markers = {};
+
+  double _currentSliderValue = 3;
 
   @override
   void initState() {
@@ -117,13 +127,14 @@ class EWMapState extends State<EWMap> {
       List<Location> coordinates = await locationFromAddress(company.address);
       LatLng companyPosition =
           LatLng(coordinates[0].latitude, coordinates[0].longitude);
-      double distance = Geolocator.distanceBetween(
+      double distanceBetween = Geolocator.distanceBetween(
           _currentPosition!.latitude,
           _currentPosition!.longitude,
           companyPosition.latitude,
           companyPosition.longitude);
 
-      if (distance <= 3000) {
+      if (distanceBetween <=
+          Provider.of<DistanceNotifier>(context, listen: false).distance) {
         markers.add(Marker(
           markerId: MarkerId(company.title),
           position: companyPosition,
@@ -142,7 +153,10 @@ class EWMapState extends State<EWMap> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: _currentPosition == null
+        body: Column(children: [
+      Expanded(
+        flex: 10,
+        child: _currentPosition == null
             ? const Center(
                 child: Text(
                 "Laddar...",
@@ -171,6 +185,31 @@ class EWMapState extends State<EWMap> {
                   _controller.complete(controller);
                   addShopToMap();
                 },
-              ));
+              ),
+      ),
+      Expanded(
+          flex: 1,
+          child: Row(
+            children: [
+              Expanded(
+                child: Slider(
+                    value: _currentSliderValue,
+                    min: 0,
+                    max: 10,
+                    divisions: 10,
+                    label: _currentSliderValue.round().toString(),
+                    onChanged: (double value) {
+                      setState(() {
+                        _currentSliderValue = value;
+                        addShopToMap();
+                        onSliderChanged(value);
+                        widget.onSliderChanged(value);
+                      });
+                    }),
+              ),
+              const Text("(KM)"),
+            ],
+          ))
+    ]));
   }
 }
