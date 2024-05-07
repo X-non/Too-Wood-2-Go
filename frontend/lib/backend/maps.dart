@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/company_item.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -21,6 +22,8 @@ class EWMapState extends State<EWMap> {
   late GoogleMapController _googleMapController;
 
   LatLng? _currentPosition;
+
+  Set<Marker> markers = {};
 
   @override
   void initState() {
@@ -74,13 +77,66 @@ class EWMapState extends State<EWMap> {
         LatLng(_currentPosition!.latitude, _currentPosition!.longitude)));
   }
 
-  void addShopToMap(CompanyItem company) {
-    Marker(
-      markerId: MarkerId(company.title),
-      position: const LatLng(59.84972, 17.63889),
-      infoWindow:
-          InfoWindow(title: company.title, snippet: company.description),
-    );
+  // Hårdkodat
+  List<CompanyItem> companies = [
+    CompanyItem(
+      title: 'Ica Supermarket Väst',
+      description: 'Livsmedelsbutik',
+      address: "Flogsta Centrum, Flogstavägen 99, 752 72 Uppsala",
+      img: "",
+      icon: "",
+      favorite: true,
+      openHours: "",
+      storeId: "",
+    ),
+    CompanyItem(
+      title: 'Hemköp Rosendal',
+      description: 'Livsmedelsbutik',
+      address: "Kansliskrivargatan 1, 752 57 Uppsala",
+      img: "",
+      icon: "",
+      favorite: true,
+      openHours: "",
+      storeId: "",
+    ),
+    CompanyItem(
+      title: 'Ica Folkes Livs',
+      description: 'Livsmedelsbutik',
+      address: "Rackarbergsgatan 8, 752 32 Uppsala",
+      img: "",
+      icon: "",
+      favorite: true,
+      openHours: "",
+      storeId: "",
+    ),
+  ];
+
+  void addShopToMap() async {
+    markers.clear();
+    for (var company in companies) {
+      List<Location> coordinates = await locationFromAddress(company.address);
+      LatLng companyPosition =
+          LatLng(coordinates[0].latitude, coordinates[0].longitude);
+      double distance = Geolocator.distanceBetween(
+          _currentPosition!.latitude,
+          _currentPosition!.longitude,
+          companyPosition.latitude,
+          companyPosition.longitude);
+
+      if (distance <= 3000) {
+        markers.add(Marker(
+          markerId: MarkerId(company.title),
+          position: companyPosition,
+          infoWindow: InfoWindow(
+            title: company.title,
+            snippet: company.description,
+          ),
+        ));
+      }
+    }
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
@@ -101,21 +157,19 @@ class EWMapState extends State<EWMap> {
                     });
                   }
                 },
-                markers: _currentPosition != null
-                    ? {
-                        Marker(
-                            markerId: const MarkerId('value'),
-                            position: _currentPosition!)
-                      }
-                    : {},
+                markers: markers,
                 initialCameraPosition: CameraPosition(
                   target: LatLng(
                       _currentPosition!.latitude, _currentPosition!.longitude),
                   zoom: 12,
                 ),
                 compassEnabled: true,
+                zoomControlsEnabled: true,
+                zoomGesturesEnabled: true,
+                scrollGesturesEnabled: true,
                 onMapCreated: (GoogleMapController controller) {
                   _controller.complete(controller);
+                  addShopToMap();
                 },
               ));
   }
