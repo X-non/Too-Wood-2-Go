@@ -1,5 +1,3 @@
-from email.policy import default
-import select
 from django.http import JsonResponse
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
@@ -8,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST
 from rest_framework.parsers import JSONParser
 from rest_framework.request import Request
+from rest_framework.decorators import api_view, authentication_classes
 from django.db import transaction
 from django.http.response import HttpResponseBadRequest
 from user_api import serializer
@@ -154,6 +153,30 @@ class Ads(APIView):
         return Response(serializer.data)
 
 
+def get_cart(user: MobileUser):
+    current_cart = Reservation.objects.filter(
+        claimer=user,
+        paid_for=False,
+    )
+
+    return current_cart
+
+
+def serialize_cart(current_cart):
+    ads = []
+    amount_in_cart = []
+    for ad_id in current_cart.values_list("ad", flat=True).distinct():
+        ad = Ad.objects.get(pk=ad_id)
+        ads.append(AdSerializer(ad).data)
+
+        claimed = current_cart.filter(ad=ad).aggregate(
+            amount_in_cart=Sum("amount_claimed")
+        )["amount_in_cart"]
+        amount_in_cart.append(claimed)  # type: ignore
+    data = {"ads": ads, "amount_in_cart": amount_in_cart}
+    return data
+
+
 class Cart(APIView):
     authentication_classes = [TokenAuthentication]
 
@@ -161,12 +184,73 @@ class Cart(APIView):
     def delete(self, request: Request):
         user = MobileUser.objects.get(credentials=request.user)
 
-        current_cart = Reservation.objects.filter(
-            claimer=user,
-            paid_for=False,
-        )
+        current_cart = get_cart(user)
         current_cart.delete()
         return Response()
+
+    @transaction.atomic
+    def patch(self, request: Request):
+        user = MobileUser.objects.get(credentials=request.user)
+
+        if not isinstance(request.data, dict):
+            return json_error({"reason": "not json", "context": "request must be json"})
+
+        data: dict = request.data
+        try:
+            ad_id = data["ad_id"]
+            amount = data["amount"]
+        except KeyError:
+            return json_error(
+                {
+                    "reason": "missing fields",
+                    "context": "both 'ad_id' and 'amount' is needed",
+                }
+            )
+        if not isinstance(ad_id, int) or not isinstance(amount, int):
+            return json_error(
+                {
+                    "reason": "should be int",
+                    "context": "both 'ad_id' and 'amount' should be ints",
+                }
+            )
+        try:
+            ad = Ad.objects.get(id=ad_id)
+        except Ad.DoesNotExist:
+            return json_error(
+                {
+                    "reason": "unknown id",
+                    "context": "The ad does not exist",
+                }
+            )
+
+        resevations_of_ad = get_cart(user).filter(ad=ad)
+
+        amount_in_cart = resevations_of_ad.aggregate(sum=Sum("available", default=0))[
+            "sum"
+        ]
+
+        if amount_in_cart < amount:
+            return json_error(
+                {
+                    "reason": "can't remove amount",
+                    "context": "There aren't enough available",
+                }
+            )
+
+        to_remove = []
+
+        for reservation in resevations_of_ad:
+            if amount < reservation.amount_claimed:
+                reservation.amount_claimed -= amount
+                reservation.save(force_update=True)
+                break
+
+            else:
+                to_remove.append(reservation)
+                amount -= reservation.amount_claimed
+
+        for to_remove in to_remove:
+            to_remove.delete()
 
     @transaction.atomic
     def post(self, request: Request):
@@ -224,19 +308,21 @@ class Cart(APIView):
     def get(self, request):
         user = MobileUser.objects.get(credentials=request.user)
 
-        current_cart = Reservation.objects.filter(
-            claimer=user,
-            paid_for=False,
+        current_cart = get_cart(user)
+
+        data = serialize_cart(current_cart)
+        return JsonResponse(data=data)
+
+
+@api_view(["POST"])
+@authentication_classes([TokenAuthentication])
+def checkout(request: Request):
+    user = MobileUser.objects.get(credentials=request.user)
+    cart = get_cart(user)
+    print(cart.values())
+    if not cart.exists():
+        return json_error(
+            {"reason": "empty cart", "context": "can't checkout empty cart"}
         )
-        ads = []
-        amount_in_cart = []
-        for ad_id in current_cart.values_list("ad", flat=True).distinct():
-            ad = Ad.objects.get(pk=ad_id)
-            ads.append(AdSerializer(ad).data)
 
-            claimed = current_cart.filter(ad=ad).aggregate(
-                amount_in_cart=Sum("amount_claimed")
-            )["amount_in_cart"]
-            amount_in_cart.append(claimed)  # type: ignore
-
-        return JsonResponse(data={"ads": ads, "amount_in_cart": amount_in_cart})
+    return Response()  # TODO send an order number thingy thingy
