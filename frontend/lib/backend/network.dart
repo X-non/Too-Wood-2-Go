@@ -15,10 +15,9 @@ Future<bool> login(String username, String password) async {
       headers: {"Content-Type": "application/json"}, body: object);
 
   if (request.statusCode == 200) {
-    Map<String, dynamic> response = jsonDecode(request.body);
+    Map<String, dynamic> response = jsonDecode(utf8.decode(request.bodyBytes));
     String token = response["token"];
     EWToken.token = token;
-
     return true;
   } else {
     return false;
@@ -34,10 +33,8 @@ Future<List<CompanyItem>> fetchFavorite() async {
     "Authorization": "Token $token"
   });
   if (request.statusCode == 200) {
-    var result = json.decode(request.body) as List;
-    List<CompanyItem> favorites =
-        result.map<CompanyItem>((e) => CompanyItem.fromJson(e)).toList();
-    return favorites;
+    var result = jsonDecode(utf8.decode(request.bodyBytes)) as List;
+    return result.map<CompanyItem>((e) => CompanyItem.fromJson(e)).toList();
   } else {
     return List.empty();
   }
@@ -69,11 +66,10 @@ Future<List<CompanyItem>> fetchCompanies() async {
     "Content-Type": "application/json",
     "Authorization": "Token $token"
   });
+
   if (request.statusCode == 200) {
-    var result = json.decode(request.body) as List;
-    List<CompanyItem> companies =
-        result.map<CompanyItem>((e) => CompanyItem.fromJson(e)).toList();
-    return companies;
+    var result = jsonDecode(utf8.decode(request.bodyBytes)) as List;
+    return result.map<CompanyItem>((e) => CompanyItem.fromJson(e)).toList();
   } else {
     return List.empty();
   }

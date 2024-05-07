@@ -180,7 +180,7 @@ class HomePage extends StatelessWidget {
                       padding:
                           EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                       child: Text(
-                        "Butiker i din närhet",
+                        "Butiker i Uppsala",
                         style: EWTextStyles.headline,
                       ),
                     ),
