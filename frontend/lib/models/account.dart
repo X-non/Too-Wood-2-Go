@@ -1,8 +1,8 @@
 class AccountItem {
-  final String username;
-  final String email;
-  final String phonenumber;
-  final String password;
+  String username;
+  String email;
+  String phonenumber;
+  String password;
 
   AccountItem({
     required this.username,
