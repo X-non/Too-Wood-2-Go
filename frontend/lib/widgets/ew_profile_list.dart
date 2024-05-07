@@ -1,6 +1,10 @@
-import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/constants/ew_colors.dart';
+import 'package:eatwise/constants/ew_styles.dart';
+import 'package:eatwise/models/category_notifier.dart';
+import 'package:eatwise/models/favorite_notifier.dart';
 import 'package:eatwise/models/login_notifier.dart';
+import 'package:eatwise/models/pickup_notifier.dart';
+import 'package:eatwise/models/product_notifier.dart';
 import 'package:eatwise/pages/settings_page.dart';
 import 'package:eatwise/services/ew_tuple.dart';
 import 'package:flutter/material.dart';
@@ -82,19 +86,24 @@ class LogOut extends StatelessWidget {
       ),
       actions: <Widget>[
         TextButton(
-          onPressed: () {
-            Navigator.pop(context, 'Ja, logga ut mig');
-            Provider.of<LoginNotifier>(context, listen: false).toggleLogin();
-          },
+          onPressed: () => Navigator.pop(context, 'Avbryt'),
           child: const Text(
-            'Ja, logga ut mig',
+            'Avbryt',
             style: EWTextStyles.body,
           ),
         ),
         TextButton(
-          onPressed: () => Navigator.pop(context, 'Avbryt'),
+          onPressed: () {
+            Navigator.pop(context, 'Ja, logga ut mig');
+            Provider.of<LoginNotifier>(context, listen: false).toggleLogin();
+            Provider.of<FavoriteItemsNotifier>(context, listen: false)
+                .clearCache();
+            Provider.of<ProductNotifier>(context, listen: false).clearCache();
+            Provider.of<CategoryNotifier>(context, listen: false).clearCache();
+            Provider.of<PickUpNotifier>(context, listen: false).clearCache();
+          },
           child: const Text(
-            'Avbryt',
+            'Ja, logga ut mig',
             style: EWTextStyles.body,
           ),
         ),

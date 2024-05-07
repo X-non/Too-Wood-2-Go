@@ -1,6 +1,6 @@
-import 'package:eatwise/backend/network.dart';
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/models/category_notifier.dart';
+import 'package:eatwise/models/company_notifier.dart';
 import 'package:eatwise/models/favorite_notifier.dart';
 import 'package:eatwise/models/login_notifier.dart';
 import 'package:eatwise/models/pickup_notifier.dart';
@@ -26,10 +26,10 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => ProductNotifier()),
         ChangeNotifierProvider(create: (_) => CategoryNotifier()),
         ChangeNotifierProvider(create: (_) => PickUpNotifier()),
-        ChangeNotifierProvider(create: (_) => PickUpNotifier()),
         ChangeNotifierProvider(create: (_) => LoginNotifier()),
+        ChangeNotifierProvider(create: (_) => CompanyNotifier()),
       ],
-      child: const MyApp(), // Ensure MyApp is properly imported
+      child: const MyApp(),
     ),
   );
 }
@@ -61,14 +61,6 @@ class _MaterialYouState extends State<MaterialYou> {
     const MapPage(),
     const ProfilePage(),
   ];
-
-  @override
-  void initState() {
-    fetchDadJoke();
-    // Provider.of<FavoriteItemsNotifier>(context, listen: false)
-    //                         .updateList(fetchFavorites());
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

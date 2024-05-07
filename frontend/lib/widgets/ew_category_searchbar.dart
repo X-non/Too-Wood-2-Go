@@ -78,10 +78,10 @@ class EWCategorySearchbarState extends State<EWCategorySearchbar>
                       width: 100,
                       decoration: BoxDecoration(
                         color: _tabController.index == index
-                            ? EWColors.lightgreen
+                            ? EWColors.primary
                             : Colors.white,
                         borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: EWColors.lightgreen),
+                        border: Border.all(color: EWColors.primary),
                       ),
                       child: Center(
                         child: Padding(
@@ -90,7 +90,10 @@ class EWCategorySearchbarState extends State<EWCategorySearchbar>
                             _categories[index],
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: EWTextStyles.body,
+                            style: _tabController.index == index
+                                ? EWTextStyles.body
+                                    .copyWith(color: Colors.white)
+                                : EWTextStyles.body,
                             selectionColor: Colors.white,
                           ),
                         ),

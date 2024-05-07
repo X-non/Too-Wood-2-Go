@@ -19,16 +19,66 @@ class ShoppingCartPage extends StatefulWidget {
 }
 
 class _ShoppingCartPageState extends State<ShoppingCartPage> {
+  static bool betala = false;
+
   @override
   Widget build(BuildContext context) {
     final productItem = Provider.of<ProductNotifier>(context);
 
     if (productItem.productItems.isEmpty) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        Navigator.pop(context);
-        Navigator.pop(context);
+        Navigator.popUntil(context, (route) => route.isFirst);
+        if (betala) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text(
+                  "Hurra!",
+                  style: EWTextStyles.headline,
+                ),
+                backgroundColor: Colors.white,
+                surfaceTintColor: Colors.transparent,
+                content: const Text(
+                  "Du hittar din bekräftelse på hemskärmen.",
+                  style: EWTextStyles.body,
+                ),
+                actions: [
+                  Center(
+                      child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                              decoration: BoxDecoration(
+                                color: EWColors.primary,
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Center(
+                                  child: Text(
+                                    'Okej!',
+                                    style: EWTextStyles.headline
+                                        .copyWith(color: Colors.white),
+                                  ),
+                                ),
+                              )),
+                        ),
+                      ],
+                    ),
+                  )),
+                ],
+              );
+            },
+          );
+          betala = false;
+        }
       });
-      return const SizedBox.shrink();
+      return const SizedBox.shrink(); // Return an empty widget
     }
     return EWScaffold(
       body: Stack(children: [
@@ -97,6 +147,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                             .addPickUp(widget.company);
                         Provider.of<ProductNotifier>(context, listen: false)
                             .removeAll();
+                        betala = true;
                       },
                       buttonText: 'Betala',
                     ),
@@ -130,19 +181,19 @@ class EWdeleteCart extends StatelessWidget {
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
-                      productNotifier.removeAll();
                     },
                     child: const Text(
-                      "Ja, ta bort",
+                      "Avbryt",
                       style: EWTextStyles.body,
                     ),
                   ),
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
+                      productNotifier.removeAll();
                     },
                     child: const Text(
-                      "Avbryt",
+                      "Ja, ta bort",
                       style: EWTextStyles.body,
                     ),
                   ),
@@ -166,12 +217,12 @@ class EWdeleteCart extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Icon(
-                  Icons.delete_outline,
+                  Icons.remove_shopping_cart,
                   color: Colors.white,
                 ),
               ),
               Text(
-                'Ta bort din order',
+                'Rensa kundvagn',
                 style: EWTextStyles.body.copyWith(color: Colors.white),
               )
             ],

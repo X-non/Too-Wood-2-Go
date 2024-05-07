@@ -47,8 +47,15 @@ class _CounterScreenState extends State<EWProductWidget> {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: CircleAvatar(
-                    radius: 50,
-                    backgroundImage: AssetImage(widget.product.img),
+                    maxRadius: 50,
+                    child: ClipPath(
+                        clipper:
+                            const ShapeBorderClipper(shape: CircleBorder()),
+                        child: Image.network(
+                            height: 100,
+                            width: 100,
+                            fit: BoxFit.contain,
+                            widget.product.img)),
                   ),
                 ),
                 Column(
@@ -74,36 +81,59 @@ class _CounterScreenState extends State<EWProductWidget> {
                 const Spacer(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.remove),
-                        iconSize: 35,
-                        color: EWColors.darkgreen,
-                        onPressed: () => {
-                          _decrementCounter(),
-                          productNotifier.toggleProduct(widget.product),
-                        },
-                      ),
-                      Text(widget.product.amount.toString()),
-                      IconButton(
-                        icon: const Icon(Icons.add),
-                        iconSize: 35,
-                        color: EWColors.darkgreen,
-                        onPressed: () => {
-                          _incrementCounter(),
-                          productNotifier.toggleProduct(widget.product),
-                        },
-                      ),
-                      IconButton(
-                          icon: const Icon(Icons.delete_forever),
-                          iconSize: 35,
-                          color: EWColors.darkgreen,
+                  child: widget.product.amount == 0
+                      ? TextButton(
                           onPressed: () => {
-                                productNotifier.removeProduct(widget.product),
-                              }),
-                    ],
-                  ),
+                            _incrementCounter(),
+                            productNotifier.toggleProduct(widget.product),
+                          }, // icon of the button
+                          style: TextButton.styleFrom(
+                            // styling the button
+                            foregroundColor: EWColors.primary,
+                            shape: const CircleBorder(),
+                            padding: const EdgeInsets.all(15),
+                            backgroundColor: EWColors.primary, // Button color
+                            // Splash color
+                          ),
+                          child: const Icon(
+                            Icons.shopping_basket,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                        )
+                      : Row(
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.remove),
+                              iconSize: 35,
+                              color: EWColors.darkgreen,
+                              onPressed: () => {
+                                _decrementCounter(),
+                                productNotifier.toggleProduct(widget.product),
+                              },
+                            ),
+                            Text(widget.product.amount.toString()),
+                            IconButton(
+                              icon: const Icon(Icons.add),
+                              iconSize: 35,
+                              color: EWColors.darkgreen,
+                              onPressed: () => {
+                                _incrementCounter(),
+                                productNotifier.toggleProduct(widget.product),
+                              },
+                            ),
+                            widget.product.amount > 0
+                                ? IconButton(
+                                    icon: const Icon(Icons.delete_outline),
+                                    iconSize: 35,
+                                    color: EWColors.darkgreen,
+                                    onPressed: () => {
+                                          productNotifier
+                                              .removeProduct(widget.product),
+                                        })
+                                : const SizedBox()
+                          ],
+                        ),
                 ),
               ],
             ),

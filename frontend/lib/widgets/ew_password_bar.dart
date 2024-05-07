@@ -2,10 +2,17 @@ import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:flutter/material.dart';
 
-class EWPasswordBar extends StatelessWidget {
+class EWPasswordBar extends StatefulWidget {
   EWPasswordBar({super.key, required this.controllerPassword});
 
   TextEditingController controllerPassword;
+
+  @override
+  State<EWPasswordBar> createState() => EWPasswordBarState();
+}
+
+class EWPasswordBarState extends State<EWPasswordBar> {
+  bool hideText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +21,8 @@ class EWPasswordBar extends StatelessWidget {
         SizedBox(
           height: 50,
           child: TextField(
-            controller: controllerPassword,
-            obscureText: true,
+            controller: widget.controllerPassword,
+            obscureText: hideText,
             cursorColor: EWColors.primary,
             style: EWTextStyles.body,
             decoration: InputDecoration(
@@ -30,11 +37,15 @@ class EWPasswordBar extends StatelessWidget {
                   borderSide: const BorderSide(color: EWColors.primary)),
               hintText: 'Lösenord',
               contentPadding: const EdgeInsets.fromLTRB(20.0, 5.0, 5.0, 5.0),
-              suffixIcon: const IconButton(
-                icon: Icon(Icons.remove_red_eye),
+              suffixIcon: IconButton(
+                icon: const Icon(Icons.remove_red_eye),
                 iconSize: 30,
                 color: EWColors.darkgreen,
-                onPressed: null,
+                onPressed: () {
+                  setState(() {
+                    hideText = !hideText;
+                  });
+                },
               ),
               filled: true,
               fillColor: Colors.white,
@@ -43,8 +54,5 @@ class EWPasswordBar extends StatelessWidget {
         )
       ],
     );
-
-    ///TODO: det kommer behövas någon form av action när man trycker enter.
-    //Vad händer när man sökt?
   }
 }

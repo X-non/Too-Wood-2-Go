@@ -42,7 +42,7 @@ class EWconfirmOrderState extends State<EWconfirmOrder> {
                     padding: const EdgeInsets.only(right: 16),
                     child: CircleAvatar(
                       radius: 20,
-                      backgroundImage: AssetImage(widget.item.icon),
+                      child: ClipOval(child: Image.network(widget.item.icon)),
                     ),
                   ),
                   Flexible(

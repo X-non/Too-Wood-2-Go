@@ -15,4 +15,8 @@ class PickUpNotifier extends ChangeNotifier {
     _pickupItems.remove(item);
     notifyListeners();
   }
+
+  void clearCache() {
+    _pickupItems.clear();
+  }
 }

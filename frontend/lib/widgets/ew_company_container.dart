@@ -43,7 +43,7 @@ class _EWCompanyContainerState extends State<EWCompanyContainer> {
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20)),
-                  child: Image.asset(
+                  child: Image.network(
                     width: double.infinity,
                     height: 75,
                     fit: BoxFit.fitWidth,
@@ -80,7 +80,7 @@ class _EWCompanyContainerState extends State<EWCompanyContainer> {
         ),
         Positioned(
           top: 45,
-          left: 275,
+          right: 20,
           child: TextButton(
             onPressed: () {
               favoriteItemsNotifier.toggleFavorite(widget.item);
@@ -108,7 +108,7 @@ class _EWCompanyContainerState extends State<EWCompanyContainer> {
           padding: const EdgeInsets.all(20.0),
           child: CircleAvatar(
             radius: 20,
-            backgroundImage: AssetImage(widget.item.icon),
+            child: ClipOval(child: Image.network(widget.item.icon)),
           ),
         ),
       ]);

@@ -1,14 +1,10 @@
-import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/constants/ew_colors.dart';
-import 'package:eatwise/models/company_item.dart';
+import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/favorite_notifier.dart';
 import 'package:eatwise/widgets/ew_company_list.dart';
 import 'package:eatwise/widgets/ew_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-//final List<CompanyItem> allItems = CompanyItem.mockdata();
-//final List<CompanyItem> favoriteItems = CompanyItem.getFavorites(allItems);
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
