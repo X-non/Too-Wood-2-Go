@@ -3,15 +3,13 @@ import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/category_notifier.dart';
 import 'package:eatwise/models/company_item.dart';
 import 'package:eatwise/models/product.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class EWCategorySearchbar extends StatefulWidget {
-  List<ProductItem> item;
   CompanyItem company;
-
-  EWCategorySearchbar({super.key, required this.item, required this.company});
+  EWCategorySearchbar({super.key, required this.company});
+  bool init = false;
 
   @override
   State<EWCategorySearchbar> createState() => EWCategorySearchbarState();
@@ -23,36 +21,46 @@ class EWCategorySearchbarState extends State<EWCategorySearchbar>
 
   String current = "";
 
-  final List<String> _categories = [];
+  List<String> _categories = [];
 
-  fetchAds() => {
-        Provider.of<CategoryNotifier>(context, listen: false)
-            .updateAds(widget.company.storeId),
-      };
-
-  initiateList() => {
-        print('Categoriesss ${widget.item}'),
-        _categories.clear(),
-        Future.delayed(const Duration(seconds: 1)),
-        if (widget.item.isNotEmpty)
+  iniateCategorier() => {
+        print('heheh ${CategoryNotifier().allItems}'),
+        for (ProductItem product in CategoryNotifier().allItems)
           {
-            for (ProductItem product in CategoryNotifier().categoryItems)
+            if (!_categories.contains(product.category))
               {
-                if (!_categories.contains(product.category))
-                  {_categories.add(product.category)}
-              },
-            _categories.sort(),
-            _categories.insert(0, "Allt")
+                _categories.add(product.category),
+              }
+          },
+        _categories.sort(),
+        if (_categories.isNotEmpty)
+          {
+            _categories.insert(0, "Allt"),
           }
       };
+
+  Future<void> initCategories() async {
+    List<ProductItem> allProducts =
+        await Provider.of<CategoryNotifier>(context, listen: false)
+            .updateAds(widget.company.storeId);
+    for (ProductItem product in allProducts) {
+      if (!_categories.contains(product.category)) {
+        _categories.add(product.category);
+      }
+    }
+    _categories.sort();
+    if (_categories.isNotEmpty) {
+      _categories.insert(0, "Allt");
+    }
+    if (!widget.init) {
+      widget.init = true;
+    }
+  }
 
   @override
   void initState() {
     super.initState();
-    fetchAds();
-    initiateList();
-    _tabController = TabController(length: _categories.length, vsync: this);
-    _tabController.addListener(_updateTabStyling);
+    initCategories();
   }
 
   void _updateTabStyling() {
@@ -66,65 +74,77 @@ class EWCategorySearchbarState extends State<EWCategorySearchbar>
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Theme(
-            data: theme.copyWith(
-              colorScheme: theme.colorScheme.copyWith(
-                surfaceVariant: Colors.transparent,
-              ),
-            ),
-            child: TabBar(
-              labelPadding: EdgeInsets.zero,
-              tabAlignment: TabAlignment.start,
-              overlayColor: MaterialStateProperty.all(Colors.transparent),
-              isScrollable: true,
-              controller: _tabController,
-              labelColor: Colors.black,
-              indicator: const BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: Colors.transparent, width: 0),
-                ),
-              ),
-              tabs: List.generate(
-                _categories.length,
-                (index) => Tab(
-                  child: Padding(
-                    padding:
-                        EdgeInsets.only(left: index == 0 ? 8 : 4, right: 4),
-                    child: Container(
-                      height: 45,
-                      width: 100,
-                      decoration: BoxDecoration(
-                        color: _tabController.index == index
-                            ? EWColors.lightgreen
-                            : Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: EWColors.lightgreen),
+    return FutureBuilder<void>(
+      future: initCategories(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Text('Error loading categories: ${snapshot.error}');
+        } else {
+          return SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Theme(
+                  data: theme.copyWith(
+                    colorScheme: theme.colorScheme.copyWith(
+                      surfaceVariant: Colors.transparent,
+                    ),
+                  ),
+                  child: TabBar(
+                    labelPadding: EdgeInsets.zero,
+                    tabAlignment: TabAlignment.start,
+                    overlayColor: MaterialStateProperty.all(Colors.transparent),
+                    isScrollable: true,
+                    controller: _tabController,
+                    labelColor: Colors.black,
+                    indicator: const BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(color: Colors.transparent, width: 0),
                       ),
-                      child: Center(
+                    ),
+                    tabs: List.generate(
+                      _categories.length,
+                      (index) => Tab(
                         child: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Text(
-                            _categories[index],
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: EWTextStyles.body,
-                            selectionColor: Colors.white,
+                          padding: EdgeInsets.only(
+                              left: index == 0 ? 8 : 4, right: 4),
+                          child: Container(
+                            height: 45,
+                            width: 100,
+                            decoration: BoxDecoration(
+                              color: _tabController.index == index
+                                  ? EWColors.lightgreen
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(color: EWColors.lightgreen),
+                            ),
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Text(
+                                  _categories[index],
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: _tabController.index == index
+                                      ? EWTextStyles.body
+                                          .copyWith(color: Colors.white)
+                                      : EWTextStyles.body,
+                                  selectionColor: Colors.white,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ),
-        ],
-      ),
+          );
+        }
+      },
     );
   }
 

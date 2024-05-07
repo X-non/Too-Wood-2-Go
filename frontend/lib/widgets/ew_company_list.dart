@@ -27,10 +27,8 @@ class EWCompanyList extends StatelessWidget {
           child: EWCompanyContainer(
             navToBusiness: () => {
               Provider.of<ProductNotifier>(context, listen: false),
-              Provider.of<CategoryNotifier>(context, listen: false)
-                  .updateAds(item.storeId),
-              Provider.of<CategoryNotifier>(context, listen: false)
-                  .updateCategories(""),
+              // Provider.of<CategoryNotifier>(context, listen: false)
+              //     .updateAds(item.storeId),
               Navigator.push(
                 context,
                 MaterialPageRoute(

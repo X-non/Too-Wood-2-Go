@@ -126,12 +126,9 @@ class HomePage extends StatelessWidget {
                               child: EWCompanyContainerSmall(
                                 item: item,
                                 navToBusiness: () => {
-                                  Provider.of<CategoryNotifier>(context,
-                                          listen: false)
-                                      .updateAds(item.storeId),
-                                  Provider.of<CategoryNotifier>(context,
-                                          listen: false)
-                                      .updateCategories(""),
+                                  // Provider.of<CategoryNotifier>(context,
+                                  //         listen: false)
+                                  //     .updateAds(item.storeId),
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(

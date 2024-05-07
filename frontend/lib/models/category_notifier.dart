@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class CategoryNotifier extends ChangeNotifier {
   final List<ProductItem> allItems = [];
   final List<ProductItem> _categoryItems = [];
-  final List<ProductItem> _allIems = [];
+  final List<ProductItem> _allStoreItems = [];
 
   List<ProductItem> get categoryItems => _categoryItems;
 
@@ -23,21 +23,20 @@ class CategoryNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-
   void createList(List<ProductItem> list, String current) {
     _categoryItems.clear();
     if (current == "") {
-      allItems.clear();
+      _allStoreItems.clear();
       for (ProductItem product in list) {
-        allItems.add(product);
+        _allStoreItems.add(product);
         _categoryItems.add(product);
       }
     } else if (current == "Allt") {
-      for (ProductItem product in allItems) {
+      for (ProductItem product in _allStoreItems) {
         _categoryItems.add(product);
       }
     } else {
-      for (ProductItem product in allItems) {
+      for (ProductItem product in _allStoreItems) {
         if (product.category == current) {
           _categoryItems.add(product);
         }
@@ -46,15 +45,15 @@ class CategoryNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> updateAds(String CompanyId) async {
+  Future<List<ProductItem>> updateAds(String CompanyId) async {
     List<ProductItem> products = await getAds(CompanyId);
-    if (products.isEmpty) {
-      allItems.clear();
-    } else {
-      allItems.clear();
-      allItems.addAll(products);
-    }
+    allItems.clear();
+    allItems.addAll(products);
+    print('Produkt listan ${allItems}');
+    createList(allItems, "");
     notifyListeners();
+
+    return allItems; 
   }
 
   void clearCache() {

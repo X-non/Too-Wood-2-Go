@@ -11,6 +11,7 @@ import 'package:eatwise/widgets/ew_product_list.dart';
 import 'package:eatwise/widgets/ew_scaffold.dart';
 import 'package:eatwise/widgets/ew_shopping_cart_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class CorporatePage extends StatefulWidget {
@@ -60,7 +61,10 @@ class _CorporatePageState extends State<CorporatePage> {
                   EWCompanyProfile(widget: widget),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16.0),
-                    child: EWCategorySearchbar(item: categoryItem.allItems, company: widget.item),
+                    child: DelayedWidget(
+                      delayDuration: Duration(seconds: 2),
+                      child: EWCategorySearchbar(company: widget.item),
+                    ),
                   ),
                   categoryItem.allItems.isEmpty
                       ? Text(
