@@ -1,6 +1,8 @@
+import 'package:delayed_widget/delayed_widget.dart';
 import 'package:eatwise/models/category_notifier.dart';
 import 'package:eatwise/models/company_item.dart';
 import 'package:eatwise/models/product.dart';
+import 'package:eatwise/models/product_notifier.dart';
 import 'package:eatwise/pages/corporate.dart';
 import 'package:eatwise/widgets/ew_company_container.dart';
 import 'package:flutter/material.dart';
@@ -24,14 +26,18 @@ class EWCompanyList extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
           child: EWCompanyContainer(
             navToBusiness: () => {
+              Provider.of<ProductNotifier>(context, listen: false),
               Provider.of<CategoryNotifier>(context, listen: false)
-                  .createList(productItems, ""),
+                  .updateAds(item.storeId),
+              Provider.of<CategoryNotifier>(context, listen: false)
+                  .updateCategories(""),
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) => CorporatePage(
-                            item: item,
-                          )))
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => CorporatePage(
+                          item: item,
+                        )),
+              ),
             },
             item: item,
           ),

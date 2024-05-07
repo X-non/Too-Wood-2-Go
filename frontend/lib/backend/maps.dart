@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-//TODO: Add coordinates as field for comapnyItem
+//TODO: Add coordinates as field for comapanyItem
 
 class EWMap extends StatefulWidget {
   const EWMap({super.key});

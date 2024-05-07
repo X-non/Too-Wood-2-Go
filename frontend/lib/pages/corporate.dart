@@ -1,3 +1,4 @@
+import 'package:delayed_widget/delayed_widget.dart';
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/category_notifier.dart';
@@ -57,11 +58,16 @@ class _CorporatePageState extends State<CorporatePage> {
                     ),
                   ),
                   EWCompanyProfile(widget: widget),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16.0),
-                    child: EWCategorySearchbar(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    child: EWCategorySearchbar(item: categoryItem.allItems, company: widget.item),
                   ),
-                  EWProductList(items: categoryItem.categoryitems),
+                  categoryItem.allItems.isEmpty
+                      ? Text(
+                          "${widget.item.title} saknar för närvarande produkter till försäljning",
+                          style: EWTextStyles.body,
+                        )
+                      : EWProductList(items: categoryItem.categoryItems),
                 ],
               ),
             ),

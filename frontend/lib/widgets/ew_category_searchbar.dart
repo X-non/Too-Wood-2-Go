@@ -1,11 +1,17 @@
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/category_notifier.dart';
+import 'package:eatwise/models/company_item.dart';
+import 'package:eatwise/models/product.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class EWCategorySearchbar extends StatefulWidget {
-  const EWCategorySearchbar({super.key});
+  List<ProductItem> item;
+  CompanyItem company;
+
+  EWCategorySearchbar({super.key, required this.item, required this.company});
 
   @override
   State<EWCategorySearchbar> createState() => EWCategorySearchbarState();
@@ -17,20 +23,36 @@ class EWCategorySearchbarState extends State<EWCategorySearchbar>
 
   String current = "";
 
-  final List<String> _categories = [
-    'Allt',
-    'Konditori',
-    'Sallad',
-    'Bröd',
-    'MackorDDDDDDDDDD',
-    'Annat'
-  ];
+  final List<String> _categories = [];
+
+  fetchAds() => {
+        Provider.of<CategoryNotifier>(context, listen: false)
+            .updateAds(widget.company.storeId),
+      };
+
+  initiateList() => {
+        print('Categoriesss ${widget.item}'),
+        _categories.clear(),
+        Future.delayed(const Duration(seconds: 1)),
+        if (widget.item.isNotEmpty)
+          {
+            for (ProductItem product in CategoryNotifier().categoryItems)
+              {
+                if (!_categories.contains(product.category))
+                  {_categories.add(product.category)}
+              },
+            _categories.sort(),
+            _categories.insert(0, "Allt")
+          }
+      };
 
   @override
   void initState() {
     super.initState();
+    fetchAds();
+    initiateList();
     _tabController = TabController(length: _categories.length, vsync: this);
-    _tabController.addListener(_updateTabStyling); // Listen for tab changes
+    _tabController.addListener(_updateTabStyling);
   }
 
   void _updateTabStyling() {

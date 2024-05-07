@@ -17,17 +17,17 @@ import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await FlutterConfig.loadEnvVariables();
+ // await FlutterConfig.loadEnvVariables();
 
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => FavoriteItemsNotifier()),
         ChangeNotifierProvider(create: (_) => ProductNotifier()),
-        ChangeNotifierProvider(create: (_) => CategoryNotifier()),
         ChangeNotifierProvider(create: (_) => PickUpNotifier()),
         ChangeNotifierProvider(create: (_) => LoginNotifier()),
         ChangeNotifierProvider(create: (_) => CompanyNotifier()),
+        ChangeNotifierProvider(create: (_) => CategoryNotifier(),)
       ],
       child: const MyApp(),
     ),

@@ -4,4 +4,5 @@ class EWApiUrls {
   static const apiStores = "${EWApiUrls.root}stores/";
   static const apiRegisterUser = "${EWApiUrls.root}register/";
   static const apiFavorite = "${EWApiUrls.root}favorites/";
+  static const apiAds = "${EWApiUrls.root}ads/";
 }
