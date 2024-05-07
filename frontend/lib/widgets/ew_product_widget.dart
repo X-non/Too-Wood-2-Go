@@ -47,8 +47,15 @@ class _CounterScreenState extends State<EWProductWidget> {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: CircleAvatar(
-                    radius: 50,
-                    backgroundImage: AssetImage(widget.product.img),
+                    maxRadius: 50,
+                    child: ClipPath(
+                        clipper:
+                            const ShapeBorderClipper(shape: CircleBorder()),
+                        child: Image.network(
+                            height: 100,
+                            width: 100,
+                            fit: BoxFit.contain,
+                            widget.product.img)),
                   ),
                 ),
                 Column(
