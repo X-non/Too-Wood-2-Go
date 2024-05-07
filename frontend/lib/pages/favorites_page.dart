@@ -1,6 +1,5 @@
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
-import 'package:eatwise/models/company_notifier.dart';
 import 'package:eatwise/models/favorite_notifier.dart';
 import 'package:eatwise/widgets/ew_company_list.dart';
 import 'package:eatwise/widgets/ew_search_bar.dart';
@@ -20,7 +19,6 @@ class _FavoritesPageState extends State<FavoritesPage> {
   @override
   Widget build(BuildContext context) {
     final favoriteItemsNotifier = Provider.of<FavoriteItemsNotifier>(context);
-    final companyNotfier = Provider.of<CompanyNotifier>(context);
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
