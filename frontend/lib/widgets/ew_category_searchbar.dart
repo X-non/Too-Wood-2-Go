@@ -90,7 +90,10 @@ class EWCategorySearchbarState extends State<EWCategorySearchbar>
                             _categories[index],
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: EWTextStyles.body,
+                            style: _tabController.index == index
+                                ? EWTextStyles.body
+                                    .copyWith(color: Colors.white)
+                                : EWTextStyles.body,
                             selectionColor: Colors.white,
                           ),
                         ),

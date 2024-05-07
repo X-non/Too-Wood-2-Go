@@ -21,6 +21,16 @@ class HomePage extends StatelessWidget {
     final favoriteItemsNotifier = Provider.of<FavoriteItemsNotifier>(context);
     final pickupNotifier = Provider.of<PickUpNotifier>(context);
     final companyNotfier = Provider.of<CompanyNotifier>(context);
+    final ScrollController scrollController = ScrollController();
+
+    // Scroll to the top when the page is built
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      scrollController.animateTo(
+        0.0,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
+    });
 
     return RefreshIndicator(
       onRefresh: () async {
@@ -28,6 +38,7 @@ class HomePage extends StatelessWidget {
         favoriteItemsNotifier.fetch();
       },
       child: SingleChildScrollView(
+        controller: scrollController,
         child: Column(
           children: [
             const Row(
