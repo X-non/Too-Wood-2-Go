@@ -7,7 +7,7 @@ from .forms import RegisterStoreForm
 from .forms import AdForm
 from .decorators import login_page
 from django.contrib.auth.models import Group
-from foretag.models import Ad, Store, Reservation
+from foretag.models import Ad, Store
 from django.contrib.auth.decorators import login_required
 
 
