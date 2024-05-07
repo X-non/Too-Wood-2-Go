@@ -18,16 +18,6 @@ class CompanyItem {
       required this.address,
       required this.storeId});
 
-  //   "catagory": "supermarket" | "bakery" | ...,
-  // "pretty name": "Ica Supermarket Väst",
-  // "store_id": "ica-supermarket-vest"
-  // "plats": "kordinater",
-  // "address": "Exempelvägen 42, Uppsala",
-  // "opening_hours": ...,
-  // "thumbnail": "assets/bla.png"
-  // "banner_image":"assets/big.png"
-  // "favorite": bool
-
   bool containsInList(List<CompanyItem> list) {
     for (var element in list) {
       if (element.storeId == storeId) return true;
@@ -37,8 +27,10 @@ class CompanyItem {
 
   static fromJson(json) {
     return CompanyItem(
-        img: json["banner_image"] ?? "assets/image/Gateau1.jpg",
-        icon: json["thumbnail"] ?? "assets/image/icon.jpeg",
+        img: json["banner_image"] ??
+            'https://cdn.shopify.com/s/files/1/2713/9702/collections/2048x550_GateauFI_banner_konditoria.jpg?v=1682082466',
+        icon: json["thumbnail"] ??
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoFWLS1Nq3gwC-3IgB3LkJBK-pG9X_NnIb6tmJOrtxRQ&s',
         favorite: json["favorite"] ?? false,
         description: json["description"] ?? "Här säljs något gott.",
         title: json["pretty_name"],

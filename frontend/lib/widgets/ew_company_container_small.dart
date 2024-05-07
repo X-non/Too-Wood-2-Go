@@ -31,10 +31,10 @@ class EWCompanyContainerSmall extends StatelessWidget {
             ClipRRect(
               borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-              child: Image.asset(
+              child: Image.network(
                 width: double.infinity,
                 height: 100,
-                fit: BoxFit.fitWidth,
+                fit: BoxFit.cover,
                 item.img,
               ),
             ),

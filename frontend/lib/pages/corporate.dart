@@ -199,17 +199,17 @@ class _EWCompanyProfileState extends State<EWCompanyProfile> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: Image.asset(
+                child: Image.network(
                   width: double.infinity,
                   height: 150,
-                  fit: BoxFit.fitWidth,
+                  fit: BoxFit.cover,
                   widget.widget.item.img,
                 ),
               ),
             ),
             Positioned(
               top: 100,
-              left: 275,
+              right: 40,
               child: TextButton(
                 onPressed: () {
                   favoriteItemsNotifier.toggleFavorite(widget.widget.item);
