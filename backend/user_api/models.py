@@ -24,12 +24,18 @@ class MobileUser(models.Model):
         verbose_name_plural = "MobileUsers"
 
 
+class Order(models.Model):
+    time_ordered = models.DateTimeField(auto_now_add=True)
+
+
 class Reservation(models.Model):
     ad = models.ForeignKey(Ad, on_delete=models.CASCADE)
     claimer = models.ForeignKey(MobileUser, on_delete=models.CASCADE)
     amount_claimed = models.PositiveSmallIntegerField()
     claim_time = models.DateTimeField(auto_now_add=True)
-    paid_for = models.BooleanField(default=False)  # Dictates whether in cart or not
+    orderer = models.ForeignKey(
+        Order, default=None, null=True, on_delete=models.CASCADE
+    )  # Dictates whether in cart (null) or bought (non null and pointing to an order)
 
 
 def reserved_item_from_ad(ad: Ad):

@@ -11,8 +11,8 @@ from django.db import transaction
 from django.http.response import HttpResponseBadRequest
 from user_api import serializer
 from foretag.models import Ad, Store
-from user_api.models import MobileUser, Reservation
-from user_api.serializer import AdSerializer, StoreSerialiser
+from user_api.models import MobileUser, Order, Reservation
+from user_api.serializer import AdSerializer, OrderSerializer, StoreSerialiser
 from django.db.models import Sum
 from django.contrib.auth.models import User
 
@@ -156,7 +156,7 @@ class Ads(APIView):
 def get_cart(user: MobileUser):
     current_cart = Reservation.objects.filter(
         claimer=user,
-        paid_for=False,
+        orderer=None,
     )
 
     return current_cart
@@ -319,10 +319,13 @@ class Cart(APIView):
 def checkout(request: Request):
     user = MobileUser.objects.get(credentials=request.user)
     cart = get_cart(user)
-    print(cart.values())
     if not cart.exists():
         return json_error(
             {"reason": "empty cart", "context": "can't checkout empty cart"}
         )
 
-    return Response()  # TODO send an order number thingy thingy
+    order = Order()
+    order.save()
+    cart.update(orderer=order)
+
+    return Response(OrderSerializer(order).data)

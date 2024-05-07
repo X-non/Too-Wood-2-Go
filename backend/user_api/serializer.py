@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from user_api.models import MobileUser, Reservation, unreserved_item_from_ad
+from user_api.models import MobileUser, Order, Reservation, unreserved_item_from_ad
 from foretag.models import Ad, Store
 from django.db.models import Sum
 
@@ -39,3 +39,11 @@ class AdSerializer(serializers.ModelSerializer):
 
     def get_amount(self, obj: Ad):
         return unreserved_item_from_ad(obj)
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    order_number = serializers.IntegerField(source="pk")
+
+    class Meta:
+        model = Order
+        fields = ["order_number", "time_ordered"]
