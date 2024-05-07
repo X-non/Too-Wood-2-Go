@@ -25,10 +25,55 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
 
     if (productItem.productItems.isEmpty) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        Navigator.pop(context);
-        Navigator.pop(context);
+        Navigator.popUntil(context, (route) => route.isFirst);
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text(
+                "Hurra!",
+                style: EWTextStyles.headline,
+              ),
+              backgroundColor: Colors.white,
+              surfaceTintColor: Colors.transparent,
+              content: const Text(
+                "Du hittar din bekräftelse på hemskärmen.",
+                style: EWTextStyles.body,
+              ),
+              actions: [
+                Center(
+                    child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                            decoration: BoxDecoration(
+                              color: EWColors.primary,
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Center(
+                                child: Text(
+                                  'Okej!',
+                                  style: EWTextStyles.headline
+                                      .copyWith(color: Colors.white),
+                                ),
+                              ),
+                            )),
+                      ),
+                    ],
+                  ),
+                )),
+              ],
+            );
+          },
+        );
       });
-      return const SizedBox.shrink();
+      return const SizedBox.shrink(); // Return an empty widget
     }
     return EWScaffold(
       body: Stack(children: [
