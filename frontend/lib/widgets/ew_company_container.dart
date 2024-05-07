@@ -80,7 +80,7 @@ class _EWCompanyContainerState extends State<EWCompanyContainer> {
         ),
         Positioned(
           top: 45,
-          left: 275,
+          right: 30,
           child: TextButton(
             onPressed: () {
               favoriteItemsNotifier.toggleFavorite(widget.item);
