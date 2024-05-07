@@ -96,7 +96,7 @@ class _CounterScreenState extends State<EWProductWidget> {
                         },
                       ),
                       IconButton(
-                          icon: const Icon(Icons.delete_forever),
+                          icon: const Icon(Icons.delete_outline),
                           iconSize: 35,
                           color: EWColors.darkgreen,
                           onPressed: () => {

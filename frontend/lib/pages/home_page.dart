@@ -100,11 +100,27 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
                 favoriteItemsNotifier.favoriteItems.isEmpty
-                    ? const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 20.0),
-                        child: Text(
-                          'Du har inte några favoriter',
-                          style: EWTextStyles.body,
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                              color: EWColors.lightgreen,
+                            ),
+                          ),
+                          height: 200,
+                          child: const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20.0),
+                            child: Center(
+                              child: Text(
+                                'Du har inte några favoriter. Lägg gärna till några!',
+                                style: EWTextStyles.body,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
                         ),
                       )
                     : SizedBox(

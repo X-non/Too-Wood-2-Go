@@ -166,12 +166,12 @@ class EWdeleteCart extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Icon(
-                  Icons.delete_outline,
+                  Icons.remove_shopping_cart,
                   color: Colors.white,
                 ),
               ),
               Text(
-                'Ta bort din order',
+                'Rensa kundvagn',
                 style: EWTextStyles.body.copyWith(color: Colors.white),
               )
             ],
