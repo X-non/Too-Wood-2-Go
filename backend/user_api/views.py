@@ -314,6 +314,12 @@ class Cart(APIView):
         return JsonResponse(data=data)
 
 
+def serialize_order(order):
+    items = serialize_cart(Reservation.objects.filter(orderer=order))
+    serialized_order = OrderSerializer(order, context={"items": items}).data
+    return serialized_order
+
+
 @api_view(["POST"])
 @authentication_classes([TokenAuthentication])
 def checkout(request: Request):
@@ -328,4 +334,29 @@ def checkout(request: Request):
     order.save()
     cart.update(orderer=order)
 
-    return Response(OrderSerializer(order).data)
+    return Response(serialize_order(order))
+
+
+@api_view(["GET"])
+@authentication_classes([TokenAuthentication])
+def orders(request: Request, order_number: int | None = None):
+    user = MobileUser.objects.get(credentials=request.user)
+    users_orders = (
+        Order.objects.filter(reservation__claimer=user).order_by("pk").distinct()
+    )
+
+    if order_number is None:
+        serialized = []
+        for order in users_orders:
+            serialized.append(serialize_order(order))
+
+        return Response(serialized)
+
+    try:
+        order = users_orders.get(pk=order_number)
+    except Order.DoesNotExist:
+        return json_error(
+            {"reason": "can't get order", "context": "Order does not exist"}
+        )
+
+    return Response(serialize_order(order))

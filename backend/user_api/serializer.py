@@ -43,7 +43,11 @@ class AdSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
     order_number = serializers.IntegerField(source="pk")
+    items = serializers.SerializerMethodField()
 
     class Meta:
         model = Order
-        fields = ["order_number", "time_ordered"]
+        fields = ["items", "order_number", "time_ordered"]
+
+    def get_items(self, obj):
+        return self.context["items"]

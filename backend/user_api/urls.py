@@ -4,7 +4,7 @@ from django.urls import path, include
 from django.contrib.auth.models import User
 
 
-from user_api.views import Ads, Cart, Favorites, Stores, Register, checkout
+from user_api.views import Ads, Cart, Favorites, Stores, Register, checkout, orders
 
 router = DefaultRouter()
 urlpatterns = [
@@ -15,4 +15,6 @@ urlpatterns = [
     path("ads/<slug:store_id>/", Ads.as_view()),
     path("register/", Register.as_view()),
     path("checkout/", checkout),
+    path("orders/", orders),
+    path("orders/<int:order_number>/", orders),
 ]
