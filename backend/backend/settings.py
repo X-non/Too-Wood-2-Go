@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ SECRET_KEY = "django-insecure-)s-u@2y4ivw#azo79z+8=2-*^7g7$p^d)rh!@5ai!r6dlv!77r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['eatwise-dev.azurewebsites.net']
+ALLOWED_HOSTS = [os.environ["WEBSITE_HOSTNAME"]]
 
 
 # Application definition
@@ -52,7 +53,17 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    "opencensus.ext.django.middleware.OpencensusMiddleware",
 ]
+
+CSRF_TRUSTED_ORIGINS = ["https://" + os.environ["WEBSITE_HOSTNAME"]]
+
+# OPENCENSUS = {
+#    "TRACE":{
+#        "SAMPLER": "opencensus.trace.samplers.ProbabilitySampler(rate=1)",
+#        "EXPORTER": "opencensus.ext.azure.trace_exporter.AzureExporter{connection_string="asa"}",
+#    }
+# }
 
 ROOT_URLCONF = "backend.urls"
 
@@ -136,7 +147,7 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
