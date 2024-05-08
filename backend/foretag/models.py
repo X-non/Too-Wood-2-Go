@@ -32,12 +32,3 @@ class Ad(models.Model):
 
     old_price = models.PositiveIntegerField(default=0)
     new_price = models.PositiveIntegerField(default=0)
-
-
-class Reservation(models.Model):
-    ad = models.ForeignKey(Ad, on_delete=models.CASCADE)
-    claimer = models.CharField(
-        max_length=100, default="not claimed yet!"
-    )  # TODO - Foreign key till Users
-    claim_time = models.DateTimeField(auto_now_add=True)
-    paid_for = models.BooleanField(default=False)  # Dictates whether in cart or not
