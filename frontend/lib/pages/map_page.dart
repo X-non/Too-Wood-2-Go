@@ -3,6 +3,7 @@ import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/company_item.dart';
 import 'package:eatwise/models/company_notifier.dart';
+import 'package:eatwise/models/distance_notifier.dart';
 import 'package:eatwise/widgets/ew_company_list.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -83,7 +84,8 @@ class _MapPageState extends State<MapPage> {
           companyPosition.latitude,
           companyPosition.longitude,
         );
-        if (distance <= 3000) {
+        if (distance <=
+            Provider.of<DistanceNotifier>(context, listen: false).distance) {
           nearbyCompanies.add(company);
         }
       } catch (e) {
@@ -124,9 +126,10 @@ class _MapPageState extends State<MapPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: const EWMap(),
-                ),
+                    borderRadius: BorderRadius.circular(10),
+                    child: EWMap(onSliderChanged: (double value) {
+                      updateNearbyCompanies();
+                    })),
               ))),
       const Row(
         children: [
