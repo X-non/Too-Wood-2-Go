@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+import locale
+from decouple import config
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -53,17 +56,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
-    "opencensus.ext.django.middleware.OpencensusMiddleware",
 ]
-
-CSRF_TRUSTED_ORIGINS = ["https://" + os.environ["WEBSITE_HOSTNAME"]]
-
-# OPENCENSUS = {
-#    "TRACE":{
-#        "SAMPLER": "opencensus.trace.samplers.ProbabilitySampler(rate=1)",
-#        "EXPORTER": "opencensus.ext.azure.trace_exporter.AzureExporter{connection_string="asa"}",
-#    }
-# }
 
 ROOT_URLCONF = "backend.urls"
 
@@ -85,14 +78,20 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "backend.wsgi.application"
 
+CSRF_TRUSTED_ORIGINS = ["https://" + os.environ["WEBSITE_HOSTNAME"]]
+
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "ew-db",
+        "USER": "EWadmin@eatwise-db",
+        "PASSWORD": config("DB_PASSWORD"),
+        "HOST": "eatwise-db.postgres.database.azure.com",
+        "PORT": "5432",
     }
 }
 
