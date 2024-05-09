@@ -33,7 +33,7 @@ class EWMapState extends State<EWMap> {
 
   Set<Marker> markers = {};
 
-  double _currentSliderValue = 3;
+  double _currentSliderValue = 2;
 
   @override
   void initState() {
@@ -175,12 +175,23 @@ class EWMapState extends State<EWMap> {
                 initialCameraPosition: CameraPosition(
                   target: LatLng(
                       _currentPosition!.latitude, _currentPosition!.longitude),
-                  zoom: 12,
+                  zoom: 13,
                 ),
                 compassEnabled: true,
                 zoomControlsEnabled: true,
                 zoomGesturesEnabled: true,
                 scrollGesturesEnabled: true,
+                circles: {
+                  Circle(
+                    circleId: const CircleId('currentCircle'),
+                    center: LatLng(_currentPosition!.latitude,
+                        _currentPosition!.longitude),
+                    radius:
+                        Provider.of<DistanceNotifier>(context, listen: false)
+                            .distance,
+                    strokeWidth: 1,
+                  ),
+                },
                 onMapCreated: (GoogleMapController controller) {
                   _controller.complete(controller);
                   addShopToMap();
