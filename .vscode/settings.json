@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/a494c10c-6a00-4e41-a850-c5e03aa33a6a/resourceGroups/eatwise-dev/providers/Microsoft.Web/sites/eatwise-dev",
+    "appService.deploySubpath": "backend"
+}

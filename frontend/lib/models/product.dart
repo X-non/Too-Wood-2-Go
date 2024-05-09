@@ -1,8 +1,4 @@
-/*  VAD SOM BEHÖVS 
-Jag vill använda deras createList i category _notifier för att bygga min lista av product item
-Mål: Förstå den jälva notifier klassen coh sedan lägg till min kod
 
-*/
 class ProductItem {
   final String img;
   final String name;
@@ -36,14 +32,3 @@ class ProductItem {
   }
 }
 
-//Detta vill jag ska vara min fetch
-// final List<ProductItem> productItems = [
-//   ProductItem(
-//       img: 'assets/image/Gateau1.jpg',
-//       name: 'Vatten',
-//       priceOld: 100,
-//       priceNew: 10,
-//       amount: 0,
-//       category: 'Annat',
-//       id: 0)
-// ];

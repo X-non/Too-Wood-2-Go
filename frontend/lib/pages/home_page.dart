@@ -22,6 +22,16 @@ class HomePage extends StatelessWidget {
     final favoriteItemsNotifier = Provider.of<FavoriteItemsNotifier>(context);
     final pickupNotifier = Provider.of<PickUpNotifier>(context);
     final companyNotfier = Provider.of<CompanyNotifier>(context);
+    final ScrollController scrollController = ScrollController();
+
+    // Scroll to the top when the page is built
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      scrollController.animateTo(
+        0.0,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
+    });
 
     return RefreshIndicator(
       onRefresh: () async {
@@ -29,6 +39,7 @@ class HomePage extends StatelessWidget {
         favoriteItemsNotifier.fetch();
       },
       child: SingleChildScrollView(
+        controller: scrollController,
         child: Column(
           children: [
             const Row(
@@ -101,11 +112,27 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
                 favoriteItemsNotifier.favoriteItems.isEmpty
-                    ? const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 20.0),
-                        child: Text(
-                          'Du har inte några favoriter',
-                          style: EWTextStyles.body,
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                              color: EWColors.lightgreen,
+                            ),
+                          ),
+                          height: 200,
+                          child: const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20.0),
+                            child: Center(
+                              child: Text(
+                                'Du har inte några favoriter. Lägg gärna till några!',
+                                style: EWTextStyles.body,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
                         ),
                       )
                     : SizedBox(
@@ -154,7 +181,7 @@ class HomePage extends StatelessWidget {
                       padding:
                           EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                       child: Text(
-                        "Butiker i din närhet",
+                        "Butiker i Uppsala",
                         style: EWTextStyles.headline,
                       ),
                     ),

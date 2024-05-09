@@ -1,24 +1,25 @@
 import 'dart:convert';
+
+import 'package:eatwise/constants/ew_colors.dart';
+import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/constants/ew_token.dart';
 import 'package:eatwise/constants/ew_urls.dart';
 import 'package:eatwise/models/login_notifier.dart';
-import 'package:eatwise/constants/ew_colors.dart';
-import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/widgets/ew_login_bar.dart';
 import 'package:eatwise/widgets/ew_password_bar.dart';
 import 'package:eatwise/widgets/ew_scaffold.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 class Register extends StatelessWidget {
   const Register({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController _mailController = TextEditingController();
-    final TextEditingController _passController = TextEditingController();
-    final TextEditingController _userController = TextEditingController();
+    final TextEditingController mailController = TextEditingController();
+    final TextEditingController passController = TextEditingController();
+    final TextEditingController userController = TextEditingController();
 
     return Consumer<LoginNotifier>(builder: (context, loginNotifier, _) {
       return EWScaffold(
@@ -50,39 +51,39 @@ class Register extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: SizedBox(
                       child: EWLoginBar(
                         name: 'Email',
-                        controllerUser: _mailController,
+                        controllerUser: mailController,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: SizedBox(
                       child: EWLoginBar(
                         name: 'Användarnamn',
-                        controllerUser: _userController,
+                        controllerUser: userController,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: SizedBox(
                       child: EWPasswordBar(
-                        controllerPassword: _passController,
+                        controllerPassword: passController,
                       ),
                     ),
                   ),
                   ElevatedButton(
                     onPressed: () async {
-                      String username = _userController.text;
-                      String password = _passController.text;
-                      String mail = _mailController.text;
-                      _userController.text = '';
-                      _passController.text = '';
-                      _mailController.text = '';
+                      String username = userController.text;
+                      String password = passController.text;
+                      String mail = mailController.text;
+                      userController.text = '';
+                      passController.text = '';
+                      mailController.text = '';
 
                       Map<String, dynamic> jsonData = {
                         'username': username,
@@ -138,9 +139,9 @@ class Register extends StatelessWidget {
                       backgroundColor:
                           MaterialStatePropertyAll(EWColors.lightgreen),
                     ),
-                    child: const Text(
+                    child: Text(
                       "Registrera dig",
-                      style: EWTextStyles.body,
+                      style: EWTextStyles.body.copyWith(color: Colors.white),
                     ),
                   ),
                 ],

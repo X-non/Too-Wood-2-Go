@@ -1,12 +1,18 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/account.dart';
 import 'package:eatwise/widgets/ew_scaffold.dart';
 import 'package:flutter/material.dart';
 
-class SettingsPage extends StatelessWidget {
-  SettingsPage({super.key});
+class SettingsPage extends StatefulWidget {
+  const SettingsPage({super.key});
 
+  @override
+  _SettingsPageState createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
   final List<String> settingLabels = [
     'Användarnamn',
     'E-post',
@@ -14,7 +20,28 @@ class SettingsPage extends StatelessWidget {
     'Lösenord'
   ];
 
-  final AccountItem value = AccountItem.mockdata();
+  AccountItem value = AccountItem.mockdata();
+
+  void updateAccountValue(int index, String newValue) {
+    setState(() {
+      switch (index) {
+        case 0:
+          value.username = newValue;
+          break;
+        case 1:
+          value.email = newValue;
+          break;
+        case 2:
+          value.phonenumber = newValue;
+          break;
+        case 3:
+          value.password = newValue;
+          break;
+        default:
+          break;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +72,7 @@ class SettingsPage extends StatelessWidget {
                     value.phonenumber,
                     value.password
                   ][index],
+                  onUpdate: (newValue) => updateAccountValue(index, newValue),
                 );
               },
             ),
@@ -60,42 +88,34 @@ class EWSettingButton extends StatelessWidget {
     super.key,
     required this.settingLabel,
     required this.settingValue,
+    required this.onUpdate,
   });
 
   final String settingLabel;
   final String settingValue;
+  final ValueChanged<String> onUpdate;
+
+  bool get isPassword => settingLabel.toLowerCase() == 'lösenord';
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8),
       child: InkWell(
-        onTap: () {
-          showModalBottomSheet<void>(
+        onTap: () async {
+          final textResult = await showTextInputDialog(
             context: context,
-            builder: (BuildContext context) {
-              return Container(
-                height: 200,
-                color: Colors.white,
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Text(
-                        'Ändra ${settingLabel.toLowerCase()}:',
-                        style: EWTextStyles.headline,
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: TextField(),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            },
+            textFields: [
+              DialogTextField(
+                hintText: settingLabel,
+                obscureText: isPassword,
+              ),
+            ],
+            title: 'Ändra ${settingLabel.toLowerCase()}:',
           );
+          if (textResult != null && textResult.isNotEmpty) {
+            onUpdate(textResult.first);
+          }
         },
         child: Container(
           height: 60,
@@ -117,7 +137,7 @@ class EWSettingButton extends StatelessWidget {
               ),
               const Spacer(),
               Text(
-                settingValue,
+                isPassword ? '●●●●●●' : settingValue,
                 style: EWTextStyles.body,
               ),
               const Padding(

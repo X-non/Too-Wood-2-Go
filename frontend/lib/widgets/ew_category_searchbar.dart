@@ -105,8 +105,6 @@ class EWCategorySearchbarState extends State<EWCategorySearchbar>
                     indicator: const BoxDecoration(
                       border: Border(
                         bottom: BorderSide(color: Colors.transparent, width: 0),
-                      ),
-                    ),
                     tabs: List.generate(
                       _categories.length,
                       (index) => Tab(
@@ -138,6 +136,7 @@ class EWCategorySearchbarState extends State<EWCategorySearchbar>
                                 ),
                               ),
                             ),
+
                           ),
                         ),
                       ),

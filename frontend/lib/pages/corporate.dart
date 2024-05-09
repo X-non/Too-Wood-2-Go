@@ -116,11 +116,9 @@ class _CorporatePageState extends State<CorporatePage> {
                               setState(() {
                                 _showExitConfirmation = false;
                               });
-                              Navigator.pop(context);
-                              productItem.removeAll();
                             },
                             child: const Text(
-                              'Ja',
+                              'Avbryt',
                               style: EWTextStyles.body,
                             ),
                           ),
@@ -129,9 +127,11 @@ class _CorporatePageState extends State<CorporatePage> {
                               setState(() {
                                 _showExitConfirmation = false;
                               });
+                              Navigator.pop(context);
+                              productItem.removeAll();
                             },
                             child: const Text(
-                              'Avbryt',
+                              'Ja',
                               style: EWTextStyles.body,
                             ),
                           ),
@@ -209,17 +209,17 @@ class _EWCompanyProfileState extends State<EWCompanyProfile> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: Image.asset(
+                child: Image.network(
                   width: double.infinity,
                   height: 150,
-                  fit: BoxFit.fitWidth,
+                  fit: BoxFit.cover,
                   widget.widget.item.img,
                 ),
               ),
             ),
             Positioned(
               top: 100,
-              left: 275,
+              right: 40,
               child: TextButton(
                 onPressed: () {
                   favoriteItemsNotifier.toggleFavorite(widget.widget.item);

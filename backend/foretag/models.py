@@ -1,5 +1,6 @@
 from django.db import models
 from django.template.defaultfilters import slugify
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -7,10 +8,7 @@ from django.template.defaultfilters import slugify
 class Store(models.Model):
     name = models.CharField(max_length=50, unique=True)
     slug_name = models.SlugField(max_length=50)
-    credentials = models.CharField(
-        max_length=50, default="Not connected"
-    )  # TODO - Implement refrence to login
-
+    credentials = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
     address = models.CharField(max_length=100)
     postal_code = models.CharField(max_length=10)
     postal_city = models.CharField(max_length=30)
@@ -34,12 +32,3 @@ class Ad(models.Model):
 
     old_price = models.PositiveIntegerField(default=0)
     new_price = models.PositiveIntegerField(default=0)
-
-
-class Reservation(models.Model):
-    ad = models.ForeignKey(Ad, on_delete=models.CASCADE)
-    claimer = models.CharField(
-        max_length=100, default="not claimed yet!"
-    )  # TODO - Foreign key till Users
-    claim_time = models.DateTimeField(auto_now_add=True)
-    paid_for = models.BooleanField(default=False)  # Dictates whether in cart or not

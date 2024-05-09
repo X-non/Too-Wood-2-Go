@@ -1,6 +1,7 @@
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/models/category_notifier.dart';
 import 'package:eatwise/models/company_notifier.dart';
+import 'package:eatwise/models/distance_notifier.dart';
 import 'package:eatwise/models/favorite_notifier.dart';
 import 'package:eatwise/models/login_notifier.dart';
 import 'package:eatwise/models/pickup_notifier.dart';
@@ -28,6 +29,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => LoginNotifier()),
         ChangeNotifierProvider(create: (_) => CompanyNotifier()),
         ChangeNotifierProvider(create: (_) => CategoryNotifier(),)
+        ChangeNotifierProvider(create: (_) => DistanceNotifier()),
       ],
       child: const MyApp(),
     ),
