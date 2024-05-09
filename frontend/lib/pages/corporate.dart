@@ -61,15 +61,15 @@ class _CorporatePageState extends State<CorporatePage> {
                   EWCompanyProfile(widget: widget),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16.0),
-                    child: DelayedWidget(
-                      delayDuration: Duration(seconds: 2),
-                      child: EWCategorySearchbar(company: widget.item),
-                    ),
+                    child: EWCategorySearchbar(company: widget.item),
                   ),
                   categoryItem.allItems.isEmpty
-                      ? Text(
-                          "${widget.item.title} saknar för närvarande produkter till försäljning",
-                          style: EWTextStyles.body,
+                      ? DelayedWidget(
+                          delayDuration: const Duration(milliseconds: 200),
+                          child: Text(
+                            "${widget.item.title} saknar för närvarande produkter till försäljning",
+                            style: EWTextStyles.body,
+                          ),
                         )
                       : EWProductList(items: categoryItem.categoryItems),
                 ],

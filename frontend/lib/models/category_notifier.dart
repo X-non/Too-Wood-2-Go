@@ -49,10 +49,8 @@ class CategoryNotifier extends ChangeNotifier {
     List<ProductItem> products = await getAds(CompanyId);
     allItems.clear();
     allItems.addAll(products);
-    print('Produkt listan ${allItems}');
     createList(allItems, "");
     notifyListeners();
-
     return allItems; 
   }
 

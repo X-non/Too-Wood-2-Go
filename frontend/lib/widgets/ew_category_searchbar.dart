@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 class EWCategorySearchbar extends StatefulWidget {
   CompanyItem company;
   EWCategorySearchbar({super.key, required this.company});
-  bool init = false;
 
   @override
   State<EWCategorySearchbar> createState() => EWCategorySearchbarState();
@@ -19,25 +18,11 @@ class EWCategorySearchbarState extends State<EWCategorySearchbar>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
+  bool _isTabControllerInitialized = false;
+
   String current = "";
 
   List<String> _categories = [];
-
-  iniateCategorier() => {
-        print('heheh ${CategoryNotifier().allItems}'),
-        for (ProductItem product in CategoryNotifier().allItems)
-          {
-            if (!_categories.contains(product.category))
-              {
-                _categories.add(product.category),
-              }
-          },
-        _categories.sort(),
-        if (_categories.isNotEmpty)
-          {
-            _categories.insert(0, "Allt"),
-          }
-      };
 
   Future<void> initCategories() async {
     List<ProductItem> allProducts =
@@ -51,16 +36,39 @@ class EWCategorySearchbarState extends State<EWCategorySearchbar>
     _categories.sort();
     if (_categories.isNotEmpty) {
       _categories.insert(0, "Allt");
+      _categories.insert(1, "testbwydwydydwbbdwbdbdbdwbdwbdwwd");
+      _categories.insert(3, "element");
     }
-    if (!widget.init) {
-      widget.init = true;
+  }
+
+  double calculateTabWidth(String category) {
+    TextPainter textPainter = TextPainter(
+      text: TextSpan(text: category, style: EWTextStyles.body),
+      textDirection: TextDirection.ltr,
+    );
+
+    textPainter.layout();
+
+    if (textPainter.width > 100) {
+      return textPainter.width;
+    } else {
+      return 90;
     }
   }
 
   @override
   void initState() {
     super.initState();
-    initCategories();
+    _initialize();
+  }
+
+  Future<void> _initialize() async {
+    await initCategories();
+    _tabController = TabController(length: _categories.length, vsync: this);
+    _tabController.addListener(_updateTabStyling);
+    setState(() {
+      _isTabControllerInitialized = true;
+    });
   }
 
   void _updateTabStyling() {
@@ -74,24 +82,20 @@ class EWCategorySearchbarState extends State<EWCategorySearchbar>
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    return FutureBuilder<void>(
-      future: initCategories(),
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Text('Error loading categories: ${snapshot.error}');
-        } else {
-          return SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Theme(
-                  data: theme.copyWith(
-                    colorScheme: theme.colorScheme.copyWith(
-                      surfaceVariant: Colors.transparent,
-                    ),
-                  ),
-                  child: TabBar(
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Theme(
+            data: theme.copyWith(
+              colorScheme: theme.colorScheme.copyWith(
+                surfaceVariant: Colors.transparent,
+              ),
+            ),
+            child: !_isTabControllerInitialized
+                ? const Center()
+                : TabBar(
                     labelPadding: EdgeInsets.zero,
                     tabAlignment: TabAlignment.start,
                     overlayColor: MaterialStateProperty.all(Colors.transparent),
@@ -111,7 +115,7 @@ class EWCategorySearchbarState extends State<EWCategorySearchbar>
                               left: index == 0 ? 8 : 4, right: 4),
                           child: Container(
                             height: 45,
-                            width: 100,
+                            width: calculateTabWidth(_categories[index]), 
                             decoration: BoxDecoration(
                               color: _tabController.index == index
                                   ? EWColors.lightgreen
@@ -125,7 +129,7 @@ class EWCategorySearchbarState extends State<EWCategorySearchbar>
                                 child: Text(
                                   _categories[index],
                                   maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
+                                  overflow: TextOverflow.visible,
                                   style: _tabController.index == index
                                       ? EWTextStyles.body
                                           .copyWith(color: Colors.white)
@@ -139,12 +143,9 @@ class EWCategorySearchbarState extends State<EWCategorySearchbar>
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          );
-        }
-      },
+          ),
+        ],
+      ),
     );
   }
 
