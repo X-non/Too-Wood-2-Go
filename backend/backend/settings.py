@@ -27,9 +27,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-)s-u@2y4ivw#azo79z+8=2-*^7g7$p^d)rh!@5ai!r6dlv!77r"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
 
-ALLOWED_HOSTS = [os.environ["WEBSITE_HOSTNAME"]]
+
+try:
+    # If running in production
+    website = os.environ["WEBSITE_HOSTNAME"]
+    DEBUG = False
+    ALLOWED_HOSTS = [website]
+    CSRF_TRUSTED_ORIGINS = ["https://" + website]
+except:
+    # If running locally
+    ALLOWED_HOSTS = []
+    DEBUG = True
 
 
 # Application definition
@@ -77,8 +86,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "backend.wsgi.application"
-
-CSRF_TRUSTED_ORIGINS = ["https://" + os.environ["WEBSITE_HOSTNAME"]]
 
 
 # Database
