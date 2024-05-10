@@ -1,8 +1,8 @@
 import 'dart:convert';
-
 import 'package:eatwise/constants/ew_token.dart';
 import 'package:eatwise/constants/ew_urls.dart';
 import 'package:eatwise/models/company_item.dart';
+import 'package:eatwise/models/product.dart';
 import 'package:http/http.dart' as http;
 
 Future<bool> login(String username, String password) async {
@@ -21,6 +21,27 @@ Future<bool> login(String username, String password) async {
     return true;
   } else {
     return false;
+  }
+}
+
+Future<List<ProductItem>> getAds(String CompanyId) async {
+  var url = "${EWApiUrls.apiAds}$CompanyId/";
+  var token = EWToken.token;
+
+  http.Response request = await http.get(Uri.parse(url), headers: {
+    "Content-Type": "application/json",
+    "Authorization": "Token $token"
+  });
+
+  if (request.statusCode == 200) {
+    var result = json.decode(request.body) as List;
+
+    List<ProductItem> ads =
+        result.map<ProductItem>((e) => ProductItem.fromJson(e)).toList();
+
+    return ads;
+  } else {
+    return List.empty();
   }
 }
 

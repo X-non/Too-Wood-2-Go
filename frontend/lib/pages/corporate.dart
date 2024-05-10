@@ -1,3 +1,4 @@
+import 'package:delayed_widget/delayed_widget.dart';
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/category_notifier.dart';
@@ -10,6 +11,7 @@ import 'package:eatwise/widgets/ew_product_list.dart';
 import 'package:eatwise/widgets/ew_scaffold.dart';
 import 'package:eatwise/widgets/ew_shopping_cart_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class CorporatePage extends StatefulWidget {
@@ -57,11 +59,19 @@ class _CorporatePageState extends State<CorporatePage> {
                     ),
                   ),
                   EWCompanyProfile(widget: widget),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16.0),
-                    child: EWCategorySearchbar(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    child: EWCategorySearchbar(company: widget.item),
                   ),
-                  EWProductList(items: categoryItem.categoryitems),
+                  categoryItem.allItems.isEmpty
+                      ? DelayedWidget(
+                          delayDuration: const Duration(milliseconds: 200),
+                          child: Text(
+                            "${widget.item.title} saknar för närvarande produkter till försäljning",
+                            style: EWTextStyles.body,
+                          ),
+                        )
+                      : EWProductList(items: categoryItem.categoryItems),
                 ],
               ),
             ),

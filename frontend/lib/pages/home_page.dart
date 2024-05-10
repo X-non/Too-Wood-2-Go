@@ -5,6 +5,7 @@ import 'package:eatwise/models/company_notifier.dart';
 import 'package:eatwise/models/favorite_notifier.dart';
 import 'package:eatwise/models/pickup_notifier.dart';
 import 'package:eatwise/models/product.dart';
+import 'package:eatwise/models/product_notifier.dart';
 import 'package:eatwise/pages/corporate.dart';
 import 'package:eatwise/widgets/ew_company_container_small.dart';
 import 'package:eatwise/widgets/ew_company_list.dart';
@@ -152,9 +153,9 @@ class HomePage extends StatelessWidget {
                               child: EWCompanyContainerSmall(
                                 item: item,
                                 navToBusiness: () => {
-                                  Provider.of<CategoryNotifier>(context,
-                                          listen: false)
-                                      .createList(productItems, ""),
+                                  // Provider.of<CategoryNotifier>(context,
+                                  //         listen: false)
+                                  //     .updateAds(item.storeId),
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(

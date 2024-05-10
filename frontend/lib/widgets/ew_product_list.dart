@@ -1,6 +1,8 @@
+import 'package:eatwise/models/category_notifier.dart';
 import 'package:eatwise/models/product.dart';
 import 'package:eatwise/widgets/ew_product_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class EWProductList extends StatelessWidget {
   const EWProductList({super.key, required this.items});
