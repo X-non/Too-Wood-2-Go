@@ -11,7 +11,6 @@ import 'package:eatwise/widgets/ew_product_list.dart';
 import 'package:eatwise/widgets/ew_scaffold.dart';
 import 'package:eatwise/widgets/ew_shopping_cart_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class CorporatePage extends StatefulWidget {
@@ -66,9 +65,30 @@ class _CorporatePageState extends State<CorporatePage> {
                   categoryItem.allItems.isEmpty
                       ? DelayedWidget(
                           delayDuration: const Duration(milliseconds: 200),
-                          child: Text(
-                            "${widget.item.title} saknar för närvarande produkter till försäljning",
-                            style: EWTextStyles.body,
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Container(
+                              height: 100,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  color: EWColors.beige,
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20.0),
+                                child: Center(
+                                  child: Text(
+                                    "${widget.item.title} saknar för närvarande produkter till försäljning.",
+                                    style: EWTextStyles.body,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
                         )
                       : EWProductList(items: categoryItem.categoryItems),
