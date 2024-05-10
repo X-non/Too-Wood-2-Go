@@ -13,12 +13,11 @@ import 'package:eatwise/pages/map_page.dart';
 import 'package:eatwise/pages/profile_page.dart';
 import 'package:eatwise/widgets/ew_scaffold.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_config/flutter_config.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
- // await FlutterConfig.loadEnvVariables();
+  // await FlutterConfig.loadEnvVariables();
 
   runApp(
     MultiProvider(
@@ -28,8 +27,8 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => PickUpNotifier()),
         ChangeNotifierProvider(create: (_) => LoginNotifier()),
         ChangeNotifierProvider(create: (_) => CompanyNotifier()),
-        ChangeNotifierProvider(create: (_) => CategoryNotifier(),)
-        ChangeNotifierProvider(create: (_) => DistanceNotifier()),
+        ChangeNotifierProvider(create: (_) => CategoryNotifier()),
+        ChangeNotifierProvider(create: (_) => DistanceNotifier())
       ],
       child: const MyApp(),
     ),

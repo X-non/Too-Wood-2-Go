@@ -22,7 +22,7 @@ class EWCategorySearchbarState extends State<EWCategorySearchbar>
 
   String current = "";
 
-  List<String> _categories = [];
+  final List<String> _categories = [];
 
   Future<void> initCategories() async {
     List<ProductItem> allProducts =
@@ -103,8 +103,9 @@ class EWCategorySearchbarState extends State<EWCategorySearchbar>
                     controller: _tabController,
                     labelColor: Colors.black,
                     indicator: const BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(color: Colors.transparent, width: 0),
+                        border: Border(
+                            bottom: BorderSide(
+                                color: Colors.transparent, width: 0))),
                     tabs: List.generate(
                       _categories.length,
                       (index) => Tab(
@@ -113,7 +114,7 @@ class EWCategorySearchbarState extends State<EWCategorySearchbar>
                               left: index == 0 ? 8 : 4, right: 4),
                           child: Container(
                             height: 45,
-                            width: calculateTabWidth(_categories[index]), 
+                            width: calculateTabWidth(_categories[index]),
                             decoration: BoxDecoration(
                               color: _tabController.index == index
                                   ? EWColors.lightgreen
@@ -136,7 +137,6 @@ class EWCategorySearchbarState extends State<EWCategorySearchbar>
                                 ),
                               ),
                             ),
-
                           ),
                         ),
                       ),
