@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:eatwise/constants/ew_token.dart';
 import 'package:eatwise/constants/ew_urls.dart';
 import 'package:eatwise/models/company_item.dart';
@@ -34,7 +35,7 @@ Future<List<ProductItem>> getAds(String CompanyId) async {
   });
 
   if (request.statusCode == 200) {
-    var result = json.decode(request.body) as List;
+    var result = jsonDecode(utf8.decode(request.bodyBytes)) as List;
 
     List<ProductItem> ads =
         result.map<ProductItem>((e) => ProductItem.fromJson(e)).toList();
