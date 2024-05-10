@@ -1,3 +1,4 @@
+import 'package:eatwise/backend/network.dart';
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/product.dart';
@@ -18,12 +19,14 @@ class _CounterScreenState extends State<EWProductWidget> {
     setState(() {
       widget.product.amount++;
     });
+    addToCart(widget.product.id, 1);
   }
 
   void _decrementCounter() {
     setState(() {
       if (widget.product.amount > 0) {
         widget.product.amount--;
+        removeFromCart(widget.product.id, 1);
       }
     });
   }

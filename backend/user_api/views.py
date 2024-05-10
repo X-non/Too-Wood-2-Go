@@ -244,7 +244,7 @@ class Cart(APIView):
 
         resevations_of_ad = get_cart(user).filter(ad=ad)
 
-        amount_in_cart = resevations_of_ad.aggregate(sum=Sum("available", default=0))[
+        amount_in_cart = resevations_of_ad.aggregate(sum=Sum("amount_claimed", default=0))[
             "sum"
         ]
 
@@ -270,6 +270,7 @@ class Cart(APIView):
 
         for to_remove in to_remove:
             to_remove.delete()
+            return Response()
 
     @transaction.atomic
     def post(self, request: Request):
