@@ -122,16 +122,14 @@ class _CounterScreenState extends State<EWProductWidget> {
                                 productNotifier.toggleProduct(widget.product),
                               },
                             ),
-                            widget.product.amount > 0
-                                ? IconButton(
-                                    icon: const Icon(Icons.delete_outline),
-                                    iconSize: 35,
-                                    color: EWColors.darkgreen,
-                                    onPressed: () => {
-                                          productNotifier
-                                              .removeProduct(widget.product),
-                                        })
-                                : const SizedBox()
+                            IconButton(
+                                icon: const Icon(Icons.delete_outline),
+                                iconSize: 35,
+                                color: EWColors.darkgreen,
+                                onPressed: () => {
+                                      productNotifier
+                                          .removeProduct(widget.product),
+                                    })
                           ],
                         ),
                 ),

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:eatwise/constants/ew_token.dart';
 import 'package:eatwise/constants/ew_urls.dart';
 import 'package:eatwise/models/company_item.dart';
+import 'package:eatwise/models/product.dart';
 import 'package:http/http.dart' as http;
 
 Future<bool> login(String username, String password) async {
@@ -73,4 +74,51 @@ Future<List<CompanyItem>> fetchCompanies() async {
   } else {
     return List.empty();
   }
+}
+
+Future<List<ProductItem>> fetchCart() async {
+  var url = EWApiUrls.apiCart;
+  var token = EWToken.token;
+
+  http.Response request = await http.get(Uri.parse(url), headers: {
+    "Content-Type": "application/json",
+    "Authorization": "Token $token"
+  });
+
+  if (request.statusCode == 200) {
+    var result = jsonDecode(utf8.decode(request.bodyBytes)) as List;
+    return result.map<ProductItem>((e) => ProductItem.fromJson(e)).toList();
+  } else {
+    return List.empty();
+  }
+}
+
+Future<void> addToCart(int adId, int amount) async {
+  Map<String, dynamic> jsonData = {'ad_id': adId, 'amount': amount};
+  var url = EWApiUrls.apiCart;
+  var token = EWToken.token;
+
+  String object = jsonEncode(jsonData);
+
+  await http.post(Uri.parse(url),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Token $token"
+      },
+      body: object);
+}
+
+Future<void> removeFromCart(ProductItem ad, int amount) async {
+  Map<String, dynamic> jsonData = {'ad': ad, 'amount': amount};
+  var url = EWApiUrls.apiCart;
+  var token = EWToken.token;
+
+  String object = jsonEncode(jsonData);
+
+  await http.patch(Uri.parse(url),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Token $token"
+      },
+      body: object);
 }
