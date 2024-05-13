@@ -34,11 +34,11 @@ class EWCategorySearchbarState extends State<EWCategorySearchbar>
       }
     }
     _categories.sort();
-    if (_categories.isNotEmpty) {
-      _categories.insert(0, "Allt");
-      _categories.insert(1, "testbwydwydydwbbdwbdbdbdwbdwbdwwd");
-      _categories.insert(3, "element");
-    }
+    // if (_categories.isNotEmpty) {
+    //   _categories.insert(0, "Allt");
+    //   _categories.insert(1, "testbwydwydydwbbdwbdbdbdwbdwbdwwd");
+    //   _categories.insert(3, "element");
+    // }
   }
 
   double calculateTabWidth(String category) {

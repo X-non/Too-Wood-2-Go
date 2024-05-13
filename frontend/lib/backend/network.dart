@@ -148,6 +148,21 @@ Future<bool> removeFromCart(int adId, int amount) async {
   return response.statusCode == 200;
 }
 
+Future<bool> clearCart() async {
+  var url = EWApiUrls.apiCart;
+  var token = EWToken.token;
+
+  var response = await http.delete(
+    Uri.parse(url),
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Token $token"
+    },
+  );
+
+  return response.statusCode == 200;
+}
+
 Future<bool> checkoutCart() async {
   var url = EWApiUrls.apiCheckOut;
   var token = EWToken.token;

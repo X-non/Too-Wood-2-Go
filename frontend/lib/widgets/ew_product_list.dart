@@ -19,7 +19,7 @@ class EWProductList extends StatelessWidget {
           padding: (index == items.length - 1)
               ? const EdgeInsets.only(top: 4, left: 8, right: 8, bottom: 130)
               : const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-          child: item.avaliable == 0
+          child: item.amount == 0
               ? const SizedBox()
               : EWProductWidget(
                   product: item,
