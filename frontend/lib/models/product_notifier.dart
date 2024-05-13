@@ -44,5 +44,6 @@ class ProductNotifier extends ChangeNotifier {
 
   void clearCache() {
     _productItems.clear();
+    notifyListeners();
   }
 }

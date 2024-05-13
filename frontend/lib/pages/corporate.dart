@@ -62,7 +62,10 @@ class _CorporatePageState extends State<CorporatePage> {
                     padding: const EdgeInsets.symmetric(vertical: 16.0),
                     child: EWCategorySearchbar(company: widget.item),
                   ),
-                  categoryItem.allItems.isEmpty
+                  categoryItem.allItems
+                          .where((element) => element.amount != 0)
+                          .toList()
+                          .isEmpty
                       ? DelayedWidget(
                           delayDuration: const Duration(milliseconds: 200),
                           child: Padding(

@@ -29,16 +29,12 @@ class EWCategorySearchbarState extends State<EWCategorySearchbar>
         await Provider.of<CategoryNotifier>(context, listen: false)
             .updateAds(widget.company.storeId);
     for (ProductItem product in allProducts) {
-      if (!_categories.contains(product.category)) {
+      if (!_categories.contains(product.category) && product.amount != 0) {
         _categories.add(product.category);
       }
     }
+    if (_categories.isNotEmpty) _categories.add('Allt');
     _categories.sort();
-    // if (_categories.isNotEmpty) {
-    //   _categories.insert(0, "Allt");
-    //   _categories.insert(1, "testbwydwydydwbbdwbdbdbdwbdwbdwwd");
-    //   _categories.insert(3, "element");
-    // }
   }
 
   double calculateTabWidth(String category) {
