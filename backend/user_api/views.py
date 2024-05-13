@@ -269,7 +269,7 @@ class Cart(APIView):
 
         for to_remove in to_remove:
             to_remove.delete()
-            return Response()
+        return Response()
 
     @transaction.atomic
     def post(self, request: Request):
