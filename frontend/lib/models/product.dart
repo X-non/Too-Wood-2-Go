@@ -6,7 +6,6 @@ class ProductItem {
   int amount;
   final String category;
   final int id;
-  int avaliable;
 
   ProductItem({
     required this.img,
@@ -16,7 +15,6 @@ class ProductItem {
     required this.amount,
     required this.category,
     required this.id,
-    required this.avaliable,
   });
 
   static fromJson(json) {
@@ -26,10 +24,9 @@ class ProductItem {
       name: json["title"] ?? "Varan saknar namn",
       priceOld: json["old_price"],
       priceNew: json["new_price"],
-      avaliable: json["amount"],
+      amount: json["amount"],
       category: json["category"] ?? "Annat",
       id: json["id"],
-      amount: 0,
     );
   }
 }
