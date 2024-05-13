@@ -26,6 +26,7 @@ class Ad(models.Model):
     desc = models.CharField(max_length=250)
     store = models.ForeignKey(Store, on_delete=models.CASCADE)
     available = models.PositiveSmallIntegerField(default=1)
+    category = models.CharField(max_length=40, default="Annat")
 
     published = models.DateTimeField(auto_now_add=True)
     until = models.DateTimeField(auto_now_add=True)  # TODO - Change to some real value

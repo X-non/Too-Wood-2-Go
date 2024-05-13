@@ -1,8 +1,11 @@
+from calendar import c
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpRequest, HttpResponse
+
+from user_api.models import Reservation
 from .forms import RegisterStoreForm
 from .forms import AdForm
 from .decorators import login_page
@@ -132,10 +135,10 @@ def main(request: HttpRequest):
 
 @login_required
 def orders(request: HttpRequest):
-    request.method
     current_store = Store.objects.get(credentials__exact=request.user)
-    available_ads = Ad.objects.filter(store=current_store)
-    reservations = Reservation.objects.filter(ad__in=available_ads)
+    reservations = Reservation.objects.exclude(orderer=None).filter(
+        ad__store=current_store
+    )
     context = {
         "reservations": reservations,
     }

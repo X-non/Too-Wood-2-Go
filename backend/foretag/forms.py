@@ -13,7 +13,15 @@ class StoreForm(forms.ModelForm):
 class AdForm(forms.ModelForm):
     class Meta:
         model = Ad
-        fields = ["title", "desc", "store", "available", "old_price", "new_price"]
+        fields = [
+            "title",
+            "desc",
+            "store",
+            "category",
+            "available",
+            "old_price",
+            "new_price",
+        ]
 
 
 class RegisterStoreForm(UserCreationForm):
