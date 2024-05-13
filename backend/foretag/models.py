@@ -32,9 +32,9 @@ def random_store_thumbnail():
 def random_product_thumbnail():
     return choice(
         [
-            r"https://tinyurl.com/482sfpuv",
             r"https://tinyurl.com/3v3z5cvd",
-            r"https://tinyurl.com/dt6t5apz",
+            r"https://tinyurl.com/44ses44u",
+            r"https://tinyurl.com/dt6t5apz"
         ]
     )
 
