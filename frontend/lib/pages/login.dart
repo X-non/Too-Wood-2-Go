@@ -101,8 +101,7 @@ class Login extends StatelessWidget {
                     }
                   },
                   style: const ButtonStyle(
-                    backgroundColor:
-                        MaterialStatePropertyAll(EWColors.lightgreen),
+                    backgroundColor: MaterialStatePropertyAll(EWColors.primary),
                   ),
                   child: Text(
                     "Logga in",
