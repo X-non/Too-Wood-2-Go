@@ -19,6 +19,10 @@ class StoreSerialiser(serializers.Serializer):
     pretty_name = serializers.CharField(source="name")
     store_id = serializers.CharField(source="slug_name")
     favorite = serializers.SerializerMethodField(read_only=True)
+    address = serializers.SerializerMethodField(read_only=True)
+
+    def get_address(self, obj: Store):
+        return f"{obj.address}, {obj.postal_code} {obj.postal_city}"
 
     def get_favorite(self, obj):
         user = self.context["request"].user
