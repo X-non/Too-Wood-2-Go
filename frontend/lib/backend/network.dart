@@ -114,32 +114,48 @@ Future<List<CompanyItem>> fetchCompanies() async {
 //   }
 // }
 
-Future<void> addToCart(int adId, int amount) async {
+Future<bool> addToCart(int adId, int amount) async {
   Map<String, dynamic> jsonData = {'ad_id': adId, 'amount': amount};
   var url = EWApiUrls.apiCart;
   var token = EWToken.token;
 
   String object = jsonEncode(jsonData);
 
-  await http.post(Uri.parse(url),
+  var response = await http.post(Uri.parse(url),
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Token $token"
       },
       body: object);
+
+  return response.statusCode == 200;
 }
 
-Future<void> removeFromCart(int adId, int amount) async {
+Future<bool> removeFromCart(int adId, int amount) async {
   Map<String, dynamic> jsonData = {'ad_id': adId, 'amount': amount};
   var url = EWApiUrls.apiCart;
   var token = EWToken.token;
 
   String object = jsonEncode(jsonData);
 
-  await http.patch(Uri.parse(url),
+  var response = await http.patch(Uri.parse(url),
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Token $token"
       },
       body: object);
+
+  return response.statusCode == 200;
+}
+
+Future<bool> checkoutCart() async {
+  var url = EWApiUrls.apiCheckOut;
+  var token = EWToken.token;
+
+  var response = await http.post(Uri.parse(url), headers: {
+    "Content-Type": "application/json",
+    "Authorization": "Token $token"
+  });
+
+  return response.statusCode == 200;
 }

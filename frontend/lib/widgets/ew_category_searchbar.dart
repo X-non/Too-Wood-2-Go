@@ -117,7 +117,7 @@ class EWCategorySearchbarState extends State<EWCategorySearchbar>
                             width: calculateTabWidth(_categories[index]),
                             decoration: BoxDecoration(
                               color: _tabController.index == index
-                                  ? EWColors.lightgreen
+                                  ? EWColors.primary
                                   : Colors.white,
                               borderRadius: BorderRadius.circular(20),
                               border: Border.all(color: EWColors.lightgreen),

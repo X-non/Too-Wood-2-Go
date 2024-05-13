@@ -15,20 +15,24 @@ class EWProductWidget extends StatefulWidget {
 }
 
 class _CounterScreenState extends State<EWProductWidget> {
-  void _incrementCounter() {
-    setState(() {
-      widget.product.amount++;
-    });
-    addToCart(widget.product.id, 1);
+  void _incrementCounter() async {
+    bool success = await addToCart(widget.product.id, 1);
+    if (success) {
+      setState(() {
+        widget.product.amount++;
+      });
+    }
   }
 
-  void _decrementCounter() {
-    setState(() {
-      if (widget.product.amount > 0) {
-        widget.product.amount--;
-        removeFromCart(widget.product.id, 1);
+  void _decrementCounter() async {
+    if (widget.product.amount > 0) {
+      bool success = await removeFromCart(widget.product.id, 1);
+      if (success) {
+        setState(() {
+          widget.product.amount--;
+        });
       }
-    });
+    }
   }
 
   @override
@@ -131,6 +135,8 @@ class _CounterScreenState extends State<EWProductWidget> {
                                     iconSize: 35,
                                     color: EWColors.darkgreen,
                                     onPressed: () => {
+                                          removeFromCart(widget.product.id,
+                                              widget.product.amount),
                                           productNotifier
                                               .removeProduct(widget.product),
                                         })

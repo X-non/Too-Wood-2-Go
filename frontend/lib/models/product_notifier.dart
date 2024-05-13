@@ -34,9 +34,9 @@ class ProductNotifier extends ChangeNotifier {
   }
 
   void removeAll() {
-    for (ProductItem item in productItems) {
-      item.amount = 0;
+    for (ProductItem item in _productItems) {
       removeFromCart(item.id, item.amount);
+      item.amount = 0;
     }
     productItems.clear();
     notifyListeners();
