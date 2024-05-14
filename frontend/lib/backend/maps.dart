@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'package:provider/provider.dart';
+
+import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/company_item.dart';
 import 'package:eatwise/models/distance_notifier.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 
 //TODO: Add coordinates as field for comapanyItem
 
@@ -183,6 +185,7 @@ class EWMapState extends State<EWMap> {
                 scrollGesturesEnabled: true,
                 circles: {
                   Circle(
+                    strokeColor: EWColors.primary,
                     circleId: const CircleId('currentCircle'),
                     center: LatLng(_currentPosition!.latitude,
                         _currentPosition!.longitude),
@@ -204,6 +207,8 @@ class EWMapState extends State<EWMap> {
             children: [
               Expanded(
                 child: Slider(
+                    thumbColor: EWColors.primary,
+                    activeColor: EWColors.primary,
                     value: _currentSliderValue,
                     min: 0,
                     max: 10,

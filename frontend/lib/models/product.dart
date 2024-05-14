@@ -3,20 +3,20 @@ class ProductItem {
   final String name;
   final int priceOld;
   final int priceNew;
-  int amount;
+  int inCart;
   final String category;
   final int id;
-  int avaliable;
+  int amount;
 
   ProductItem({
     required this.img,
     required this.name,
     required this.priceOld,
     required this.priceNew,
-    required this.amount,
+    required this.inCart,
     required this.category,
     required this.id,
-    required this.avaliable,
+    required this.amount,
   });
 
   static fromJson(json) {
@@ -26,10 +26,10 @@ class ProductItem {
       name: json["title"] ?? "Varan saknar namn",
       priceOld: json["old_price"],
       priceNew: json["new_price"],
-      avaliable: json["amount"],
+      amount: json["amount"],
       category: json["category"] ?? "Annat",
       id: json["id"],
-      amount: 0,
+      inCart: 0,
     );
   }
 }

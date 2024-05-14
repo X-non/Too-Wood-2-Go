@@ -8,9 +8,9 @@ class ProductNotifier extends ChangeNotifier {
   List<ProductItem> get productItems => _productItems;
 
   void toggleProduct(ProductItem item) {
-    if (item.amount == 0) {
+    if (item.inCart == 0) {
       removeProduct(item);
-    } else if (item.amount != 0 && !productItems.contains(item)) {
+    } else if (item.inCart != 0 && !productItems.contains(item)) {
       _productItems.add(item);
     }
     notifyListeners();
@@ -22,21 +22,21 @@ class ProductNotifier extends ChangeNotifier {
       // String cleanedPriceNew =
       //     product.priceNew.replaceAll(RegExp(r'[^\d.]'), '');
       //   double price = double.parse(cleanedPriceNew);
-      totalCost += product.priceNew * product.amount;
+      totalCost += product.priceNew * product.inCart;
     }
     return totalCost;
   }
 
   void removeProduct(ProductItem item) {
-    item.amount = 0;
+    item.inCart = 0;
     productItems.remove(item);
     notifyListeners();
   }
 
   void removeAll() {
-    for (ProductItem item in productItems) {
-      item.amount = 0;
-      removeFromCart(item.id, item.amount);
+    clearCart();
+    for (ProductItem item in _productItems) {
+      item.inCart = 0;
     }
     productItems.clear();
     notifyListeners();
@@ -44,5 +44,6 @@ class ProductNotifier extends ChangeNotifier {
 
   void clearCache() {
     _productItems.clear();
+    notifyListeners();
   }
 }

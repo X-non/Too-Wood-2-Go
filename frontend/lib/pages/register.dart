@@ -137,7 +137,7 @@ class Register extends StatelessWidget {
                     },
                     style: const ButtonStyle(
                       backgroundColor:
-                          MaterialStatePropertyAll(EWColors.lightgreen),
+                          MaterialStatePropertyAll(EWColors.primary),
                     ),
                     child: Text(
                       "Registrera dig",
