@@ -243,9 +243,9 @@ class Cart(APIView):
 
         resevations_of_ad = get_cart(user).filter(ad=ad)
 
-        amount_in_cart = resevations_of_ad.aggregate(sum=Sum("amount_claimed", default=0))[
-            "sum"
-        ]
+        amount_in_cart = resevations_of_ad.aggregate(
+            sum=Sum("amount_claimed", default=0)
+        )["sum"]
 
         if amount_in_cart < amount:
             return json_error(
@@ -320,7 +320,13 @@ class Cart(APIView):
                 }
             )
 
-        Reservation.objects.create(ad=ad, claimer=user, amount_claimed=amount)
+        try:
+            obj = get_cart(user).get(ad=ad)
+            obj.amount_claimed += amount
+        except Reservation.DoesNotExist:
+            obj = Reservation.objects.create(ad=ad, claimer=user, amount_claimed=amount)
+
+        obj.save()
 
         return Response()
 
