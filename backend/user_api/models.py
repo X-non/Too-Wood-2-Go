@@ -40,6 +40,9 @@ class Reservation(models.Model):
         Order, default=None, null=True, on_delete=models.CASCADE
     )  # Dictates whether in cart (null) or bought (non null and pointing to an order)
 
+    def __str__(self) -> str:
+        return f"Reservation({self.amount_claimed} {self.ad})"
+
 
 def reserved_item_from_ad(ad: Ad):
     return Reservation.objects.filter(ad=ad).aggregate(
