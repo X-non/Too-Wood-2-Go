@@ -34,7 +34,7 @@ def random_product_thumbnail():
         [
             r"https://tinyurl.com/3v3z5cvd",
             r"https://tinyurl.com/44ses44u",
-            r"https://tinyurl.com/dt6t5apz"
+            r"https://tinyurl.com/dt6t5apz",
         ]
     )
 
@@ -56,6 +56,9 @@ class Store(models.Model):
             self.slug_name = slugify(self.name)
         super(Store, self).save(*args, **kwargs)
 
+    def __str__(self):
+        return self.name
+
 
 class Ad(models.Model):
     title = models.CharField(max_length=50)
@@ -70,3 +73,6 @@ class Ad(models.Model):
 
     old_price = models.PositiveIntegerField(default=0)
     new_price = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return self.title
