@@ -44,9 +44,13 @@ class EWCompanyContainerSmall extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Text(
-                        item.title,
-                        style: EWTextStyles.headline,
+                      Expanded(
+                        child: Text(
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          item.title,
+                          style: EWTextStyles.headline,
+                        ),
                       ),
                     ],
                   ),

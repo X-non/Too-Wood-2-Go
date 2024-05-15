@@ -22,6 +22,31 @@ class _CounterScreenState extends State<EWProductWidget> {
         widget.product.inCart++;
         notifier.toggleProduct(widget.product);
       });
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: Colors.white,
+            surfaceTintColor: Colors.transparent,
+            title: const Text(
+              'Finns inte fler av denna vara.',
+              style: EWTextStyles.headline,
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text(
+                  'Okej',
+                  style: EWTextStyles.body,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 
