@@ -23,6 +23,9 @@ class MobileUser(models.Model):
         verbose_name = "MobileUser"
         verbose_name_plural = "MobileUsers"
 
+    def __str__(self) -> str:
+        return self.credentials.username
+
 
 class Order(models.Model):
     time_ordered = models.DateTimeField(auto_now_add=True)
