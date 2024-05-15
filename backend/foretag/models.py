@@ -49,8 +49,8 @@ class Store(models.Model):
     address = models.CharField(max_length=100)
     postal_code = models.CharField(max_length=10)
     postal_city = models.CharField(max_length=30)
-    banner = models.CharField(max_length=100, default=random_store_banner)
-    thumbnail = models.CharField(max_length=100, default=random_store_thumbnail)
+    banner = models.CharField(max_length=10000, default=random_store_banner)
+    thumbnail = models.CharField(max_length=10000, default=random_store_thumbnail)
 
     # Overriding the save method to create slug name on save
     def save(self, *args, **kwargs):
@@ -66,7 +66,7 @@ class Ad(models.Model):
     store = models.ForeignKey(Store, on_delete=models.CASCADE)
     available = models.PositiveSmallIntegerField(default=1)
     category = models.CharField(max_length=40, default="Annat")
-    thumbnail = models.CharField(max_length=100, default=random_product_thumbnail)
+    thumbnail = models.CharField(max_length=10000, default=random_product_thumbnail)
 
     published = models.DateTimeField(auto_now_add=True)
     until = models.DateTimeField(auto_now_add=True)  # TODO - Change to some real value
