@@ -55,7 +55,6 @@ class _MapPageState extends State<MapPage> {
         setState(() {
           _position = LatLng(position.latitude, position.longitude);
         });
-        updateNearbyCompanies();
       }
     } catch (e) {}
   }
@@ -72,7 +71,7 @@ class _MapPageState extends State<MapPage> {
   void updateNearbyCompanies() async {
     List<CompanyItem> companies =
         Provider.of<CompanyNotifier>(context, listen: false).companyItem;
-    nearbyCompanies.clear();
+    List<CompanyItem> newNearbyCompanies = [];
     for (var company in companies) {
       try {
         List<Location> coordinates = await locationFromAddress(company.address);
@@ -86,14 +85,16 @@ class _MapPageState extends State<MapPage> {
         );
         if (distance <=
             Provider.of<DistanceNotifier>(context, listen: false).distance) {
-          nearbyCompanies.add(company);
+          newNearbyCompanies.add(company);
         }
       } catch (e) {
         print('Error fetching location for ${company.title}: $e');
       }
     }
     if (mounted) {
-      setState(() {});
+      setState(() {
+        nearbyCompanies = newNearbyCompanies;
+      });
     }
   }
 

@@ -3,14 +3,13 @@ import 'dart:async';
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/company_item.dart';
+import 'package:eatwise/models/company_notifier.dart';
 import 'package:eatwise/models/distance_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
-
-//TODO: Add coordinates as field for comapanyItem
 
 class EWMap extends StatefulWidget {
   final Function(double) onSliderChanged;
@@ -28,9 +27,6 @@ class EWMapState extends State<EWMap> {
   }
 
   final Completer<GoogleMapController> _controller = Completer();
-  late List<CompanyItem> companies;
-
-  late GoogleMapController _googleMapController;
 
   LatLng? _currentPosition;
 
@@ -81,6 +77,7 @@ class EWMapState extends State<EWMap> {
         _currentPosition = LatLng(position.latitude, position.longitude);
       });
       updateCameraPosition();
+      addShopToMap();
     }
   }
 
@@ -90,42 +87,10 @@ class EWMapState extends State<EWMap> {
         LatLng(_currentPosition!.latitude, _currentPosition!.longitude)));
   }
 
-  // Hårdkodat
-  // List<CompanyItem> companies = [
-  //   CompanyItem(
-  //     title: 'Ica Supermarket Väst',
-  //     description: 'Livsmedelsbutik',
-  //     address: "Flogsta Centrum, Flogstavägen 99, 752 72 Uppsala",
-  //     img: "",
-  //     icon: "",
-  //     favorite: true,
-  //     openHours: "",
-  //     storeId: "",
-  //   ),
-  //   CompanyItem(
-  //     title: 'Hemköp Rosendal',
-  //     description: 'Livsmedelsbutik',
-  //     address: "Kansliskrivargatan 1, 752 57 Uppsala",
-  //     img: "",
-  //     icon: "",
-  //     favorite: true,
-  //     openHours: "",
-  //     storeId: "",
-  //   ),
-  //   CompanyItem(
-  //     title: 'Ica Folkes Livs',
-  //     description: 'Livsmedelsbutik',
-  //     address: "Rackarbergsgatan 8, 752 32 Uppsala",
-  //     img: "",
-  //     icon: "",
-  //     favorite: true,
-  //     openHours: "",
-  //     storeId: "",
-  //   ),
-  // ];
-
   void addShopToMap() async {
     markers.clear();
+    List<CompanyItem> companies =
+        Provider.of<CompanyNotifier>(context, listen: false).companyItem;
     for (var company in companies) {
       List<Location> coordinates = await locationFromAddress(company.address);
       LatLng companyPosition =
@@ -167,13 +132,6 @@ class EWMapState extends State<EWMap> {
               ))
             : GoogleMap(
                 myLocationEnabled: true,
-                onTap: (latLng) {
-                  if (mounted) {
-                    setState(() {
-                      _currentPosition = latLng;
-                    });
-                  }
-                },
                 markers: markers,
                 initialCameraPosition: CameraPosition(
                   target: LatLng(
@@ -211,10 +169,10 @@ class EWMapState extends State<EWMap> {
                     thumbColor: EWColors.primary,
                     activeColor: EWColors.primary,
                     value: _currentSliderValue,
-                    min: 0,
-                    max: 10,
-                    divisions: 10,
-                    label: _currentSliderValue.round().toString(),
+                    min: 0.5,
+                    max: 5,
+                    divisions: 9,
+                    label: _currentSliderValue.toString(),
                     onChanged: (double value) {
                       setState(() {
                         _currentSliderValue = value;
