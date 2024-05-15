@@ -23,6 +23,9 @@ class MobileUser(models.Model):
         verbose_name = "MobileUser"
         verbose_name_plural = "MobileUsers"
 
+    def __str__(self) -> str:
+        return self.credentials.username
+
 
 class Order(models.Model):
     time_ordered = models.DateTimeField(auto_now_add=True)
@@ -36,6 +39,9 @@ class Reservation(models.Model):
     orderer = models.ForeignKey(
         Order, default=None, null=True, on_delete=models.CASCADE
     )  # Dictates whether in cart (null) or bought (non null and pointing to an order)
+
+    def __str__(self) -> str:
+        return f"Reservation({self.amount_claimed} {self.ad})"
 
 
 def reserved_item_from_ad(ad: Ad):

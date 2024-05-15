@@ -51,11 +51,12 @@ class CategoryNotifier extends ChangeNotifier {
     allItems.addAll(products);
     createList(allItems, "");
     notifyListeners();
-    return allItems; 
+    return allItems;
   }
 
   void clearCache() {
     allItems.clear();
     _categoryItems.clear();
+    notifyListeners();
   }
 }

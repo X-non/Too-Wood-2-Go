@@ -32,12 +32,9 @@ def random_store_thumbnail():
 def random_product_thumbnail():
     return choice(
         [
-            r"https://scontent-cph2-1.xx.fbcdn.net/v/t39.30808-6/415123805_847106780758079_7732937193029023278_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_ohc=EkFiAMxHXyQQ7kNvgG2Xpp_&_nc_ht=scontent-cph2-1.xx&oh=00_AfAmF8kcbcIQYZvMKNkk7JMxkmU-VqvsGwvr0ZaUaP-wlw&oe=664037C4",
-            r"https://images.squarespace-cdn.com/content/v1/5eb1211225719420f0c80392/e1341689-c72e-49ab-a324-8375d4d4b0db/lillebrors-bageri-kardemummabulle",
-            r"https://outofhome.se/media/catalog/product/cache/30/image/17f82f742ffe127f42dca9de82fb58b1/2/5/25003_ramlosa_citrus_burk.jpg",
-            r"https://scontent-cph2-1.xx.fbcdn.net/v/t39.30808-6/336771456_888326685793721_5125519100193300153_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=5f2048&_nc_ohc=xdLP2gfCIu0Q7kNvgGchy_C&_nc_ht=scontent-cph2-1.xx&oh=00_AfDHw7oRoOg6d9hUwPA9UrBMYFewTdE_EYchmNPOL2tlwg&oe=6640DC03",
-            r"https://cdn.shopify.com/s/files/1/2713/9702/collections/2048x550_GateauFI_banner_konditoria.jpg?v=1682082466",
-            r"https://scontent-cph2-1.xx.fbcdn.net/v/t39.30808-6/438087111_7446376142095492_3509539830803482736_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=5f2048&_nc_ohc=iUUHeURPmyIQ7kNvgEpeJmY&_nc_ht=scontent-cph2-1.xx&oh=00_AfDvU4U8UlIijYkq96n5yWQIH4maEpRIfK1BkHDSCaHe1A&oe=6640F688",
+            r"https://tinyurl.com/3v3z5cvd",
+            r"https://tinyurl.com/44ses44u",
+            r"https://tinyurl.com/dt6t5apz",
         ]
     )
 
@@ -59,6 +56,9 @@ class Store(models.Model):
             self.slug_name = slugify(self.name)
         super(Store, self).save(*args, **kwargs)
 
+    def __str__(self) -> str:
+        return self.name
+
 
 class Ad(models.Model):
     title = models.CharField(max_length=50)
@@ -73,3 +73,6 @@ class Ad(models.Model):
 
     old_price = models.PositiveIntegerField(default=0)
     new_price = models.PositiveIntegerField(default=0)
+
+    def __str__(self) -> str:
+        return self.title

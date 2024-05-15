@@ -1,11 +1,8 @@
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
-import 'package:eatwise/models/category_notifier.dart';
 import 'package:eatwise/models/company_notifier.dart';
 import 'package:eatwise/models/favorite_notifier.dart';
 import 'package:eatwise/models/pickup_notifier.dart';
-import 'package:eatwise/models/product.dart';
-import 'package:eatwise/models/product_notifier.dart';
 import 'package:eatwise/pages/corporate.dart';
 import 'package:eatwise/widgets/ew_company_container_small.dart';
 import 'package:eatwise/widgets/ew_company_list.dart';

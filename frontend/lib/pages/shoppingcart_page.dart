@@ -1,3 +1,4 @@
+import 'package:eatwise/backend/network.dart';
 import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/company_item.dart';
@@ -146,7 +147,8 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                         Provider.of<PickUpNotifier>(context, listen: false)
                             .addPickUp(widget.company);
                         Provider.of<ProductNotifier>(context, listen: false)
-                            .removeAll();
+                            .clearCache();
+                        checkoutCart();
                         betala = true;
                       },
                       buttonText: 'Betala',

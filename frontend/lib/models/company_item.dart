@@ -27,7 +27,7 @@ class CompanyItem {
 
   static fromJson(json) {
     return CompanyItem(
-        img: json["banner_image"] ??
+        img: json["banner"] ??
             'https://cdn.shopify.com/s/files/1/2713/9702/collections/2048x550_GateauFI_banner_konditoria.jpg?v=1682082466',
         icon: json["thumbnail"] ??
             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoFWLS1Nq3gwC-3IgB3LkJBK-pG9X_NnIb6tmJOrtxRQ&s',

@@ -15,20 +15,51 @@ class EWProductWidget extends StatefulWidget {
 }
 
 class _CounterScreenState extends State<EWProductWidget> {
-  void _incrementCounter() {
-    setState(() {
-      widget.product.amount++;
-    });
-    addToCart(widget.product.id, 1);
+  void _incrementCounter(ProductNotifier notifier) async {
+    bool success = await addToCart(widget.product.id, 1);
+    if (success) {
+      setState(() {
+        widget.product.inCart++;
+        notifier.toggleProduct(widget.product);
+      });
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: Colors.white,
+            surfaceTintColor: Colors.transparent,
+            title: const Text(
+              'Finns inte fler av denna vara.',
+              style: EWTextStyles.headline,
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text(
+                  'Okej',
+                  style: EWTextStyles.body,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
-  void _decrementCounter() {
-    setState(() {
-      if (widget.product.amount > 0) {
-        widget.product.amount--;
-        removeFromCart(widget.product.id, 1);
+  void _decrementCounter(ProductNotifier notifier) async {
+    if (widget.product.inCart > 0) {
+      bool success = await removeFromCart(widget.product.id, 1);
+      if (success) {
+        setState(() {
+          widget.product.inCart--;
+          notifier.toggleProduct(widget.product);
+        });
       }
-    });
+    }
   }
 
   @override
@@ -61,34 +92,37 @@ class _CounterScreenState extends State<EWProductWidget> {
                             widget.product.img)),
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      widget.product.name,
-                      style: EWTextStyles.headline,
-                    ),
-                    Text("${widget.product.priceOld} kr",
-                        style: EWTextStyles.body.copyWith(
-                            color: EWColors.darkgreen,
-                            decoration: TextDecoration.lineThrough,
-                            decorationColor: Colors.red,
-                            decorationThickness: 2.0)),
-                    Text(
-                      "${widget.product.priceNew} kr",
-                      style: EWTextStyles.body,
-                    ),
-                  ],
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        widget.product.name,
+                        style: EWTextStyles.headline,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Text("${widget.product.priceOld} kr",
+                          overflow: TextOverflow.ellipsis,
+                          style: EWTextStyles.body.copyWith(
+                              color: EWColors.darkgreen,
+                              decoration: TextDecoration.lineThrough,
+                              decorationColor: Colors.red,
+                              decorationThickness: 2.0)),
+                      Text(
+                        "${widget.product.priceNew} kr",
+                        overflow: TextOverflow.ellipsis,
+                        style: EWTextStyles.body,
+                      ),
+                    ],
+                  ),
                 ),
-                const Spacer(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: widget.product.amount == 0
+                  child: widget.product.inCart == 0
                       ? TextButton(
                           onPressed: () => {
-                            _incrementCounter(),
-                            productNotifier.toggleProduct(widget.product),
+                            _incrementCounter(productNotifier),
                           }, // icon of the button
                           style: TextButton.styleFrom(
                             // styling the button
@@ -111,26 +145,26 @@ class _CounterScreenState extends State<EWProductWidget> {
                               iconSize: 35,
                               color: EWColors.darkgreen,
                               onPressed: () => {
-                                _decrementCounter(),
-                                productNotifier.toggleProduct(widget.product),
+                                _decrementCounter(productNotifier),
                               },
                             ),
-                            Text(widget.product.amount.toString()),
+                            Text(widget.product.inCart.toString()),
                             IconButton(
                               icon: const Icon(Icons.add),
                               iconSize: 35,
                               color: EWColors.darkgreen,
                               onPressed: () => {
-                                _incrementCounter(),
-                                productNotifier.toggleProduct(widget.product),
+                                _incrementCounter(productNotifier),
                               },
                             ),
-                            widget.product.amount > 0
+                            widget.product.inCart > 0
                                 ? IconButton(
                                     icon: const Icon(Icons.delete_outline),
                                     iconSize: 35,
                                     color: EWColors.darkgreen,
                                     onPressed: () => {
+                                          removeFromCart(widget.product.id,
+                                              widget.product.inCart),
                                           productNotifier
                                               .removeProduct(widget.product),
                                         })

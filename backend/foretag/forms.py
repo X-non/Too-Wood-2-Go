@@ -21,6 +21,7 @@ class AdForm(forms.ModelForm):
             "available",
             "old_price",
             "new_price",
+            "thumbnail"
         ]
 
 

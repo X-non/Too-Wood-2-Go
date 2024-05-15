@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'package:provider/provider.dart';
+
+import 'package:eatwise/constants/ew_colors.dart';
 import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/company_item.dart';
 import 'package:eatwise/models/distance_notifier.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 
 //TODO: Add coordinates as field for comapanyItem
 
@@ -26,6 +28,7 @@ class EWMapState extends State<EWMap> {
   }
 
   final Completer<GoogleMapController> _controller = Completer();
+  late List<CompanyItem> companies;
 
   late GoogleMapController _googleMapController;
 
@@ -88,38 +91,38 @@ class EWMapState extends State<EWMap> {
   }
 
   // Hårdkodat
-  List<CompanyItem> companies = [
-    CompanyItem(
-      title: 'Ica Supermarket Väst',
-      description: 'Livsmedelsbutik',
-      address: "Flogsta Centrum, Flogstavägen 99, 752 72 Uppsala",
-      img: "",
-      icon: "",
-      favorite: true,
-      openHours: "",
-      storeId: "",
-    ),
-    CompanyItem(
-      title: 'Hemköp Rosendal',
-      description: 'Livsmedelsbutik',
-      address: "Kansliskrivargatan 1, 752 57 Uppsala",
-      img: "",
-      icon: "",
-      favorite: true,
-      openHours: "",
-      storeId: "",
-    ),
-    CompanyItem(
-      title: 'Ica Folkes Livs',
-      description: 'Livsmedelsbutik',
-      address: "Rackarbergsgatan 8, 752 32 Uppsala",
-      img: "",
-      icon: "",
-      favorite: true,
-      openHours: "",
-      storeId: "",
-    ),
-  ];
+  // List<CompanyItem> companies = [
+  //   CompanyItem(
+  //     title: 'Ica Supermarket Väst',
+  //     description: 'Livsmedelsbutik',
+  //     address: "Flogsta Centrum, Flogstavägen 99, 752 72 Uppsala",
+  //     img: "",
+  //     icon: "",
+  //     favorite: true,
+  //     openHours: "",
+  //     storeId: "",
+  //   ),
+  //   CompanyItem(
+  //     title: 'Hemköp Rosendal',
+  //     description: 'Livsmedelsbutik',
+  //     address: "Kansliskrivargatan 1, 752 57 Uppsala",
+  //     img: "",
+  //     icon: "",
+  //     favorite: true,
+  //     openHours: "",
+  //     storeId: "",
+  //   ),
+  //   CompanyItem(
+  //     title: 'Ica Folkes Livs',
+  //     description: 'Livsmedelsbutik',
+  //     address: "Rackarbergsgatan 8, 752 32 Uppsala",
+  //     img: "",
+  //     icon: "",
+  //     favorite: true,
+  //     openHours: "",
+  //     storeId: "",
+  //   ),
+  // ];
 
   void addShopToMap() async {
     markers.clear();
@@ -183,6 +186,7 @@ class EWMapState extends State<EWMap> {
                 scrollGesturesEnabled: true,
                 circles: {
                   Circle(
+                    strokeColor: EWColors.primary,
                     circleId: const CircleId('currentCircle'),
                     center: LatLng(_currentPosition!.latitude,
                         _currentPosition!.longitude),
@@ -204,6 +208,8 @@ class EWMapState extends State<EWMap> {
             children: [
               Expanded(
                 child: Slider(
+                    thumbColor: EWColors.primary,
+                    activeColor: EWColors.primary,
                     value: _currentSliderValue,
                     min: 0,
                     max: 10,
