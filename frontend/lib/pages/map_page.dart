@@ -142,11 +142,9 @@ class _MapPageState extends State<MapPage> {
           ),
         ],
       ),
-      Expanded(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: EwCompanyListSmall(items: nearbyCompanies),
-        ),
+      SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: EwCompanyListSmall(items: nearbyCompanies),
       ),
     ]);
   }
