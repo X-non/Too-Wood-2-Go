@@ -7,13 +7,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('foretag', '0006_store_banner_store_thumbnail'),
+        ("foretag", "0006_store_banner_store_thumbnail"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='ad',
-            name='thumbnail',
-            field=models.CharField(default=foretag.models.random_product_thumbnail, max_length=100),
+            model_name="ad",
+            name="thumbnail",
+            field=models.CharField(
+                default=foretag.models.random_product_thumbnail, max_length=10000
+            ),
         ),
     ]
