@@ -56,7 +56,7 @@ class Store(models.Model):
             self.slug_name = slugify(self.name)
         super(Store, self).save(*args, **kwargs)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
@@ -74,5 +74,5 @@ class Ad(models.Model):
     old_price = models.PositiveIntegerField(default=0)
     new_price = models.PositiveIntegerField(default=0)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.title
