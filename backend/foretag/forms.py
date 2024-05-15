@@ -16,12 +16,11 @@ class AdForm(forms.ModelForm):
         fields = [
             "title",
             "desc",
-            "store",
             "category",
             "available",
             "old_price",
             "new_price",
-            "thumbnail"
+            "thumbnail",
         ]
 
 
