@@ -28,6 +28,7 @@ class EWMapState extends State<EWMap> {
   }
 
   final Completer<GoogleMapController> _controller = Completer();
+  late List<CompanyItem> companies;
 
   late GoogleMapController _googleMapController;
 
@@ -90,38 +91,38 @@ class EWMapState extends State<EWMap> {
   }
 
   // Hårdkodat
-  List<CompanyItem> companies = [
-    CompanyItem(
-      title: 'Ica Supermarket Väst',
-      description: 'Livsmedelsbutik',
-      address: "Flogsta Centrum, Flogstavägen 99, 752 72 Uppsala",
-      img: "",
-      icon: "",
-      favorite: true,
-      openHours: "",
-      storeId: "",
-    ),
-    CompanyItem(
-      title: 'Hemköp Rosendal',
-      description: 'Livsmedelsbutik',
-      address: "Kansliskrivargatan 1, 752 57 Uppsala",
-      img: "",
-      icon: "",
-      favorite: true,
-      openHours: "",
-      storeId: "",
-    ),
-    CompanyItem(
-      title: 'Ica Folkes Livs',
-      description: 'Livsmedelsbutik',
-      address: "Rackarbergsgatan 8, 752 32 Uppsala",
-      img: "",
-      icon: "",
-      favorite: true,
-      openHours: "",
-      storeId: "",
-    ),
-  ];
+  // List<CompanyItem> companies = [
+  //   CompanyItem(
+  //     title: 'Ica Supermarket Väst',
+  //     description: 'Livsmedelsbutik',
+  //     address: "Flogsta Centrum, Flogstavägen 99, 752 72 Uppsala",
+  //     img: "",
+  //     icon: "",
+  //     favorite: true,
+  //     openHours: "",
+  //     storeId: "",
+  //   ),
+  //   CompanyItem(
+  //     title: 'Hemköp Rosendal',
+  //     description: 'Livsmedelsbutik',
+  //     address: "Kansliskrivargatan 1, 752 57 Uppsala",
+  //     img: "",
+  //     icon: "",
+  //     favorite: true,
+  //     openHours: "",
+  //     storeId: "",
+  //   ),
+  //   CompanyItem(
+  //     title: 'Ica Folkes Livs',
+  //     description: 'Livsmedelsbutik',
+  //     address: "Rackarbergsgatan 8, 752 32 Uppsala",
+  //     img: "",
+  //     icon: "",
+  //     favorite: true,
+  //     openHours: "",
+  //     storeId: "",
+  //   ),
+  // ];
 
   void addShopToMap() async {
     markers.clear();

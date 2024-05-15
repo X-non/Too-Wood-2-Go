@@ -4,12 +4,12 @@ import 'package:eatwise/constants/ew_styles.dart';
 import 'package:eatwise/models/company_item.dart';
 import 'package:eatwise/models/company_notifier.dart';
 import 'package:eatwise/models/distance_notifier.dart';
-import 'package:eatwise/widgets/ew_company_list.dart';
+import 'package:eatwise/widgets/ew_company_list_small.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:geocoding/geocoding.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({super.key});
@@ -145,7 +145,7 @@ class _MapPageState extends State<MapPage> {
       Expanded(
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
-          child: EWCompanyList(items: nearbyCompanies),
+          child: EwCompanyListSmall(items: nearbyCompanies),
         ),
       ),
     ]);
